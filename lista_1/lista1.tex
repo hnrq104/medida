@@ -1,0 +1,146 @@
+\section{Lista 1 (15/08/2025)}
+
+\prob
+Esse problema é muito bonitinho e a resposta é negativa. Para resolvê-lo, precisamos da seguinte observação.
+\begin{observation}
+    A coleção de uniões enumeráveis de infinitos conjuntos não vazios disjuntos é não-enumerável. (quase um trava-língua)
+\end{observation}
+% \begin{proof}
+%     Sejam $\{E_1, E_2, \dots, E_n, \dots\}$ infinitos conjuntos satisfazendo
+%     \begin{enumerate}
+%         \item $E_i \neq \varnothing \ \forall i \in \N$ 
+%         \item $E_i \cap E_j = \varnothing \ \forall i \neq j \in \N$ 
+%     \end{enumerate}
+%     A função $f: 2^{\N} \to P(\bigcup_{i \in \N} E_i)$ dada por
+%     $$f(a_1, a_2, \dots, a_n, \dots) = \bigcup_{i \in \N} B_i$$
+%     onde $B_i = \varnothing$ se $a_i = 0$ e $B_i = E_i$ se $a_i = 1$ é injetiva. Como $2^{\N}$ é não enumerável, temos o resultado.
+% \end{proof}
+Agora podemos dar continuidade a resolução.
+\begin{prop}
+    Seja $(X,M)$ uma $\sigma$-algebra infinita. Existem infinitos conjuntos não vazios disjuntos em $M$.
+\end{prop}
+\begin{proof}
+    Seja $C$ uma coleção maximal de conjuntos disjuntos não vazios de $M$. Suponha que $|C| = m < \infty$ sendo da seguinte forma:
+    $$C = \{A_1, A_2, \dots, A_m \} \quad A_i \cap A_j = \varnothing \ \forall i\neq j$$
+    Note que $X \subset \bigcup_{1 \leq i \leq m} A_i$, pois se não, poderiámos adicionar $X - \bigcup_{1 \leq i \leq m} A_i$ à nossa coleção contradizendo maximalidade.
+    $C$ é, portanto, uma partição finita de $X$ em conjuntos disjuntos. Olhemos para todas as possíveis uniões finitas de elementos de $C$ ($2^m$ delas considerando $\varnothing$), 
+    como são finitos, existe um conjunto $B \in M$ diferente delas. Repartindo $B$, temos:
+    $$B = \bigcup_{\{i\ \mid \ A_i \cap B \neq \varnothing \}} B \cap A_i$$
+    Como $B \neq \varnothing$ e escolhemos $B$ a evitar uniões de elementos de $C$ sabemos que
+    $$\varnothing \neq B \subsetneq \bigcup_{\{i\ \mid \ A_i \cap B \neq \varnothing \}} A_i$$
+    Portanto, existe $A_j$ com $A_j - B \neq \varnothing$ e $A_j \cap B \neq \varnothing$. Podemos então trocar $A_j$ por $A_j - B$ e $A_j \cap B$,
+    contradizendo a maximalidade. Logo $|C|$ não pode ser finito.
+\end{proof}
+\begin{corollary}
+    Uma $\sigma$-algebra infinita $(X,M)$ não é enumerável.
+\end{corollary}
+\begin{proof}
+    Pela proposição anterior, existem infinitos conjuntos disjuntos distintos em $M$. Logo $M$ é não enumerável pela observação e pela terceira
+    propriedade de $\sigma$-algebras.
+\end{proof}
+
+\prob
+\begin{proof}
+    Dada uma sequência de funções mensuráveis $\{f_n\} : X \to [-\infty, \infty]$, sabemos que $I(x) = \liminf_n f_n(x)$ e $S(x) = \limsup_n f_n(x)$ são mensuráveis.
+    Além disso, para cada $x \in X$, a sequência $f_n(x)$ converge se e somente se ela não tem valores tendendo para o infinito e $I(x) = S(x)$.
+    A partir dessa caracterização, definimos o conjunto $A$ tal que:
+    $$A = I^{-1}((-\infty, \infty)) \cap S^{-1}((-\infty, \infty))$$
+    Isso é, $A$ é o conjunto de pontos de $X$ tal que a sequência $f_n(x)$ é limitada. Note que, como $I$ e $S$ são mensuráveis, $A$ é interseção
+    de conjuntos mensuráveis de $X$, logo é mensurável. Em particular, as funções $\mathds{1}_A$ e $\mathds{1}_{A^c}$ são mensuráveis. Como vimos que somas e multiplicações
+    de funções mensuráveis é mensurável, podemos definir uma $H$ mensurável dada por:
+    $$H(x) = \mathds{1}_{A^c}(x) + \mathds{1}_A(x) \cdot S(x) - \mathds{1}_A(x) \cdot I(x) $$
+    Os pontos em que as $f_n$ convergem é então dado por pelo conjunto mensurável $H^{-1}(\{0\})$. Para confirmar essa afirmação, note que
+    se $H(y) = 0$, então $H(y) \neq 1$, logo $y \not \in A^c$. Temos que $y \in A$, $I(y) \in (-\infty,\infty)$ e $S(y) \in (-\infty, \infty)$, 
+    logo $S(y) - I(y)$ está bem definido (nenhum dos dois é infinito de mesmo sinal) e, temos, $S(y) = I(y)$, ou seja, a sequência $f_n(y)$ converge.
+    Se $H(z) \neq 0$, ou $z \in A^c$, e portanto a sequência $f_n(z)$ não é limitada, ou $S(z) \neq I(z)$ e portanto, a sequência não converge.  
+\end{proof}
+
+\prob
+\begin{prop}
+    $\mathcal{M}$ é $\sigma$-álgebra. Isso é, satisfaz:
+    \begin{enumerate}
+        \item $X \in \mathcal{M}$
+        \item $E \in \mathcal{M} \Rightarrow E^c \in \mathcal{M}$
+        \item $\{E_1, E_2, \dots, E_n, \dots\} \subset \mathcal{M} \Rightarrow \bigcup_{i \in \N} E_i \in \mathcal{M}$
+    \end{enumerate}
+\end{prop}
+\begin{proof}
+    (1). $X^c = \varnothing$ enumerável, logo $X \in \mathcal{M}$. (2). Por construção. (3). Dados
+    contáveis conjuntos $C = \{E_1, E_2, \dots\}$ em $\mathcal{M}$, separe-os em incontáveis ($A$) e contáveis ($B$) de forma que:
+    $$\{E_1, E_2, \dots\} = A \cup B =  \{E_i: E_i \ \text{incontável}\} \cup \{E_j: E_j \ \text{contável}\}$$
+    Seja então $H = \bigcup_{i \in \N} E_i = \bigcup_{A_i \in A} A_i \cup  \bigcup_{B_i \in B} B_i$. Note que se $A$ não é vazio, i.e. contém
+    ao menos um elemento $A_j$, então $H^c \subset (A_j)^c$ que é contável. Se $A$ é vazio, então $H = \bigcup_{B_i \in B} B_i$ é uma união enumerável de conjuntos
+    contáveis, logo $H$ é contável.
+\end{proof}
+\begin{prop}
+    $\mu$ é uma medida em $\mathcal{M}$.
+\end{prop}
+\begin{proof}
+    Basta mostrar que, dada uma coleção disjunta $C = \{E_1, E_2, \dots\} \subset \mathcal{M}$,
+    $$\sum_{E_i \in C} \mu(E_i) = \mu\big( \bigcup_{E_i \in C} E_i \big) $$
+    Como anteriormente escreva $C = A \cup B$, onde $A$ são os conjuntos incontáveis e $B$ são os contáveis.
+    Se $A$ for vazio, todos os conjuntos $E_i$ são contáveis, então a união deles é contável e temos 
+    que os dois lados da equação são $0$. Se $A$ possui um conjunto $E_j$, ele obrigatóriamente é o único em 
+    $A$, pois, como os $E_i$ são disjuntos, todos os outros $E_i$'s estão contidos em $(E_j)^c$ que é enumerável.
+    Portanto, o somatório da esquerda possui somente um valor diferente de $0$, vulgo $\mu(E_j) = 1$ e a união
+    da direita contém $E_j$ não enumerável, portanto vale $1$ também.
+\end{proof}
+
+\prob
+Vou supor de antemão que as medidas $\mu_1$ e $\mu_2$ são positivas, há um passo em que precisaremos dessa hipótese.
+\begin{prop}
+    $\mu(E) = \inf \{\mu_1(E \cap F) +  \mu_2(E - F) \, : \, F \in \mathcal{M}\}$ é uma medida positiva.
+\end{prop}
+\begin{proof}
+    Sendo ínfimo de valores positivos, claramante $\mu(E) \in [0,\infty]$. Considere em $\mathcal{M}$ uma sequência qualquer de conjuntos 
+    disjuntos $(E_n)_{n \in \N}$. Queremos mostrar que:
+    $$\mu \bigg(\bigcup_{n} E_n \bigg) = \sum_{n} \mu(E_n)$$
+
+    Considere
+    \begin{align*}
+        \mu \bigg(\bigcup_{n} E_n \bigg) &= \inf \bigg\{\mu_1\bigg( \bigcup_n E_n \cap F \bigg) + \mu_2\bigg( \bigcup_n E_n - F \bigg) \, : \, F \in \mathcal{M} \bigg\}\\
+        &= \inf \bigg\{ \sum_n \mu_1(E_n \cap F) + \sum_n \mu_2(E_n - F) \, : \, F \in \mathcal{M} \bigg\}\\
+        &= \inf \bigg\{ \sum_n ( \mu_1(E_n \cap F) + \mu_2(E_n - F) ) \, : \, F \in \mathcal{M} \bigg\}
+    \end{align*}
+    Onde usamos na segunda igualdade o fato de que somatórios de valores positivos podem ser rearranjados (e portanto a hipótese de que $\mu_1$ e $\mu_2$ são positivas).
+    Agora note que para todo $F \in \mathcal{M}$ e qualquer $E_i$ temos
+    $$\inf\{\mu_1(E_i \cap \tilde{F}) + \mu_2(E_i - \tilde{F}) \, : \, \tilde{F} \in \mathcal{M}\} \leq \mu_1(E_i \cap F) + \mu_2(E_2 - F)$$
+    Logo, termo a termo,
+    $$\sum_n \inf\{\mu_1(E_n \cap \tilde{F}) + \mu_2(E_n - \tilde{F}) \, : \, \tilde{F} \in \mathcal{M}\} \leq \sum_n \mu_1(E_n \cap F) + \mu_2(E_n - F)$$
+    i.e.
+    $$\sum_{n} \mu(E_n) \leq \sum_n \mu_1(E_n \cap F) + \mu_2(E_n - F)$$
+    Como vale para todo $F$, temos, tomando ínfimos
+    $$\sum_{n} \mu(E_n) \leq \mu \bigg(\bigcup_{n} E_n \bigg)$$
+
+    Falta provar que $\mu\big(\bigcup_{n} E_n \big) \leq \sum_{n} \mu(E_n) $. Ou, mais sorreteiramente, que para 
+    todo $\eps > 0$,
+    $$ \mu\big(\bigcup_{n} E_n \big) \leq \bigg(\sum_{n} \mu(E_n)\bigg) + \eps = \sum_{n} (\mu(E_n) + \eps/2^n )$$
+    Para cada $n$, existe $F_n \in \mathcal{M}$ tal que $\mu(E_n) \leq \mu_1(E_n \cap F_n) + \mu_2(E_n - F_n) + \eps/2^n$.
+    Tome $F = \bigcup_n (F_i \cap E_i)$. Então,
+    \begin{align*}
+        \mu\big(\bigcup_n E_n \big) &\leq \mu_1\big( \bigcup_n E_n \cap F\big) +\mu_2\big( \bigcup_n E_n - F\big)\\
+        &= \sum_n \mu_1(E_n \cap F) + \mu_2(E_n - F)\\
+        &= \sum_n \mu_1(E_n \cap F_n) + \mu_2(E_n - F_n)\\
+        &\leq \sum_{n} (\mu(E_n) + \eps/2^n)\\
+        &= \sum_{n} \mu(E_n) + \eps
+    \end{align*}
+    Onde na segunda igualdade usamos o fato de que os $E_n$ são disjuntos entre si e na segunda desigualdade, a definição dos $F_n$.
+    Como isso vale para todo $\eps > 0$, tomando $\eps \to 0$, encontramos $ \big(\bigcup_{n} E_n \big) = \sum_{n} \mu(E_n)$.
+\end{proof}
+
+\begin{prop}
+    $\mu$ é a maior medida menor que $\mu_1$ e $\mu_2$.
+\end{prop}
+\begin{proof}
+    Para todo $E \in \mathcal{M}$, $\mu(E) \leq \mu_1(E \cap X) + \mu_2(E - X) = \mu_1(E)$, 
+    semelhantemente, $\mu(E) \leq \mu_1(E \cap \varnothing) + \mu_2(E - \varnothing) = \mu_2(E)$. Portanto,
+    $\mu(E) \leq \min(\mu_1(E), \mu_2(E))$. Agora seja $\tilde{\mu}$ qualquer medida também menor que $\mu_1$ e $\mu_2$.
+    Então, para todo $F$,
+    $$\tilde{\mu}(E) = \tilde{\mu}(E\cap F) + \tilde{\mu}(E - F) \leq \mu_1(E \cap F) + \mu_2(E - F)$$
+    Como isso vale para qualquer $F$, tomando ínfimos, temos
+    $$\tilde{\mu}(E) \leq \mu(E)$$
+\end{proof}
+
+\prob
+Eu achei essa questão muito chata.
+\prob
