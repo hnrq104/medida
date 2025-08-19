@@ -111,7 +111,6 @@ Vou supor de antemão que as medidas $\mu_1$ e $\mu_2$ são positivas, há um pa
     $$\sum_{n} \mu(E_n) \leq \sum_n \mu_1(E_n \cap F) + \mu_2(E_n - F)$$
     Como vale para todo $F$, temos, tomando ínfimos
     $$\sum_{n} \mu(E_n) \leq \mu \bigg(\bigcup_{n} E_n \bigg)$$
-
     Falta provar que $\mu\big(\bigcup_{n} E_n \big) \leq \sum_{n} \mu(E_n) $. Ou, mais sorreteiramente, que para 
     todo $\eps > 0$,
     $$ \mu\big(\bigcup_{n} E_n \big) \leq \bigg(\sum_{n} \mu(E_n)\bigg) + \eps = \sum_{n} (\mu(E_n) + \eps/2^n )$$
@@ -142,5 +141,92 @@ Vou supor de antemão que as medidas $\mu_1$ e $\mu_2$ são positivas, há um pa
 \end{proof}
 
 \prob
-Eu achei essa questão muito chata.
+Falta alguma ideia boa aqui
+
+
 \prob
+Essa questão é bem divertida, estende dupla contagem para medidas.
+
+\begin{prop}
+    (a) Os conjuntos $H_k$ são mensuráveis.
+\end{prop}
+\begin{proof}
+    Como cada $E_i$ é mensurável, definimos as funções mensuráveis $(f_n)_{n \in \N}$ por:
+    $$f_n(x) = \sum_{j = 1}^{n} \mathds{1}_{E_j}(x)$$
+    Então $0 \leq f_1 \leq \dots \leq f_n \leq f_{n+1} \leq \dots \leq \infty$ é uma sequência crescente
+    mensurável, e portanto: 
+    $$F(x) = \sup_n f_n(x) = \lim_n f_n(x) = \#\{n \, : \, x \in E_n \}$$
+    é uma função mensurável. Temos que $H_k = F^{-1}([k,\infty])$ é um conjunto mensurável.
+\end{proof}
+
+Agora vem a parte difícil. Para mostrar a letra (b), esqueçamos $(E_n)_{n \in \N}$ por enquanto, foquemos
+em $(E_n)_{n \in [N]}$ finitos.
+
+\begin{definition}
+    Dada uma sequência finita $(E_n)_{n \in [N]}$ de conjuntos de $\mathcal{M}$. Sejam $H_k^{(N)}$ da seguinte forma:
+    $$H_k^{(N)} = \{x \in X \, : \, \#\{n \, : \, x \in E_n\} \geq k\}$$
+    A mesma definição dos $H_k$, mas para uma coleção finita de no máximo $N$ conjuntos.
+\end{definition}
+
+\begin{observation}
+    Temos propriedades simples, que independem de $N$ e da coleção escolhida:
+    \begin{enumerate}
+        \item Exatamente como na letra (a), $H_k^{(N)}$ é mensurável.
+        \item $H_0^{(N)} = X$
+        \item $H_{k+1}^{(N)} \subseteq H_{k}^{(N)}$
+        \item $H_{N+1}^{(N)} = \varnothing$, pois nenhum elemento pertence em mais que $N$ conjuntos.
+    \end{enumerate}
+\end{observation}
+
+Para qualquer sequência infinita $(E_n)_{n\in\N}$ definimos os $H_k^{(N)}$ para os primeiros $N$ conjuntos da sequência.
+
+\begin{lemma}
+    \label{lemm:hk}
+    Seja $(E_n)_{n \in \N}$ mensuráveis. Para todo $N \in \N$, vale:
+    $$\sum_{k=1}^{N} \mu(H_k^{(N)}) = \sum_{k=1}^{N} \mu(E_k)$$
+\end{lemma}
+\begin{proof}
+    Vamos seguir por indução. Para $N = 1$, temos de graça que $E_1 = H_1^{(1)}$, logo $\mu(H_1^{(1)}) = \mu(E_1)$.
+    Suponha que o resultado vale para $N$ e olhemos para o caso $N+1$.
+    \begin{align*}
+        \sum_{n=1}^{N+1} \mu(E_n) &= \mu(E_{N+1}) + \sum_{n=1}^{N} \mu(E_n)\\
+        &= \mu(E_{N+1}) + \sum_{n=1}^{N} \mu(H_n^{(N)})
+    \end{align*}
+    Onde usamos a hipótese de indução na segunda igualdade.
+
+    Note que $H_k^{(N+1)} = (H_k^{(N)} - E_{N+1}) \cup (H_{k-1}^{(N)} \cap E_{N+1})$. Pois se $x \in X$ aparece em $k$ conjuntos de $(E_n)_{n \in [N+1]}$,
+    ou ele aparece exatamente em $k$ conjuntos dos primeiros $N$ conjuntos, ou aparece em $E_{N+1}$ e pelo menos $k-1$ outros dos primeiros $N$.
+    Para aproveitar dessa observação, podemos reescrever o somatório
+
+    \begin{align*}
+        \mu(E_{N+1}) + \sum_{n=1}^{N} \mu(H_n^{(N)}) &= \mu(E_{N+1}) + \sum_{n=1}^{N} \mu(H_n^{(N)} - E_{N+1}) + \mu(H_n^{(N)} \cap E_{N+1})\\
+        &= \mu(E_{N+1}) + \sum_{n=1}^{N+1} \mu(H_n^{(N)} - E_{N+1}) + \mu(H_n^{(N)} \cap E_{N+1})\\
+    \end{align*}
+    Já que $H_{N+1}^{(N)} = \varnothing$. Agora escrevemos $\mu(E_{N+1}) = \mu(H_0^{(N)} \cap E_{N+1}) = \mu(X \cap E_{N+1})$ e reindexamos 
+    cada termo da direita no somatório, obtendo
+    \begin{align*}
+        \sum_{n=1}^{N+1} \mu(E_n) &= \sum_{n=1}^{N+1} \mu(H_n^{(N)} - E_{N+1}) + \mu(H_{n-1}^{(N)} \cap E_{N+1})\\
+        &= \sum_{k=1}^{N+1} \mu(H_k^{(N+1)})
+    \end{align*}
+    Provando o passo indutivo.
+\end{proof}
+
+Estamos quase finalizados, sentimos até vontade de passar o limite em \ref{lemm:hk} e obter o resultado, mas isso por si só não é suficiente.
+\begin{prop}
+    $\sum_{k=1}^{\infty} \mu(H_k) = \sum_{k=1}^{\infty} \mu(E_k)$
+\end{prop}
+\begin{proof}
+    Tomando limites em $N$ no Lema \ref{lemm:hk}, temos que
+    $$\lim_{N \to \infty} \sum_{k=1}^{N} \mu(H_k^{(N)}) = \sum_{k=1}^{\infty} \mu(E_k)$$
+    Para obter o resultado, vamos mostrar que
+    $$\lim_{N \to \infty} \sum_{k=1}^{N} \mu(H_k^{(N)}) = \sum_{k=1}^{\infty} \mu(H_k)$$
+    Note que, pela definição dos $H_k^{(N)}$, temos uma sequência crescente $H_k^{(1)} \subseteq H_k^{(2)} \subseteq \dots \subseteq H_k$, tal que
+    $$\bigcup_{n=1}^{\infty} H_k^{(n)} = H_k$$
+    Por conta das inclusões $H_N^{(N)} \subseteq H_N$ e $\mu$ ser uma medida positiva, temos, termo a termo,
+    $\mu(H_N^{(N)}) \leq \mu(H_N)$. Portanto, já temos um lado da igualdade.
+    $$\lim_{N \to \infty} \sum_{k=1}^{N} \mu(H_k^{(N)}) \leq \sum_{k=1}^{\infty} \mu(H_k)$$
+    Para o outro lado, observamos que como $H_N^{(N)} \to H_N$ são mensuráveis, $\lim_{n\to\infty} \mu(H_N^{(N)}) = \mu(H_N)$.
+    Portanto, para cada $M > 0$, 
+    $$\lim_{N \to \infty} \sum_{k=1}^{N} \mu(H_k^{(N)}) \geq \lim_{N \to \infty} \sum_{k=1}^{M} \mu(H_k^{N}) = \sum_{k=1}^{M} \mu(H_k)$$
+    Como isso vale para todo $M$, $\lim_{N \to \infty} \sum_{k=1}^{N} \mu(H_k^{(N)}) \geq \sum_{k=1}^{\infty} \mu(H_k)$.
+\end{proof}
