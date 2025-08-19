@@ -3,18 +3,19 @@
 \prob
 Esse problema é muito bonitinho e a resposta é negativa. Para resolvê-lo, precisamos da seguinte observação.
 \begin{observation}
+    \label{obs:1:enum}
     A coleção de uniões enumeráveis de infinitos conjuntos não vazios disjuntos é não-enumerável. (quase um trava-língua)
 \end{observation}
-% \begin{proof}
-%     Sejam $\{E_1, E_2, \dots, E_n, \dots\}$ infinitos conjuntos satisfazendo
-%     \begin{enumerate}
-%         \item $E_i \neq \varnothing \ \forall i \in \N$ 
-%         \item $E_i \cap E_j = \varnothing \ \forall i \neq j \in \N$ 
-%     \end{enumerate}
-%     A função $f: 2^{\N} \to P(\bigcup_{i \in \N} E_i)$ dada por
-%     $$f(a_1, a_2, \dots, a_n, \dots) = \bigcup_{i \in \N} B_i$$
-%     onde $B_i = \varnothing$ se $a_i = 0$ e $B_i = E_i$ se $a_i = 1$ é injetiva. Como $2^{\N}$ é não enumerável, temos o resultado.
-% \end{proof}
+\begin{proof}
+    Sejam $\{E_1, E_2, \dots, E_n, \dots\}$ infinitos conjuntos satisfazendo
+    \begin{enumerate}
+        \item $E_i \neq \varnothing \ \forall i \in \N$ 
+        \item $E_i \cap E_j = \varnothing \ \forall i \neq j \in \N$ 
+    \end{enumerate}
+    A função $f: \{0,1\}^{\N} \to \mathbb{P}(\bigcup_{i \in \N} E_i)$ dada por
+    $$f(a_1, a_2, \dots, a_n, \dots) = \bigcup_{i \in \N} B_i$$
+    onde $B_i = \varnothing$ se $a_i = 0$ e $B_i = E_i$ se $a_i = 1$ é injetiva. Como $2^{\N}$ é não enumerável, temos o resultado.
+\end{proof}
 Agora podemos dar continuidade a resolução.
 \begin{prop}
     Seja $(X,M)$ uma $\sigma$-algebra infinita. Existem infinitos conjuntos não vazios disjuntos em $M$.
@@ -24,10 +25,9 @@ Tive que corrigir a prova seguinte, adaptando-a para usar o Lema de Zorn.
 \begin{proof}
     
     Suponha que não existe partição infinita de $X$ em conjuntos disjuntos. Dizemos que uma partição $\{A_1,\dots, A_m\}$ de $X$ é maximal, se não podemos refiná-la, i.e.
-    não existe $B \subsetneq A_j$ para algum $A_j$ (Se não poderiamos trocar $A_j$ por $A_j \cap B$ e $A_j - B$, que daria uma partição maior).
+    não existe $\varnothing \neq B \subsetneq A_j$ para algum $A_j$ (Se não poderiamos trocar $A_j$ por $A_j \cap B$ e $A_j - B$, que daria uma partição maior).
     Seja $C$ uma partição maximal de conjuntos disjuntos não vazios de $M$, cuja existência é garantida pelo Lema de Zorn. Suponha que $|C| = m < \infty$ sendo da seguinte forma:
     $$C = \{A_1, A_2, \dots, A_m \} \quad A_i \cap A_j = \varnothing \ \forall i\neq j$$
-    Note que $X \subset \bigcup_{1 \leq i \leq m} A_i$, pois se não, poderiámos adicionar $X - \bigcup_{1 \leq i \leq m} A_i$ à nossa coleção contradizendo maximalidade.
     $C$ é, portanto, uma partição finita de $X$ em conjuntos disjuntos. Olhemos para todas as possíveis uniões finitas de elementos de $C$ ($2^m$ delas considerando $\varnothing$), 
     como são finitos, existe um conjunto $B \in M$ diferente delas. Repartindo $B$, temos:
     $$B = \bigcup_{\{i\ \mid \ A_i \cap B \neq \varnothing \}} B \cap A_i$$
@@ -40,7 +40,7 @@ Tive que corrigir a prova seguinte, adaptando-a para usar o Lema de Zorn.
     Uma $\sigma$-algebra infinita $(X,M)$ não é enumerável.
 \end{corollary}
 \begin{proof}
-    Pela proposição anterior, existem infinitos conjuntos disjuntos distintos em $M$. Logo $M$ é não enumerável pela observação e pela terceira
+    Pela proposição anterior, existem infinitos conjuntos disjuntos distintos em $M$. Logo $M$ é não enumerável pela observação \ref{obs:1:enum} e pela terceira
     propriedade de $\sigma$-algebras.
 \end{proof}
 
