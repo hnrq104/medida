@@ -19,8 +19,13 @@ Agora podemos dar continuidade a resolução.
 \begin{prop}
     Seja $(X,M)$ uma $\sigma$-algebra infinita. Existem infinitos conjuntos não vazios disjuntos em $M$.
 \end{prop}
+
+Tive que corrigir a prova seguinte, adaptando-a para usar o Lema de Zorn.
 \begin{proof}
-    Seja $C$ uma coleção maximal de conjuntos disjuntos não vazios de $M$. Suponha que $|C| = m < \infty$ sendo da seguinte forma:
+    
+    Suponha que não existe partição infinita de $X$ em conjuntos disjuntos. Dizemos que uma partição $\{A_1,\dots, A_m\}$ de $X$ é maximal, se não podemos refiná-la, i.e.
+    não existe $B \subsetneq A_j$ para algum $A_j$ (Se não poderiamos trocar $A_j$ por $A_j \cap B$ e $A_j - B$, que daria uma partição maior).
+    Seja $C$ uma partição maximal de conjuntos disjuntos não vazios de $M$, cuja existência é garantida pelo Lema de Zorn. Suponha que $|C| = m < \infty$ sendo da seguinte forma:
     $$C = \{A_1, A_2, \dots, A_m \} \quad A_i \cap A_j = \varnothing \ \forall i\neq j$$
     Note que $X \subset \bigcup_{1 \leq i \leq m} A_i$, pois se não, poderiámos adicionar $X - \bigcup_{1 \leq i \leq m} A_i$ à nossa coleção contradizendo maximalidade.
     $C$ é, portanto, uma partição finita de $X$ em conjuntos disjuntos. Olhemos para todas as possíveis uniões finitas de elementos de $C$ ($2^m$ delas considerando $\varnothing$), 
@@ -29,7 +34,7 @@ Agora podemos dar continuidade a resolução.
     Como $B \neq \varnothing$ e escolhemos $B$ a evitar uniões de elementos de $C$ sabemos que
     $$\varnothing \neq B \subsetneq \bigcup_{\{i\ \mid \ A_i \cap B \neq \varnothing \}} A_i$$
     Portanto, existe $A_j$ com $A_j - B \neq \varnothing$ e $A_j \cap B \neq \varnothing$. Podemos então trocar $A_j$ por $A_j - B$ e $A_j \cap B$,
-    contradizendo a maximalidade. Logo $|C|$ não pode ser finito.
+    contradizendo a maximalidade.
 \end{proof}
 \begin{corollary}
     Uma $\sigma$-algebra infinita $(X,M)$ não é enumerável.
@@ -141,7 +146,46 @@ Vou supor de antemão que as medidas $\mu_1$ e $\mu_2$ são positivas, há um pa
 \end{proof}
 
 \prob
-Falta alguma ideia boa aqui
+Será útil para a letra (b) duas proposições importantes.
+\begin{prop} \label{prop:borel_induzido}
+    Seja $(X,\mathcal{T})$ espaço topológico e $\mathcal{B}_X$ sua $\sigma$-álgebra de Borel. Se $Y \in \mathcal{B}_X$ é um conjunto mensurável, então na topologia induzida $(Y,\mathcal{T} \cap Y)$, a $\sigma$-álgebra de Borel $\mathcal{B}_Y$ coincide com o conjunto $\{E \cap Y \, : \, E \in \mathcal{B}_X\}$.
+\end{prop}
+\begin{proof} 
+    Vamos provar primeiro que $\mathcal{B}_Y \subseteq \{E \cap Y \, : \, E \in \mathcal{B}_X\}$.
+    Então basta mostrar que o segundo conjunto é uma $\sigma$-álgebra que contem os abertos.
+    Ele claramente contem os abertos de $Y$, pois esses são $Y \cap U$ para $U$ aberto de $X$ que são mensuráveis. Falta verificar as propriedades de $\sigma$-álgebra. (1) $Y$ pertence ao conjunto, pois $Y = Y \cap Y$ e $Y \in \mathcal{B}_X$. (2) Se $A \cap Y$ é um elemento, então
+    $(A \cap Y)^c_Y = Y - (A \cap Y) = Y \cap A^c$ também pertence, pois $A^c \in \mathcal{B}_X$. Sejam $(A_1\cap Y, A_2 \cap Y, \dots)$ elementos do conjunto, então $\bigcup_n (A_n \cap Y) = (\bigcup_n A_n) \cap Y$ pertence também. Isso finaliza a primeira parte.
+
+    Falta mostrar que $\{E \cap Y \, : \, E \in \mathcal{B}_X\} \subseteq \mathcal{B}_Y$, isso não foi trivial para mim (tive que rever a prova do João na internet); Essa proposição é equivalente a $\{E \in \mathcal{B}_X \, : \, E \cap Y \in \mathcal{B}_Y\} = \mathcal{B}_X$, que segue diretamente do fato que o conjunto da esquerda é uma $\sigma$-álgebra que contém os abertos de $X$. Vamos provar as propriedades: (1) $X \in \mathcal{B}_X$ e $X \cap Y = Y \in \mathcal{B}_Y$, logo $X$ pertence ao conjunto. (2) Se $E \in \mathcal{B}_X$ é tal que $E \cap Y \in \mathcal{B}_Y$ então $E^c \in \mathcal{B}_X$ tem $E^c \cap Y = Y - E \in \mathcal{B}_Y$.
+    (3) $\bigcup_n E_n$ é tal que $E_n \cap Y \in \mathcal{B}_Y$, então $\bigcup_n E_n \cap Y = \bigcup_n (E_n \cap Y) \in \mathcal{B}_Y$. Portanto, o conjunto que definimos é uma $\sigma$-álgebra. Falta verificar que contém os abertos de $X$, mas segue trivialmente do fato que os abertos de $Y$ são justamente $U \cap Y \in \mathcal{B}_Y$.
+\end{proof}
+    O próximo é bem óbvio, estou inserindo por completude. (Mas é meio chato de provar).
+\begin{prop} \label{prop:borel_homeomorphism}
+    Se $(X,\mathcal{T})$ e $(Y,\mathcal{S})$ são espaços topológicos homeomorfos por um mapa $f:X \to Y$, então vale que $\mathcal{B}_Y = \{f(E_x) \, : \, E_x \in \mathcal{B}_X\}$ 
+    % e $\mathcal{B}_X = \{f^{-1}(E_y) \, : \, E_y \in \mathcal{B}_Y\}$ 
+    onde $\mathcal{B}_X$ e $\mathcal{B}_Y$ são as $\sigma$-álgebras de Borel em $X$ e $Y$ respectivamente. 
+\end{prop}
+
+\begin{proof}
+    Seja $\mathcal{M} = \{f(E_x) \, : \, E_x \in \mathcal{B}_X\}$. $\mathcal{M}$ claramente contém
+    os abertos de $Y$ pois se $U \subset Y$ é aberto, $f^{-1}(U)$ é aberto pertencente a $\mathcal{B}_X$, logo $U = f(f^{-1}(U)) \in \mathcal{M}$. Vamos mostrar que é $\sigma$-álgebra.
+    (1) $Y = f(X) \in \mathcal{M}$. (2) $f(E_x) \in \mathcal{M} \Rightarrow (f(E_x))^c = f(E_x^c) \in \mathcal{M}$. (3) $\bigcup_n f(E_x^n) = f(\bigcup_n E_x^n) \in \mathcal{M}$. Portanto mostramos que $\mathcal{B}_Y \subseteq \mathcal{M}$. Agora para mostrar que $\mathcal{M} \in \mathcal{B}_Y$ usamos mensurabilidade, sendo $f^{-1}$ contínua, ela é mensurável entre $\sigma$-álgebras de Borel, logo se $A = f^{-1}(E_x) \in \mathcal{M}$, então, como $E_x \in \mathcal{B}_X$, $A \in \mathcal{B}_Y$. E terminamos a demonstração. 
+\end{proof}
+Agora as letras (a) e (b) saem quase que de graça.
+\begin{enumerate}[label=(\alph*)]
+    \item \begin{proof}
+        Translações $f:\R^d \to \R^d$ tal que $f(x) = f(x) + a$ para algum $a \in \R^d$ são homeomorfismo de $\R^d$ para si próprio. Por \ref{prop:borel_homeomorphism}, se $E \in \mathcal{B}^d$ então $f(E) = E + a \in \mathcal{B}^d$.
+    \end{proof}
+    \item \begin{proof}
+        Vamos fazer para seções horizontais, a prova para seções verticais é análoga.
+        Para $y \in \R$ e $E$ Borel de $\R^2$, definimos $E_y = E \cap (\R \times \{y\})$ boreliano. Note que 
+        $\R \times \{y\} = \bigcap_n \R \times \{a - 1/n, a + 1/n\}$ é Borel de $\R^2$. Pela proposição
+        \ref{prop:borel_induzido}, $\{E_y \, : \, E \in \mathcal{B}^2\}$ é a $\sigma$-álgebra de Borel induzida por $\R \times \{y\}$, mas esse conjunto é trivialmente homeomorfo a reta $\R$ com 
+        a projeção na primeira coordenada. Portanto, por \ref{prop:borel_homeomorphism}, as seções horizontais definidas na questão são borelianos da reta.
+    \end{proof}
+\end{enumerate}
+
+
 
 
 \prob
@@ -195,7 +239,7 @@ Para qualquer sequência infinita $(E_n)_{n\in\N}$ definimos os $H_k^{(N)}$ para
     Onde usamos a hipótese de indução na segunda igualdade.
 
     Note que $H_k^{(N+1)} = (H_k^{(N)} - E_{N+1}) \cup (H_{k-1}^{(N)} \cap E_{N+1})$. Pois se $x \in X$ aparece em $k$ conjuntos de $(E_n)_{n \in [N+1]}$,
-    ou ele aparece exatamente em $k$ conjuntos dos primeiros $N$ conjuntos, ou aparece em $E_{N+1}$ e pelo menos $k-1$ outros dos primeiros $N$.
+    ou ele aparece em $k$ dos primeiros $N$ conjuntos, ou aparece em $E_{N+1}$ e pelo menos $k-1$ outros dos primeiros $N$.
     Para aproveitar dessa observação, podemos reescrever o somatório
 
     \begin{align*}
