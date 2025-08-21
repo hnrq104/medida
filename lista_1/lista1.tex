@@ -18,30 +18,48 @@ Esse problema é muito bonitinho e a resposta é negativa. Para resolvê-lo, pre
 \end{proof}
 Agora podemos dar continuidade a resolução.
 \begin{prop}
-    Seja $(X,M)$ uma $\sigma$-algebra infinita. Existem infinitos conjuntos não vazios disjuntos em $M$.
+    Seja $(X,M)$ uma $\sigma$-algebra infinita, então $M$ é não enumerável.
 \end{prop}
 
-Tive que corrigir a prova seguinte, adaptando-a para usar o Lema de Zorn.
+O que fiz antes tava errado :( . Segue a solução do João. 
 \begin{proof}
+    Suponha que $M$ seja enumerável. Para cada $x \in X$, defina os conjuntos minimais $E_x$ de $M$,
+    $$E_x := \bigcap\limits_{\{E_k \in M\, ;\, x \in E_k\}} E_k$$
+    Como $M$ é enumerável, essas interseções são enumeráveis e portanto pertencem a $M$. 
     
-    Suponha que não existe partição infinita de $X$ em conjuntos disjuntos. Dizemos que uma partição $\{A_1,\dots, A_m\}$ de $X$ é maximal, se não podemos refiná-la, i.e.
-    não existe $\varnothing \neq B \subsetneq A_j$ para algum $A_j$ (Se não poderiamos trocar $A_j$ por $A_j \cap B$ e $A_j - B$, que daria uma partição maior).
-    Seja $C$ uma partição maximal de conjuntos disjuntos não vazios de $M$, cuja existência é garantida pelo Lema de Zorn. Suponha que $|C| = m < \infty$ sendo da seguinte forma:
-    $$C = \{A_1, A_2, \dots, A_m \} \quad A_i \cap A_j = \varnothing \ \forall i\neq j$$
-    $C$ é, portanto, uma partição finita de $X$ em conjuntos disjuntos. Olhemos para todas as possíveis uniões finitas de elementos de $C$ ($2^m$ delas considerando $\varnothing$), 
-    como são finitos, existe um conjunto $B \in M$ diferente delas. Repartindo $B$, temos:
-    $$B = \bigcup_{\{i\ \mid \ A_i \cap B \neq \varnothing \}} B \cap A_i$$
-    Como $B \neq \varnothing$ e escolhemos $B$ a evitar uniões de elementos de $C$ sabemos que
-    $$\varnothing \neq B \subsetneq \bigcup_{\{i\ \mid \ A_i \cap B \neq \varnothing \}} A_i$$
-    Portanto, existe $A_j$ com $A_j - B \neq \varnothing$ e $A_j \cap B \neq \varnothing$. Podemos então trocar $A_j$ por $A_j - B$ e $A_j \cap B$,
-    contradizendo a maximalidade.
-\end{proof}
-\begin{corollary}
-    Uma $\sigma$-algebra infinita $(X,M)$ não é enumerável.
-\end{corollary}
-\begin{proof}
-    Pela proposição anterior, existem infinitos conjuntos disjuntos distintos em $M$. Logo $M$ é não enumerável pela observação \ref{obs:1:enum} e pela terceira
-    propriedade de $\sigma$-algebras.
+    A ideia da prova é mostrar que os $E_x$ particionam o espaço em conjuntos disjuntos, depois ver que eles geram $M$ e 
+    concluir que, como $M$ é infinita, devem existir infinitos deles.
+
+
+    
+    Vamos mostrar que o espaço é particionado em conjuntos disjuntos. Sejam $x,y$ tal que $E_x \neq E_y$, afirmo que
+    $x \not \in E_y$. Suponha que $x \in E_y$, então pela definição de $E_x$, $E_x \subseteq E_y$. Do mesmo modo, se 
+    $y \in E_x$, então $E_y \subseteq E_x$ e $E_x = E_y$ (contradição). Se $y \not \in E_x$, então $E_y - E_x$ é um conjunto disjunto de $x$ que contém $y$,
+    logo $x \not \in E_y$. Para provar que a interseção é vazia, verificamos que se $x \not \in E_y$, então $E_x \subset E_x - E_y$, 
+    portanto $E_x \cap E_y = \varnothing$.
+
+    O próximo passo é mostrar que esses conjuntos geram $M$. Afirmo que dado $E \in M$
+    $$E = \bigcup\limits_{E_x \subset E} E_x$$
+    
+    Claramente temos $\bigcup_{E_x \subset E} E_x \subset E$. Para a outra inclusão, seja $x \in E$, então $x \in E_x \subset E$, pois $E$ é um conjunto
+    que contém $x$.
+
+    Agora para matar a questão. Suponha que houvessem somente finitos $E_x$, digamos $n$. Haveria somente $2^n$ possíveis uniões desses conjuntos, como
+    eles geram $M$ e $M$ é infinita temos uma contradição. Portanto, existem infinitos $E_x$ disjuntos não vazios, $M$ contém todas suas enumeráveis coleções,
+    pela observação \ref{obs:1:enum}, $M$ não pode ser contável.
+
+
+    % Suponha que não existe partição infinita de $X$ em conjuntos disjuntos. Dizemos que uma partição $\{A_1,\dots, A_m\}$ de $X$ é maximal, se não podemos refiná-la, i.e.
+    % não existe $\varnothing \neq B \subsetneq A_j$ para algum $A_j$ (Se não poderiamos trocar $A_j$ por $A_j \cap B$ e $A_j - B$, que daria uma partição maior).
+    % Seja $C$ uma partição maximal de conjuntos disjuntos não vazios de $M$, cuja existência é garantida pelo Lema de Zorn. Suponha que $|C| = m < \infty$ sendo da seguinte forma:
+    % $$C = \{A_1, A_2, \dots, A_m \} \quad A_i \cap A_j = \varnothing \ \forall i\neq j$$
+    % $C$ é, portanto, uma partição finita de $X$ em conjuntos disjuntos. Olhemos para todas as possíveis uniões finitas de elementos de $C$ ($2^m$ delas considerando $\varnothing$), 
+    % como são finitos, existe um conjunto $B \in M$ diferente delas. Repartindo $B$, temos:
+    % $$B = \bigcup_{\{i\ \mid \ A_i \cap B \neq \varnothing \}} B \cap A_i$$
+    % Como $B \neq \varnothing$ e escolhemos $B$ a evitar uniões de elementos de $C$ sabemos que
+    % $$\varnothing \neq B \subsetneq \bigcup_{\{i\ \mid \ A_i \cap B \neq \varnothing \}} A_i$$
+    % Portanto, existe $A_j$ com $A_j - B \neq \varnothing$ e $A_j \cap B \neq \varnothing$. Podemos então trocar $A_j$ por $A_j - B$ e $A_j \cap B$,
+    % contradizendo a maximalidade.
 \end{proof}
 
 \prob
