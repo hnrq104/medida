@@ -1,6 +1,19 @@
 \section{Lista 1 (15/08/2025)}
 
-\prob
+Listagem de problemas:
+\begin{enumerate}
+    \item Exercício \ref{prob:l1:1} : \checkmark
+    \item Exercício \ref{prob:l1:2} : \checkmark
+    \item Exercício \ref{prob:l1:3} : \checkmark
+    \item Exercício \ref{prob:l1:4} : \checkmark
+    \item Exercício \ref{prob:l1:5} : \checkmark
+    \item Exercício \ref{prob:l1:6} : \checkmark
+\end{enumerate}
+
+\begin{problem}
+    \label{prob:l1:1}
+\end{problem}
+
 Esse problema é muito bonitinho e a resposta é negativa. Para resolvê-lo, precisamos da seguinte observação.
 \begin{observation}
     \label{obs:1:enum}
@@ -62,7 +75,10 @@ O que fiz antes tava errado :( . Segue a solução do João.
     % contradizendo a maximalidade.
 \end{proof}
 
-\prob
+\begin{problem}
+\label{prob:l1:2}
+\end{problem}
+
 \begin{proof}
     Dada uma sequência de funções mensuráveis $\{f_n\} : X \to [-\infty, \infty]$, sabemos que $I(x) = \liminf_n f_n(x)$ e $S(x) = \limsup_n f_n(x)$ são mensuráveis.
     Além disso, para cada $x \in X$, a sequência $f_n(x)$ converge se e somente se ela não tem valores tendendo para o infinito e $I(x) = S(x)$.
@@ -78,7 +94,10 @@ O que fiz antes tava errado :( . Segue a solução do João.
     Se $H(z) \neq 0$, ou $z \in A^c$, e portanto a sequência $f_n(z)$ não é limitada, ou $S(z) \neq I(z)$ e portanto, a sequência não converge.  
 \end{proof}
 
-\prob
+\begin{problem}
+    \label{prob:l1:3}
+\end{problem}
+
 \begin{prop}
     $\mathcal{M}$ é $\sigma$-álgebra. Isso é, satisfaz:
     \begin{enumerate}
@@ -99,7 +118,8 @@ O que fiz antes tava errado :( . Segue a solução do João.
     $\mu$ é uma medida em $\mathcal{M}$.
 \end{prop}
 \begin{proof}
-    Basta mostrar que, dada uma coleção disjunta $C = \{E_1, E_2, \dots\} \subset \mathcal{M}$,
+    Como $\varnothing$ é contável, $\mu(\varnothing) = 0$, além disso, $\mu(E) \in \{0,1\} \subset [0,\infty]$.
+    Então, basta mostrar que, dada uma coleção disjunta $C = \{E_1, E_2, \dots\} \subset \mathcal{M}$,
     $$\sum_{E_i \in C} \mu(E_i) = \mu\big( \bigcup_{E_i \in C} E_i \big) $$
     Como anteriormente escreva $C = A \cup B$, onde $A$ são os conjuntos incontáveis e $B$ são os contáveis.
     Se $A$ for vazio, todos os conjuntos $E_i$ são contáveis, então a união deles é contável e temos 
@@ -109,13 +129,16 @@ O que fiz antes tava errado :( . Segue a solução do João.
     da direita contém $E_j$ não enumerável, portanto vale $1$ também.
 \end{proof}
 
-\prob
+\begin{problem}
+    \label{prob:l1:4}
+\end{problem}
+
 Vou supor de antemão que as medidas $\mu_1$ e $\mu_2$ são positivas, há um passo em que precisaremos dessa hipótese.
 \begin{prop}
     $\mu(E) = \inf \{\mu_1(E \cap F) +  \mu_2(E - F) \, : \, F \in \mathcal{M}\}$ é uma medida positiva.
 \end{prop}
 \begin{proof}
-    Sendo ínfimo de valores positivos, claramante $\mu(E) \in [0,\infty]$. Considere em $\mathcal{M}$ uma sequência qualquer de conjuntos 
+    (1) Sendo ínfimo de valores positivos, claramante $\mu(E) \in [0,\infty]$. (2) $\mu(\varnothing) \leq \mu_1(\varnothing) + \mu_2(\varnothing) = 0$ . (3) Considere em $\mathcal{M}$ uma sequência qualquer de conjuntos 
     disjuntos $(E_n)_{n \in \N}$. Queremos mostrar que:
     $$\mu \bigg(\bigcup_{n} E_n \bigg) = \sum_{n} \mu(E_n)$$
 
@@ -163,7 +186,10 @@ Vou supor de antemão que as medidas $\mu_1$ e $\mu_2$ são positivas, há um pa
     $$\tilde{\mu}(E) \leq \mu(E)$$
 \end{proof}
 
-\prob
+\begin{problem}
+    \label{prob:l1:5}
+\end{problem}
+
 Será útil para a letra (b) duas proposições importantes.
 \begin{prop} \label{prop:borel_induzido}
     Seja $(X,\mathcal{T})$ espaço topológico e $\mathcal{B}_X$ sua $\sigma$-álgebra de Borel. Se $Y \in \mathcal{B}_X$ é um conjunto mensurável, então na topologia induzida $(Y,\mathcal{T} \cap Y)$, a $\sigma$-álgebra de Borel $\mathcal{B}_Y$ coincide com o conjunto $\{E \cap Y \, : \, E \in \mathcal{B}_X\}$.
@@ -206,7 +232,10 @@ Agora as letras (a) e (b) saem quase que de graça.
 
 
 
-\prob
+\begin{problem}
+    \label{prob:l1:6}
+\end{problem}
+
 Essa questão é bem divertida, estende dupla contagem para medidas.
 
 \begin{prop}
