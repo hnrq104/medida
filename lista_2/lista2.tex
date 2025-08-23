@@ -1,0 +1,170 @@
+\section{Lista 2 (21/08/2025)}
+
+Listagem de problemas:
+\begin{enumerate}
+    \item Exercício \ref{prob:l2:1} : \checkmark
+    \item Exercício \ref{prob:l2:2} : \checkmark
+    \item Exercício \ref{prob:l2:3} : \checkmark
+    \item Exercício \ref{prob:l2:4} : \checkmark
+    \item Exercício \ref{prob:l2:5} : \Frowny
+    \item Exercício \ref{prob:l2:6} : \Frowny
+    \item Exercício \ref{prob:l2:7} : \Frowny
+\end{enumerate}
+
+Para a solução de vários problemas dessa lista, utilizaremos os três principais teoremas vistos em aula até agora. Vamos enunciá-los.
+
+\begin{theorem}
+    \label{trm:conv_mon}
+    (Convergência Monótona). Dada uma sequência crescente de funções mensuráveis $(f_n)_n$ de $X$ para $[0,\infty]$, satisfazendo:
+    \begin{enumerate}[label=(\alph*)]
+        \item $0 \leq f_1(x) \leq f_2(x) \leq \dots \leq \infty$ para todo $x \in X$
+        \item $f_n(x) \to f(x)$ para todo $x \in X$
+    \end{enumerate}
+    Então $f$ é mensurável, e
+    $$\int_{X} f_n\,d\mu \to \int_{X} f\,d\mu$$
+\end{theorem}
+
+\begin{theorem}
+    \label{trm:lemma_fatou}
+    (Lema de Fatou). Se $f_n : X \to [0,\infty]$ é mensurável, para cada $n$, então
+    $$\int_X \big(\liminf_{n\to\infty} f_n\big)\,d\mu \leq \liminf_{n\to\infty} \int_X f_n \,d\mu$$
+\end{theorem}
+
+\begin{theorem}
+    \label{trm:conv_dom}
+    (Convergência Dominada). Se $\{f_n\}$ é uma sequência de funções mensuráveis complexas de $X$ tal que
+    $$f(x) = \lim_{n\to\infty} f_n(x)$$
+    existe para todo $x \in X$. Se existe uma função $g \in L^1(\mu)$ tal que, para todo $n$,
+    $$|f_n(x)| \leq |g(x)|$$
+    então $f \in L^1(\mu)$,
+    $$\lim_{n\to\infty} \int_X |f_n - f|\,d\mu = 0$$
+    e
+    $$\lim_{n\to\infty} \int_X f_n \,d\mu = \int_X f \,d\mu$$
+    
+\end{theorem}
+
+\begin{problem}
+    \label{prob:l2:1}
+\end{problem}
+
+\begin{proof}
+    
+    Essa questão parece muito com a de interseção de conjuntos mensuráveis (Teorema 1.19
+    Rudin). Se $f_1 \in L^1(\mu)$, como ela é positiva, existe $0 \leq M < \infty$ tal que $\int_X f_1 \, d\mu \leq M$. Defina $g_n$ mensurável por $g_n = f_1 - f_n$. Temos então que
+    \begin{enumerate}[label=(\alph*)]
+        \item $0 \leq g_1 \leq g_2 \leq \dots \leq \infty$
+        \item $g_n(x) \to f_1(x) - f(x)$ para todo $x \in X$.
+    \end{enumerate}
+    Podemos aplicar convergência monótona [\ref{trm:conv_mon}] para encontrar:
+    \begin{align}
+    \lim_{n\to\infty} \int_X f_1 - f_n \, d\mu &= \int_X f_1 - f \, d\mu \\
+    \lim_{n\to\infty} \bigg(\int_X f_1\,d\mu  - \int_X f_n \, d\mu\bigg) &= \int_X f_1\,d\mu  - \int_Xf \, d\mu \\
+    \int_X f_1\,d\mu - \lim_{n\to\infty} \int_X f_n \, d\mu&= \int_X f_1\,d\mu  - \int_Xf \, d\mu \\
+    \lim_{n\to\infty} \int_X f_n \, d\mu & = \int_Xf \, d\mu
+    \end{align}
+    Onde, crucialmente, usamos na última igualdade que $\int_X f_1 \leq M < \infty$.
+
+    Se admitimos $f_1 \not \in L^1(\mu)$, a igualdade pode não valer. Defina $f_n(x) = 1/n$ para todo $x \in \R$.
+    Temos que $f_n \to f = 0$, logo $\int_\R f\,d\mu = 0$, mas $\int_\R f_n\,d\mu = \infty$ para todo $n$.
+\end{proof}
+
+\begin{problem}
+    \label{prob:l2:2}
+\end{problem}
+\begin{proof}
+    
+    Podemos usar diretamente o exemplo patológico da questão \ref{prob:l2:1}. Mas afim de fazer um diferente, seja $X = \{0,1\}$ com medida de contáveis. Defina as funções simples (e portanto mensuráveis) $h$ e $g$ dadas por
+    \begin{equation*}
+    h(x)=
+    \begin{cases}
+        0 & \text{if } x =0\\
+        1 & \text{if } x =1
+    \end{cases}
+\end{equation*}
+e
+\begin{equation*}
+    g(x)=
+    \begin{cases}
+        1 & \text{if } x =0\\
+        0 & \text{if } x =1
+    \end{cases}
+\end{equation*}
+Seja $\{f_n\}$, tal que $f_n = h$ se $n$ for par, e $f_n = g$ se $n$ for ímpar. Então claramente,
+$\liminf_n f_n(x) = 0$ para todo $x$, mas $\int_X f_n\, d\mu = 1$ para todo $n$. Portanto
+$$0 = \int_X (\liminf_n f_n)d\mu < \liminf_n \int_X f_nd\mu = 1$$
+\end{proof}
+
+\begin{problem}
+    \label{prob:l2:3}
+\end{problem}
+\begin{proof}
+    
+    Esse problema é bem legal, envolve aproximar a função pontualmente e perceber que podemos aplicar nossos resultados. Antes de mais nada, dado $\alpha > 0$, defina $g_n : X \to [0,\infty]$, por 
+    $$g_n(x) =n\log(1 + (f(x)/n)^\alpha) = n [\log(n^\alpha + f(x)^\alpha) - \log(n^\alpha)]$$
+    $g_n$ é composição de uma função contínua por uma mensurável $f \geq 0$, é portanto mensurável e
+    da forma que está definida, é positiva. $g(x) \in [0,\infty]$.
+
+    Agora, vamos tentar estimar $g_n$. Pelo teorema do valor médio, dado $x$ fixo,
+    $$\log(n^\alpha + f(x)^\alpha) - \log(n^\alpha) = \frac{f(x)^\alpha}{y}$$
+    para $y \in (n^\alpha, n^\alpha + f(x)^\alpha)$.
+    Então, temos
+    $$n\frac{f(x)^\alpha}{n^\alpha + f(x)^\alpha} \leq g_n(x) \leq n\frac{f(x)^\alpha}{n^\alpha}$$
+    E isso já é suficiente para dois casos do problema. 
+    
+    Se $\alpha = 1$,
+    $$\frac{nf(x)}{n + f(x)} \leq g_n(x) \leq f(x)$$
+    Como o lado esquerdo tende a $f(x)$, temos que $g_n(x) \to f(x)$. Além do mais, $g_n(x) \leq f(x) \in L^1(\mu)$, logo, por Convergência Dominada [\ref{trm:conv_dom}], temos que
+    
+    $$\lim_{n\to\infty}\int_X n\log(1 + (f(x)/n)^\alpha)d\mu = \lim_{n\to\infty}\int_X g_n(x)d\mu = \int_X fd\mu = c$$
+    
+    Se $\alpha < 1$, de $g_n(x) \geq nf(x)^\alpha / (n^\alpha + f(x)^\alpha) \to \infty$
+    temos que
+    $$ \infty = \liminf_{n\to\infty} nf(x)^\alpha / (n^\alpha + f(x)^\alpha) \leq \liminf_{n\to\infty} g_n(x)$$
+    Usando o lema de Fatou [\ref{trm:lemma_fatou}], 
+    $$\int_X \infty d\mu \leq \liminf_{n\to\infty}\int_X g_n d\mu = \liminf_{n \to \infty} \int_X n\log(1 + (f(x)/n)^\alpha) d\mu$$
+    Se a medida $\mu$ não for identicamente $0$, então temos o resultado.
+
+    
+    Para $\alpha > 1$, terei que usar a dica do João, percebi que só conseguiria usar convergência dominada se $\int_X f^\alpha d\mu < \infty$, (mas não sabemos disso). Então precisamos fazer surgir $f$ sem expoentes na estimativa de $g_n$, para isso consideramos a sequências de desigualdades, válida para $f(x) \geq 0$, $\alpha > 1$.
+    $$
+        1 + x^\alpha \leq (1 + x)^\alpha \leq (e^x)^\alpha = e^{\alpha x}\\
+    $$
+    Tomando $\log$'s na equação,
+    $$
+        \log(1 + x^\alpha) \leq \log((1 + x)^\alpha) \leq \log((e^x)^\alpha) = \alpha x
+    $$
+    Portanto, $g_n(x) \leq n \alpha (f(x)/n) = \alpha f(x) \in L^1(\mu)$. Agora estamos muito felizes, pois sabemos que pontualmente (para cada $x$ fixo).
+    
+    $$g_n(x) \leq \frac{f(x)^\alpha}{n^{\alpha -1}} \to 0$$
+    Logo, por convergência dominada [\ref{trm:conv_dom}],
+    $$\lim_{n \to \infty} \int_X n\log(1 + (f(x)/n)^\alpha) d\mu= \lim_{n\to\infty} \int_X g_nd\mu = \int_X 0d\mu = 0$$
+\end{proof}
+
+
+\begin{problem}
+    \label{prob:l2:4}
+\end{problem}
+
+\begin{proof}
+    Essa questão segue quase imediatamante da série de desigualdades
+    \begin{align}
+        \lim_{n\to\infty} \bigg|\int_X f_n d\mu - \int_Xfd\mu \bigg| &\leq \lim_{n\to\infty} \int_X |f_n - f| d\mu\\
+        &\leq \lim_{n\to\infty} \int_X \sup_x\{|f_n - f|\}d\mu\\
+        &= \lim_{n\to\infty} \sup_x\{|f_n - f|\} \mu(X) \to 0
+    \end{align}
+    Onde em (7) usamos crucialmente que $\mu(X) < \infty$ e a sequência é uniformemente convergente.
+
+    Se $\mu(X) = \infty$, segue exatamente da solução do exercício \ref{prob:l2:1}, com $f_n = 1/n$, $f = 0$, $X = \R$, que a hipótese não pode ser omitida.
+\end{proof}
+
+\begin{problem}
+    \label{prob:l2:5}
+\end{problem}
+
+\begin{problem}
+    \label{prob:l2:6}
+\end{problem}
+
+\begin{problem}
+    \label{prob:l2:7}
+\end{problem}
