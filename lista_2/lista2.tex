@@ -6,9 +6,9 @@ Listagem de problemas:
     \item Exercício \ref{prob:l2:2} : \checkmark
     \item Exercício \ref{prob:l2:3} : \checkmark
     \item Exercício \ref{prob:l2:4} : \checkmark
-    \item Exercício \ref{prob:l2:5} : \Frowny
-    \item Exercício \ref{prob:l2:6} : \Frowny
-    \item Exercício \ref{prob:l2:7} : \Frowny
+    \item Exercício \ref{prob:l2:5} : \checkmark
+    \item Exercício \ref{prob:l2:6} : \checkmark
+    \item Exercício \ref{prob:l2:7} : \checkmark
 \end{enumerate}
 
 Para a solução de vários problemas dessa lista, utilizaremos os três principais teoremas vistos em aula até agora. Vamos enunciá-los.
@@ -161,10 +161,57 @@ $$0 = \int_X (\liminf_n f_n)d\mu < \liminf_n \int_X f_nd\mu = 1$$
     \label{prob:l2:5}
 \end{problem}
 
+\begin{proof}
+    Minha intuição Riemanianna me matou nessa questão, tenho que abandoná-la. Suponha que o resultado seja falso, i.e. $f \in L^1(\mu)$, mas existe $\eps > 0$, tal que 
+    para todo $\delta > 0$ existe um mensurável $E_\delta$ com $\mu(E_\delta) < \delta$, mas 
+    $$\int_{E_\delta} |f| d\mu > \eps$$
+    Então, escolhemos uma sequência de $(E_n)_n$, com $\mu(E_n) < 2^{-n}$ e $\int_{E_n} |f| d\mu > \eps$. Note que a união dos $E_n$ tem medida finita.
+    $$A = \bigcup_n E_n \quad \Rightarrow \quad \mu(A) = \mu \big(\bigcup_n E_n \big) \leq \sum_n \mu(E_n) \leq 2$$
+    E se definirmos $A_m = \bigcup_{n\geq m} E_n$, achamos uma sequência decrescente de conjuntos de medida finita: $A = A_1 \supset A_2 \supset \dots$.
+    Além do mais,
+    $$\mu(A_m) \leq \sum_{n \geq m} \mu(E_n) \geq \sum_{n \geq m} 2^{-n} = 2^{-m + 1} \to 0$$
+    Quando $m \to \infty$. Portanto, $\mu(\bigcap_m A_m) \to 0$.
+
+    A ideia da prova agora é mostrar que a integral sobre esse conjunto é um limite sobre integrais todas maiores que $\eps$, mas então teríamos
+    que a integral sobre um conjunto de medida nula maior que $0$, absurdo. Para isso, defina, para cada $m$
+    $$f_m(x) = |f(x)| \mathds{1}_{A_m}(x)$$
+    funções mensuráveis, decrescentes e todas dominadas por $|f| \in L^1(\mu)$. Chamando as interseções dos $A_m$ de $B$,
+    temos que $f_m \to |f| \cdot \mathds{1}_B$. Pelo teorema da convergência dominada [\ref{trm:conv_dom}], temos que 
+    $$\lim_{m\to\infty} \int_X |f|\cdot \mathds{1}_{A_m} d\mu = \int_X |f| \cdot \mathds{1}_B d\mu = \int_B |f| d\mu$$
+    Mas, por hipótese, $\int_X |f|\cdot \mathds{1}_{A_m} d\mu \geq \int_{E_m} |f| d\mu > \eps$. Logo o limite da esquerda deve ser maior ou igual a $\eps > 0$,
+    mas a integral da direita - sobre um conjunto $B$ de medida nula - deveria ser $0$.
+\end{proof}
+
 \begin{problem}
     \label{prob:l2:6}
 \end{problem}
+\begin{proof}
+    A resolução dessa questão está no livro, cuja prova repetirei aqui. Note no entanto que ela segue diretamente da questão \ref{prob:l1:6} da lista anterior, pois provamos 
+    que 
+    $$\sum_{k=1}^{\infty} \mu(E_k) = \sum_{k=1}^{\infty} \mu(H_k)$$
+    como $H_1 \supset H_2 \supset \dots \supset H_\infty$, se $\mu(H_\infty) > \eps > 0$, então para todo $k$, $\mu(H_k) > \eps$. Teríamos por fim que $\sum_{k=1}^{\infty} \mu(H_k) = \infty$.
+
+    Eu acho a solução do Rudin mais elegante, pois - ao menos para mim - foi trabalhoso estabelecer a igualdade entre os somatórios. Assim como antes, construa 
+    $$f_N = \sum_{k=1}^{N} \mathds{1}_{E_k}$$
+    Temos que $f_N$ é uma sequência crescente de funções que tende a $\sum_{k = 1}^{\infty} \mathds{1}_{E_k}$. Pelo teorema da convergência monótona [\ref{trm:conv_mon}]
+    \begin{equation}
+        \lim_{n\to\infty} \int_X f_n d\mu = \int_X f d\mu
+    \end{equation}
+    O termo da esquerda é precisamente $\sum_{k=1}^{\infty} \mu(E_k)$ que estamos supondo ser $ < \infty$. Agora, se a medida do conjunto $\{x : f(x) = \infty\}$ (os $x$'s que aparecem em infinitos $E_k$'s) 
+    fosse positiva então estaríamos integrando infinito sobre um conjunto de medida não nula, e a integral da direita seria infinito. Simbólicamente:
+    $$\int_X f d\mu \geq \int_{f^{-1}(\infty)} fd\mu = \mu(f^{-1}(\infty)) \cdot \infty = \infty$$
+    O que contradiz (8).
+\end{proof}
 
 \begin{problem}
     \label{prob:l2:7}
 \end{problem}
+\begin{proof}
+    Eu não sei exatamente quanto queremos mostrar nessa questão, provamos em aula que para $f,g \in L^1(\mu)$ e $\alpha,\beta \in \mathbb{C}$, 
+    a função $\alpha f + \beta g$ é mensurável (onde está bem definida). Seja $A = f^{-1}(\infty) \cap g^{-1}(\infty)$, $A$ é interseção de mensuráveis
+    e portanto mensurável, definimos exatamente como no problema \ref{prob:l1:2} a função mensurável 
+    $$h = \mathds{1}_A + \mathds{1}_{A^c}f - \mathds{1}_{A^c}g$$
+    $h(z)$ é $0$ se e somente se $f(z)$ e $g(z)$ não são infinitas e $f(z) = g(z)$. Usando $h$, o conjunto 
+    $$\{z : f(z) = g(z)\} = h^{-1}(0) \cup A$$
+    é mensurável.
+\end{proof}
