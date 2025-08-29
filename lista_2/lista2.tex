@@ -99,6 +99,7 @@ $$0 = \int_X (\liminf_n f_n)d\mu < \liminf_n \int_X f_nd\mu = 1$$
 \end{problem}
 \begin{proof}
     
+
     Esse problema é bem legal, envolve aproximar a função pontualmente e perceber que podemos aplicar nossos resultados. Antes de mais nada, dado $\alpha > 0$, defina $g_n : X \to [0,\infty]$, por 
     $$g_n(x) =n\log(1 + (f(x)/n)^\alpha) = n [\log(n^\alpha + f(x)^\alpha) - \log(n^\alpha)]$$
     $g_n$ é composição de uma função contínua por uma mensurável $f \geq 0$, é portanto mensurável e
@@ -109,7 +110,18 @@ $$0 = \int_X (\liminf_n f_n)d\mu < \liminf_n \int_X f_nd\mu = 1$$
     para $y \in (n^\alpha, n^\alpha + f(x)^\alpha)$.
     Então, temos
     $$n\frac{f(x)^\alpha}{n^\alpha + f(x)^\alpha} \leq g_n(x) \leq n\frac{f(x)^\alpha}{n^\alpha}$$
-    E isso já é suficiente para dois casos do problema. 
+    E isso já é suficiente para dois casos do problema.
+  
+    Uma observação antes de brincar com as integrais é que como $\int_X f d\mu \in (0,\infty)$, notamos duas coisas. 
+    \begin{enumerate}
+        \item  O conjunto onde $f$ vale infinito tem medida nula.
+        \item O conjunto onde $f > 0$ tem medida positiva.
+    \end{enumerate}
+    O item (1) vale pois, caso contrário, $\int_X fd\mu$ valeria infinito. Da mesma forma, (2) vale pois, caso contrário,
+    como $f$ é positiva, a integral valeria $0$. Disso segue que podemos supor, sem perda de generalidade, que $f$ é estritamente 
+    positiva e não assume valores infinitos em $X$ (onde $f$ vale $0$ não muda as integrais definidas). Agora, feita essa observação, 
+    podemos dar continuidade ao resultado.
+
     
     Se $\alpha = 1$,
     $$\frac{nf(x)}{n + f(x)} \leq g_n(x) \leq f(x)$$
@@ -121,17 +133,19 @@ $$0 = \int_X (\liminf_n f_n)d\mu < \liminf_n \int_X f_nd\mu = 1$$
     temos que
     $$ \infty = \liminf_{n\to\infty} nf(x)^\alpha / (n^\alpha + f(x)^\alpha) \leq \liminf_{n\to\infty} g_n(x)$$
     Usando o lema de Fatou [\ref{trm:lemma_fatou}], 
-    $$\int_X \infty d\mu \leq \liminf_{n\to\infty}\int_X g_n d\mu = \liminf_{n \to \infty} \int_X n\log(1 + (f(x)/n)^\alpha) d\mu$$
-    Se a medida $\mu$ não for identicamente $0$, então temos o resultado.
-
+    $$\infty = \int_X \infty d\mu \leq \liminf_{n\to\infty}\int_X g_n d\mu = \liminf_{n \to \infty} \int_X n\log(1 + (f(x)/n)^\alpha) d\mu$$
+    que é o resultado esperado.
     
-    Para $\alpha > 1$, terei que usar a dica do João, percebi que só conseguiria usar convergência dominada se $\int_X f^\alpha d\mu < \infty$, (mas não sabemos disso). Então precisamos fazer surgir $f$ sem expoentes na estimativa de $g_n$, para isso consideramos a sequências de desigualdades, válida para $f(x) \geq 0$, $\alpha > 1$.
+    Para $\alpha > 1$, terei que usar a dica do João, percebi que só conseguiria usar convergência dominada se $\int_X f^\alpha d\mu < \infty$, (mas não sabemos disso). 
+    Então precisamos fazer surgir $f$ sem expoentes na estimativa de $g_n$, para isso consideramos a sequências de desigualdades, válida para $t \geq 0$, $\alpha > 1$.
     $$
-        1 + x^\alpha \leq (1 + x)^\alpha \leq (e^x)^\alpha = e^{\alpha x}\\
+        1 + t^\alpha \leq (1 + x)^\alpha \leq (e^x)^\alpha = e^{\alpha x}\\
     $$
+    Onde a primeira desigualdade sai, como observado pelo João, imediatamante de 
+    $$\bigg(\frac{1}{1 + t}\bigg)^\alpha + \bigg(\frac{t}{1 + t}\bigg)^\alpha \leq 1$$
     Tomando $\log$'s na equação,
     $$
-        \log(1 + x^\alpha) \leq \log((1 + x)^\alpha) \leq \log((e^x)^\alpha) = \alpha x
+        \log(1 + t^\alpha) \leq \log((1 + t)^\alpha) \leq \log((e^t)^\alpha) = \alpha t
     $$
     Portanto, $g_n(x) \leq n \alpha (f(x)/n) = \alpha f(x) \in L^1(\mu)$. Agora estamos muito felizes, pois sabemos que pontualmente (para cada $x$ fixo).
     
@@ -169,7 +183,7 @@ $$0 = \int_X (\liminf_n f_n)d\mu < \liminf_n \int_X f_nd\mu = 1$$
     $$A = \bigcup_n E_n \quad \Rightarrow \quad \mu(A) = \mu \big(\bigcup_n E_n \big) \leq \sum_n \mu(E_n) \leq 2$$
     E se definirmos $A_m = \bigcup_{n\geq m} E_n$, achamos uma sequência decrescente de conjuntos de medida finita: $A = A_1 \supset A_2 \supset \dots$.
     Além do mais,
-    $$\mu(A_m) \leq \sum_{n \geq m} \mu(E_n) \geq \sum_{n \geq m} 2^{-n} = 2^{-m + 1} \to 0$$
+    $$\mu(A_m) \leq \sum_{n \geq m} \mu(E_n) \leq \sum_{n \geq m} 2^{-n} = 2^{-m + 1} \to 0$$
     Quando $m \to \infty$. Portanto, $\mu(\bigcap_m A_m) \to 0$.
 
     A ideia da prova agora é mostrar que a integral sobre esse conjunto é um limite sobre integrais todas maiores que $\eps$, mas então teríamos
