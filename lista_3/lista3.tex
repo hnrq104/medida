@@ -4,10 +4,10 @@ Listagem de problemas:
 \begin{enumerate}
     \item Exercício \ref{prob:l3:1} : \Frowny
     \item Exercício \ref{prob:l3:2} : \Frowny
-    \item Exercício \ref{prob:l3:3} : \Frowny
-    \item Exercício \ref{prob:l3:4} : \Frowny
-    \item Exercício \ref{prob:l3:5} : \Frowny
-    \item Exercício \ref{prob:l3:6} : \Frowny
+    \item Exercício \ref{prob:l3:3} : \checkmark
+    \item Exercício \ref{prob:l3:4} : \checkmark
+    \item Exercício \ref{prob:l3:5} : \checkmark
+    \item Exercício \ref{prob:l3:6} : \checkmark
 \end{enumerate}
 
 \begin{problem}
@@ -106,9 +106,14 @@ Achei que esse problema era um pouco mais fácil do que realmente é. A ideia pr
 aproximar $f$ por funções borelianas por baixo cujo limite das integrais é a integral de $f$.
 Para formalizar isso, precisamos de um lema.
 
+\textbf{Nota posterior:} Só percebi agora que $f$ é supostamente complexa, mas como vimos anteriormente
+isso não faz a menor diferença, escreva $f = u^{+} - u^{-} + iv^{+} - iv^{-}$ e aplique o resultado
+para cada parte. Vamos supor de agora em diante que $f : \R \to \R^+$.
+
 \begin{lemma}
+    \label{lemm:sn_ae}
     Seja $s_n$ uma sequência funções simples, todas menores igual a uma $f: X \to \R^+$ mensurável,
-    as quais vale que $s_n(x) \to f(x)$ e 
+    as quais vale que
     $$\lim_{n \to \infty} \int_X s_n d\mu = \int_X f d\mu$$
     (Tal sequência sempre pode ser obtida pela definição da integral de $f$ e pela aproximação feita em aula). 
     Se definimos $S = \sup_n s_n$ mensurável, então $\mu(\{x : S(x) \neq f(x)\}) = 0$.
@@ -123,21 +128,111 @@ Para formalizar isso, precisamos de um lema.
     Mas isso é absurdo, pois $$\int_X f - s_n d\mu \to 0$$
 \end{proof}
 Essa é a ferramenta principal. Agora, para a questão, basta procurar uma sequência da mesma forma composta por funções borelianas 
-- essa parte é mais difícil - a forma com que farei isso aqui muito provavelmente não é a ideal.
+- essa parte é mais difícil. Para isso, vou invocar o Teorema 2.17 do livro do Rudin (adaptado a $\R$).
+\begin{theorem}
+    Sejam $\mu$ e $M$ a medida e a $\sigma$-álgebra de Lebesgue da reta, elas satisfazem as seguintes propriedades:
+    \begin{enumerate}[label=(\alph*)]
+        \item Se $E \in M$ e $\eps > 0$, existe um fechado $F$ e um aberto $V$ tal que $F \subset E \subset V$ e $\mu(V - F) < \eps$. 
+        \item $\mu$ é uma medida regular de Borel
+        \item Se $E \in M$, existem $A$ e $B$ tal que $A$ é $F_\sigma$, $B$ é $G_\delta$, $A \subset E \subset B$, e $\mu(B-A) = 0$.
+    \end{enumerate}
+\end{theorem}
+Agora estamos prontos para resolver o problema.
+\begin{proof}
+    \textbf{Prova do exercício.} Seja $(s_n)$ uma sequência de funções Lebesgue simples que aproximam
+    a integral de $f$ por baixo. Cada $s_n$ pode ser escrita da forma
+    $$s_n = \sum_{m=1}^{k} a_m \mathds{1}_{E_m}$$
+    Onde os $E_m$ são conjuntos de Lebesgue, pelo Teorema, podemos aproximá-los por borelianos $A_m$ de mesma medida,
+    de forma que a função simples boreliana 
+    $$\tilde{s}_n = \sum_{m=1}^{k} a_m \mathds{1}_{A_m}$$
+    é igual a $s_n$ a.e. Como
+    $$\int_X \tilde{s}_n d\mu = \int_X s_n d\mu$$
+    então temos que
+    $$\lim_{n\to\infty} \int_X \tilde{s}_n d\mu = \int_X fd\mu$$
+    Claramente, $\tilde{s}_n \leq s_n \leq f$, logo pelo lema \ref{lemm:sn_ae} $S = \sup \tilde{s}_n$ é idêntica
+    a $f$ a.e. 
+\end{proof}
 
-IDEIA, DADA UMA FUNÇÃO STEP LEBESGUE, APROXIMAR OS CONJUNTOS DE LEBESGUE  POR $\eps/2^N$ EM FECHADOS (BOREL) POR BAIXO
-SE A GENTE PARTILHAR A RETA EM INTERVALOS DE $[0,1]$ GANHAMOS
 \begin{problem}
     \label{prob:l3:5}
 \end{problem}
+Essa questão é a mais simples e vou tentar transcrever o desenho que soluciona ela em palavras.
+A ideia aqui é que escrevamos uma sequência de funções trapezoidais em $[0,1]$ que vão ficando cada vez mais fininhas,
+de forma que integrar sobre elas tenda a $0$, mas que cada ponto de $[0,1]$ chegue a valer $0$ e $1$ infinitas vezes.
 \begin{proof}
-    
+    Vamos construir uma sequência de funções contínuas espertas $(F_n)_n$ em $[0,1]$.
+    % $$F_{2^k}(x) = \begin{cases}
+    %     1 &\text{se } x \leq 2^{-k}\\
+    %     1 - 2^k(x - 2^{-k}) & \text{se } 2^{-k} \leq x \leq 2^{-k + 1}\\
+    %     0 & \text{se }  x \geq 2^{-k + 1}
+    % \end{cases}$$
+    % Semelhantemente, definimos (para a última função do bloco)
+    % $$F_{2^{k+1} - 1}(x) = \begin{cases}
+    %     1 &\text{se } x \geq  1 - 2^{-k}\\
+    %     2^k(x - (1 - 2^{-k})) & \text{se } 1 - 2^{-k} \geq x \geq 1 - 2^{-k + 1}\\
+    %     0 & \text{se }  x \leq 1 - 2^{-k + 1}
+    % \end{cases}$$
+    % Ou mais econômicamente, $F_{2^{k+1} - 1}(x) = F_{2^k}(1 - x)$.
+    Para $m \in \{2^k, 2^k + 1, \dots, 2^{k+1} - 1\}$, seja $n = m - 2^k$, definimos
+    $$F_{m}(x) = \begin{cases}
+        0 & \text{se }  x \leq (n - 1)2^{-k}\\
+        2^k(x - (n-1)2^{-k}) & \text{se } (n-1)2^{-k} \leq x \leq n2^{-k}\\
+        1 &\text{se } n2^{-k} \leq x \leq (n+1)2^{-k}\\
+        1 - 2^k(x - (n+1)2^{-k}) & \text{se } (n+1)2^{-k} \leq x \leq (n+2)2^{-k}\\
+        0 & \text{se }  x \geq (n+2)2^{-k}
+    \end{cases}$$
+    Onde óbiviamente $F_m$ está definida definida dessa forma quando os casos fazem sentido.
+    Por exemplo quando $m = 2^k$, $n=0$ o primeiro e o segundo caso não aparecem. Quando 
+    $m = 2^{k+1} - 1$, $n = 2^{k} - 1$, o quarto e o último não aparecem. Essas funções são claramente contínuas, 
+    são trapézios que vão ficando cada vez menos espessos. Se $2^k \leq m < 2^{k+1}$, uma soma simples 
+    sobre funções afins mostra que 
+    $$\int_0^1 F_m dx \leq 2^{-k + 1} \to 0$$
+    No entanto, é também fácil perceber que se $k > 2$, para qualquer $x \in [0,1]$, existem $2^k \leq N,M < 2^{k+1}$
+    tais que $F_N(x) = 0$ e $F_M(x) = 1$. Portanto $F_m(x)$ não converge para nenhum ponto, mesmo que as integrais convirjam. 
 \end{proof}
 
 \begin{problem}
     \label{prob:l3:6}
 \end{problem}
+Esse é o problema mais legal, não acredito que consiguiria fazê-lo sem uma dica da professora Cynthia.
+A única função não mensurável que conhecemos até agora é a característica de um conjunto não mensurável,
+a ideia é tentar formar essa característica somente no liminf. Vamos fazer isso removendo pontualmente 
+o complementar de um conjunto não mensurável infinitas vezes. \textbf{Obs:} A escolha esquista
+de $(0,1]$ nos conjuntos a seguir é para facilitar a colagem que precisaremos fazer para construir a função $f$.
 \begin{proof}
+    Seja $T$ um conjunto não mensurável de $(0,1]$ e $T' = (0,1] - T$ seu complementar em $(0,1]$, note que $T'$ também é não mensurável.
+    Vamos definir uma função $g(x,t) : \R\times(0,1] \to \{0,1\}$ que será a nossa ferramenta principal para construir  $f$.
     
+    Dado $t$ fixo, se $t \in T'$, seja $A_t = (0,1] - \{t\}$, então definimos 
+    $$g(x,t) \begin{cases}
+        \mathds{1}_{A_t}(x) & \text{se } t \in T'\\
+        \mathds{1}_{(0,1]}(x) & \text{se } t \not \in T'
+    \end{cases}$$
+    Note que, trivialmente, para todo $t \in (0,1]$, a função $g(t,x)$ -
+    com a variável em $x$ - é mensurável, além do mais, sua integral sobre $x$ é claramente $1$. 
+    
+    Agora a  ideia é de alguma forma colar infinitas cópias de $g$ uma acima da outra.
+    Separe $(0,1]$ na união disjunta:
+    $$(0,1] = \bigcup_{n=1}^{\infty} (2^{-n}, 2^{-n + 1}]$$
+    Definiremos $g_n(x,t) : \R \times (2^{-n},2^{-n + 1}] \to \{0,1\}$ da seguinte forma:
+    $$g_n(x, t) = g(x, t2^n - 1)$$
+    Por fim, defina $f :\R^2 \to \{0,1\}$ colando as $g_n$.
+    $$f(x,t) = \begin{cases}
+        \mathds{1}_{(0,1]}(x) & \text{se } t \leq 0 \ \lor \ t > 1\\
+        g_n(x,t) & \text{se } t \in (2^{-n}, 2^{-n + 1}] 
+    \end{cases}$$
+    Afirmo que $f$ satisfaz as propriedades do exercício. Claramente a integral de 
+    Lebesgue $\int_\R f(x,t) dx = 1$ para todo $t \in \R$, pois, fixando $t$, nossa 
+    função é sempre a indicadora de $(0,1]$ salvo as vezes um único ponto. Para a segunda propriedade,
+    vamos querer verificar que $h(x) = \liminf_{t \to 0} f(x,t)$ é justamente $\mathds{1}_T(x)$ que não é mensurável.
+    Para isso note que se $x \in T \subset [0,1]$, então $g(x,t) = 1$ para todo $t$ e portanto, $g_n(x,t) = 1$ para qualquer $t$ também.
+    Logo $f(x,t) = 1$ para todo $t$ e $h(x) = 1$. Se $x \in (0,1]^c$ então também, trivialmente $f(x,t) = 0$ para todo $t$
+    e $h(x) = 0$. Agora, se $x \in T'$, para todo $n$, vale que 
+    $$g_n\bigg(x, \frac{x + 1}{2^n}\bigg) = \mathds{1}_{A_x}(x) = 0$$
+    e, para qualquer outro $t \in (2^{-n}, 2^{-n + 1}]$,
+    $$g_n(x, t) = 1$$
+    Em particular, sendo colagem desses valores, vale que para valores arbitrariamente pequenos de $t$ atingimos
+    $f(x,t) = 0$ e portanto $h(x) = \liminf_{t \to 0} f(x,t) = 0$. Segue dos casos anteriores que $\liminf_{t \to 0} f(x,t)= \mathds{1}_T(x)$
+    que não é mensurável.
 \end{proof}
 
