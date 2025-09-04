@@ -2,7 +2,7 @@
 
 Listagem de problemas:
 \begin{enumerate}
-    \item Exercício \ref{prob:l3:1} : \Frowny
+    \item Exercício \ref{prob:l3:1} : \checkmark
     \item Exercício \ref{prob:l3:2} : \checkmark
     \item Exercício \ref{prob:l3:3} : \checkmark
     \item Exercício \ref{prob:l3:4} : \checkmark
@@ -27,8 +27,10 @@ Listagem de problemas:
     \end{enumerate}
     Vamos mostrar que $A$ é a união enumerável de seus componentes conexos, como os componentes conexos são intervalos
     da reta, eles são borelianos e portanto $A$ será boreliano. Para isso, basta notar que em cada componente conexo 
-    há um racional que determina ele completamente - tome $x$ de um componente, olhe para 
-    um racional no intervalinho associado a $x$. Como os racionais são enumeráveis, esses componentes são enumeráveis.
+    há um racional que determina ele completamente. Tome $x \in A$ de um componente, olhe para 
+    um racional no intervalo associado a $x$ pela condição 
+    de continuidade, essa racional é representante da componente conexa. 
+    Como os racionais são enumeráveis, essas componentes são enumeráveis e $A$ é mensurável.
 \end{proof}
 
 \begin{problem}
@@ -36,7 +38,7 @@ Listagem de problemas:
 \end{problem}
 \begin{proof}
     Basta lembrar bem da definição da integral de Riemann para perceber que a de Lebesgue generaliza ela.
-    Por Riemann, toda função contínua num compacto é integrável e suas somas inferiores e superiores convergem. Seja $f[a,b] \to \R^+$ contínua, temos
+    Por Riemann, toda função contínua num compacto é integrável e suas somas inferiores e superiores convergem. Seja $f: [a,b] \to \R^+$ contínua, temos
     $$\int_a^b f(x) dx = \lim_{|P|\to 0} L(P,f)$$
     onde $P$ é um pontilhamento do compacto $[a,b]$, $L(f,P)$ é a soma inferior de $f$ por $P$ e $|P|$ é 
     o tamanho do maior intervalo do pontilhamento. Podemos expressar
@@ -66,8 +68,8 @@ Listagem de problemas:
         \inf\{f(a): a \in [t_{m-1}, t_{m}]\} & \text{se } x \in [t_{m-1}, t_{m}]\\
     \end{cases}$$
     Separar o último caso não é necessário, coloquei somente por clareza. Da forma que estão definidos,
-    (1) os $s_n$ são funções simples. Como os $P_n$ são refinamentos, (2) $s_{n} \leq s_{n+1}$ e, além do mais,
-    sendo $f$ uniformemente contínua em $[a,b]$, temos que (3) $s_n \to f$ uniformemente. Por [\ref{trm:conv_mon}],
+    os $s_n$ são funções simples. Como os $P_n$ são refinamentos, $s_{n} \leq s_{n+1}$ e, além do mais,
+    sendo $f$ uniformemente contínua em $[a,b]$, temos que $s_n \to f$ uniformemente. Por [\ref{trm:conv_mon}],
     \begin{equation}
         \lim_{n\to \infty} \int_{[a,b]} s_n d\mu= \int_{[a,b]} f d\mu
     \end{equation}
@@ -125,14 +127,14 @@ Listagem de problemas:
     qualquer $\eps > 0$, existe um aberto $V \supset E$, tal que $\mu(V - E) < \eps$. Escrevemos 
     $$E = \bigcup_n \mu(E \cap K_n)$$
     Como $\mu(E \cap K_n) < \infty$, pois $K_n$ é compacto, existe aberto $V_n \supset (E \cap K_n)$ com $\mu(V_n - (E \cap K_n)) < \eps/2^n$.
-    Logo, tome $V = \bigcup_n V_n$ aberto, temos que $V - E \subset \bigcup_n V_n - (E \cap K_n)$, logo 
+    Tome $V = \bigcup_n V_n$ aberto, temos que $V - E \subset \bigcup_n V_n - (E \cap K_n)$ e
     $$\mu(V - E) \leq \sum_{n=1}^{\infty} \mu(V_n - E \cap K_n) < \eps$$
     Isso implica que podemos aproximar por fechados por dentro também, pois aplicando a afirmação 
     para $E^c$, conseguimos um aberto $W \supset E^c$ (com complementar $W^c \subset E$ fechado) tal que
     $$\mu(E - W^c) = \mu(W - E^c) < \eps$$
     Para $n$ natural, tome fechados $F_n \subset E$ com $\mu(E - F_n) < 1/n$. Seja $F_\sigma = \bigcup_n F_n \subset E$,
     então, sendo união enumerável de fechados, $F_\sigma$ é Boreliano e vale que, para todo $n$,
-    $$\mu(E - F\sigma) \leq \mu(E - F_n) < 1/n$$
+    $$\mu(E - F_\sigma) \leq \mu(E - F_n) < 1/n$$
     logo, $\mu(E - F_\sigma) = 0$.
     
 \end{proof}
@@ -195,7 +197,7 @@ Listagem de problemas:
     Para dar o golpe de misericórdia nas funções reais positivas, se $\infty \in \{f(x) : x \in \R\}$, então seja $E = f^{-1}(\infty)$.
     Encontre, pelo lema \ref{lemm:borel_approx}, um boreliano $B \subset E$ com $\mu(E - B) = 0$ e uma boreliana 
     $G = f\mathds{1}_{E^c}$ a.e. Então, a função 
-    $$H = G\mathds{1}_{E^c}  + \infty \cdot \mathds{1}_{B}$$
+    $$H = G  + \infty \cdot \mathds{1}_{B}$$
     é claramente igual a $f$ a.e.
 
     Para finalizar, estendendo para funções complexas, seja $f = u^+ - u^- + iv^+ - iv^-$ de Lebesgue,
@@ -212,19 +214,7 @@ Essa questão é a mais simples e vou tentar transcrever o desenho que soluciona
 A ideia aqui é que escrevamos uma sequência de funções trapezoidais em $[0,1]$ que vão ficando cada vez mais fininhas,
 de forma que integrar sobre elas tenda a $0$, mas que cada ponto de $[0,1]$ chegue a valer $0$ e $1$ infinitas vezes.
 \begin{proof}
-    Vamos construir uma sequência de funções contínuas espertas $(F_n)_n$ em $[0,1]$.
-    % $$F_{2^k}(x) = \begin{cases}
-    %     1 &\text{se } x \leq 2^{-k}\\
-    %     1 - 2^k(x - 2^{-k}) & \text{se } 2^{-k} \leq x \leq 2^{-k + 1}\\
-    %     0 & \text{se }  x \geq 2^{-k + 1}
-    % \end{cases}$$
-    % Semelhantemente, definimos (para a última função do bloco)
-    % $$F_{2^{k+1} - 1}(x) = \begin{cases}
-    %     1 &\text{se } x \geq  1 - 2^{-k}\\
-    %     2^k(x - (1 - 2^{-k})) & \text{se } 1 - 2^{-k} \geq x \geq 1 - 2^{-k + 1}\\
-    %     0 & \text{se }  x \leq 1 - 2^{-k + 1}
-    % \end{cases}$$
-    % Ou mais econômicamente, $F_{2^{k+1} - 1}(x) = F_{2^k}(1 - x)$.
+    Vamos construir uma sequência de funções contínuas espertas $(F_n)_n$ em $[0,1]$..
     Para $m \in \{2^k, 2^k + 1, \dots, 2^{k+1} - 1\}$, seja $n = m - 2^k$, definimos
     $$F_{m}(x) = \begin{cases}
         0 & \text{se }  x \leq (n - 1)2^{-k}\\
