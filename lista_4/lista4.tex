@@ -1,0 +1,79 @@
+\section{Lista 4 (04/09/2025)}
+
+Listagem de problemas:
+\begin{enumerate}
+    \item Exercício \ref{prob:l4:1} : \checkmark
+    \item Exercício \ref{prob:l4:2} : \Frowny
+    \item Exercício \ref{prob:l4:3} : \Frowny
+    \item Exercício \ref{prob:l4:4} : \Frowny
+    \item Exercício \ref{prob:l4:5} : \Frowny
+\end{enumerate}
+
+\begin{problem}
+    \label{prob:l4:1}
+\end{problem}
+\begin{proof}
+    Sabemos que para qualquer $E \subset \R$, $\lambda^*(E) \leq \lambda^*(E \cap A) + \lambda^*(E - A)$.
+    Queremos mostrar então que a outra desigualdade vale, i.e. $\lambda^*(E) \geq \lambda^*(E \cap A) + \lambda^*(E - A)$.
+    
+    Se $\lambda^*(E) = \infty$, não há nada a fazer. Suponha que $\lambda^*(E) < \infty$ e dado $\eps > 0$
+    encontre um aberto $V$ com $E \subset V$ tal que 
+    $$\lambda^*(V) < \lambda^*(E) + \eps .$$
+    Note crucialmente que a condição que $A$ satisfaz significa que $A \in M_F$
+    e sendo $V$ aberto, então $V \in M_F$ também. Logo, $\lambda^*(V) = \lambda^*(V \cap A) + \lambda^*(V - A)$.
+    Portanto, temos 
+    $$\lambda^*(E) + \eps > \lambda^*(V) = \lambda^*(V \cap A) + \lambda^*(V - A) \geq \lambda^*(E \cap A) + \lambda^*(E - A).$$
+    Fazendo $\eps \to 0$, terminamos a demonstração.
+\end{proof}
+
+\begin{problem}
+    \label{prob:l4:2}
+\end{problem}
+\begin{proof}
+    Vamos seguir a dica do Rudin para esse exercício. Seja $\{K_\alpha\}$ a coleção de todos 
+    os subconjuntos compactos de $X$ com $\mu(K_\alpha) = 1$. Essa coleção não é vazia pois $X$ está nela. 
+    Defina o compacto (interseção de compactos)
+    $$K = \bigcap_\alpha K_\alpha.$$
+    Vamos mostrar que $K$ satisfaz as propriedades exigidas. 
+    
+    Naturalmente, se houvesse subcompacto próprio  $H \subsetneq K$
+    com $\mu(H) = 1$, então teriamos que $K \subset H \subset X$ e $K = H$, absurdo. Como $\mu(K) \leq \mu(X) \leq 1$, 
+    falta só mostrar que $\mu(K) \geq 1$.
+    % ,faremos isso provando que se $V \supset K$ é um aberto, então $\mu(V) \geq 1$.
+    Seja $V$ aberto com $K \subset V$, então $X - V$ é um compacto e em particular
+    $$X - V \subset X - K = X \cap \bigg(\bigcup_\alpha K_\alpha^c\bigg) \subset \bigcup_\alpha K_\alpha^c.$$
+    Tomando uma subcobertura finita, notamos que
+    $$X - V \subset X \cap \bigcup_{i=1}^{n} K_{\alpha_i}^c = \bigcup_{i=1}^{n} (X - K_{\alpha_i})$$
+    Portanto, 
+    $$\mu(X - V) \leq \sum_{i=1}^{n} \mu(X - K_{\alpha_i}) = 0$$
+    e temos $1 = \mu(X \cap V) \leq \mu(V)$. Como isso vale para qualquer $V$ aberto que contém $K$, tomando
+    ínfimos, temos que $\mu(K) \geq 1$.
+\end{proof}
+
+\begin{problem}
+    \label{prob:l4:3}
+\end{problem}
+Eu tinha uma resposta super complicada para essa pergunta, por sorte o Bruno - aluno de Doutorado - 
+viu a questão e respondeu de maneira muito mais simples.
+\begin{proof}
+    Vamos mostrar que esses são os fechos de abertos limitados da reta. Uma inclusão 
+    é óbvia, pois para toda $f \in C_c(\R)$, $\text{supp } f = \overline{f^{-1}(\R - \{0\})}$
+    é o fecho do aberto limitado $f^{-1}(\R - \{0\})$. Agora para todo aberto $A$ limitado em $\R$, vamos mostrar 
+    que existe uma função contínua $f$ com $A = f^{-1}(\R - \{0\})$, seguirá que $\overline{A} = \text{supp }f$.
+    Como estamos na reta, escreva $A$ como união enumerável de intervalos disjuntos (suas componentes conexas)
+    $$A = \bigcup_{n=1} (a_n, b_n)$$
+    sendo $A$ limitado, $\inf a_n > \infty$ e $\sup b_n < \infty$. Então, defina $f$ contínua sendo
+    $$f(x) = \begin{cases}
+        0 & \text{se } x \not \in A\\
+        (b_n - x)(x - a_n) & \text{se } x \in (a_n, b_n)
+    \end{cases}$$
+    Claramente, como $A$ é limitado, o suporte de $f$ é compacto e $f^{-1}(\R - \{0\}) = A$, pois $f \neq 0$ sse $f \in A$.
+\end{proof}
+
+\begin{problem}
+    \label{prob:l4:4}
+\end{problem}
+
+\begin{problem}
+    \label{prob:l4:5}
+\end{problem}
