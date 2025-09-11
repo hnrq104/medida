@@ -3,10 +3,17 @@
 Listagem de problemas:
 \begin{enumerate}
     \item Exercício \ref{prob:l4:1} : \checkmark
-    \item Exercício \ref{prob:l4:2} : \Frowny
-    \item Exercício \ref{prob:l4:3} : \Frowny
-    \item Exercício \ref{prob:l4:4} : \Frowny
-    \item Exercício \ref{prob:l4:5} : \Frowny
+    \item Exercício \ref{prob:l4:2} : \checkmark
+    \item Exercício \ref{prob:l4:3} : \checkmark
+    \item Exercício \ref{prob:l4:4} : \checkmark
+    \item Exercício \ref{prob:l4:5} : \checkmark/\Frowny\,  (Se sortear pode corrigir)
+    \begin{enumerate}[label=(\alph*)]
+        \item \checkmark
+        \item \checkmark
+        \item \checkmark
+        \item \Frowny /\checkmark (Acho que não está suficientemente detalhada - alguns passos omissos)
+        \item \Frowny/\checkmark (Não acredito que seja uma prova de verdade)
+    \end{enumerate}
 \end{enumerate}
 
 \begin{problem}
@@ -37,7 +44,7 @@ Listagem de problemas:
     Vamos mostrar que $K$ satisfaz as propriedades exigidas. 
     
     Naturalmente, se houvesse subcompacto próprio  $H \subsetneq K$
-    com $\mu(H) = 1$, então teriamos que $K \subset H \subset X$ e $K = H$, absurdo. Como $\mu(K) \leq \mu(X) \leq 1$, 
+    com $\mu(H) = 1$, então teriamos que $K \subset H \subset X$ e $K = H$, absurdo. Como $\mu(K) \leq \mu(X) = 1$, 
     falta só mostrar que $\mu(K) \geq 1$.
     % ,faremos isso provando que se $V \supset K$ é um aberto, então $\mu(V) \geq 1$.
     Seja $V$ aberto com $K \subset V$, então $X - V$ é um compacto e em particular
@@ -67,13 +74,237 @@ viu a questão e respondeu de maneira muito mais simples.
         0 & \text{se } x \not \in A\\
         (b_n - x)(x - a_n) & \text{se } x \in (a_n, b_n)
     \end{cases}$$
-    Claramente, como $A$ é limitado, o suporte de $f$ é compacto e $f^{-1}(\R - \{0\}) = A$, pois $f \neq 0$ sse $f \in A$.
+    Claramente, como $A$ é limitado, o suporte de $f$ é compacto e $f^{-1}(\R - \{0\}) = A$, pois $f(x) \neq 0$ sse $x \in A$.
 \end{proof}
 
 \begin{problem}
     \label{prob:l4:4}
 \end{problem}
+Essa questão é fácil mas é bem longa, dá uma preguiça miserável escrevê-la. Vamos seperá-la em partes.
+\begin{prop}
+    $\rho : \R^2 \times \R^2 \to \R^+$ definida por
+    $$\rho((x_1, y_1) , (x_2,y_2)) = \begin{cases}
+        |y_1 - y_2| & \text{se } x_1 = x_2\\
+        1 + |y_1 - y_2| & \text{se } x_1 \neq x_2\\
+    \end{cases}$$
+    é uma métrica de $\R^2$.
+\end{prop}
+\begin{proof}
+    Temos que verificar as propriedades usuais - todas são claras, mas farei a fim de completude. 
+    Não negatividade e separabilidade segue de que 
+    $$\rho((a,b),(x,y)) = 0 \iff a = x \land b = y$$
+    e $\rho$ é positiva. Simetria segue diretamente da definição e de que $|y_1 - y_2| = |y_2 - y_1|$. Para desigualdade 
+    triangular, temos que analisar dois casos, sejam $p_1 = (x_1,y_1)$, $p_2 = (x_2,y_2)$, $p_3 = (x_3,y_3)$ três pontos de $\R^2$, então
+    \begin{enumerate}
+        \item Se $x_1 = x_3$, então $\rho(p_1,p_3) = |y_1 - y_3| \leq |y_1 - y_2| + |y_2 - y_3| \leq \rho(p_1,p_2) + \rho(p_2,p_3)$.
+        \item Se $x_1 \neq x_3$, então já temos que $x_1 \neq x_2$ ou $x_2 \neq x_3$, em ambos os casos
+        $$\rho(p_1,p_3) = 1 + |y_1 - y_3| \leq 1 + |y_1 - y_2| + |y_2 - y_3| \leq \rho(p_1,p_2) + \rho(p_2,p_3).$$ 
+    \end{enumerate}
+\end{proof}
+\begin{prop}
+    O espaço $(\R^2, \rho)$ é localmente compacto.
+\end{prop}
+\begin{proof}
+    Para todo ponto $p = (x,y)$, a bola aberta de raio $1/2$ ao redor de $p$ é $B_{(p,1/2)} = \{x\} \times (y-1/2, y+1/2)$ é aberto. Vamos mostrar que
+    seu fecho, $B_{[p,1/2]} = \{x\} \times [y-1/2, y+1/2]$, é compacto. Para isso, vamos usar somente que $[y-1/2,y+1/2]$ é compacto em $\R$.
+    Seja $\{U_\alpha\}_\alpha$ uma cobertura aberta de $B_{[p,1/2]}$.
+    Então
+        $$B_{[p,1/2]} \subset (\{x\}\times \R) \cap \bigcup_\alpha U_\alpha$$
+    Fixando o eixo $e_1 = x$ e tomando projeções $\pi_2$ na segunda coordenada, vemos que
+    $$
+        B_{[p,1/2]} \subset \bigcup_\alpha U_\alpha \iff [y-1/2,y+1/2] \subset \bigcup_\alpha \pi_2((\{x\} \times \R) \cap U_\alpha).
+    $$
+    Mas é óbvio pela definição de $\rho$ (que condiz com a métrica usual de $\R$ se a primeira coordenada está fixa) 
+    que $\pi_2((\{x\} \times \R) \cap U_\alpha)$ são conjuntos abertos em $\R$. Logo, como $[y-1/2, y+1/2]$ é compacto,
+    obtemos um conjunto finito de indices $\{\alpha_i\}_{i=1}^{N}$, tal que
+    $$
+    [y-1/2,y+1/2] \subset \bigcup_{i=1}^N \pi_2((\{x\} \times \R) \cap U_{\alpha_i})
+    $$
+    Claramente, $B_{[p,1/2]} \subset \bigcup_{i=1}^N U_{\alpha_i}$. Como a cobertura aberta foi 
+    tomada arbitráriamente, provamos que $B_{[p,1/2]}$ é compacto.
+\end{proof}
+
+\begin{prop}
+    \label{prob:l4:finite_compact}
+    Para $f \in C_c((\R^2,\rho))$, existem no máximo finitos $x_1, \dots x_n$ tais quais $f(x,y) \neq 0$ para algum $y$. 
+\end{prop}
+\begin{proof}
+    Antes de provar o resultado, perceba que, dado $x \in \R$ fixo, o conjunto 
+    $$\{x\} \times \R = \bigcup_{y \in \R} B_{((x,y) , 1/2)}$$
+    é união de abertos e portanto aberto do nosso espaço métrico.
+    Agora o resultado segue quase que imediatamente por contradição, 
+    suponha que $f$ de suporte compacto não satisfaz a condição. Então 
+    existem infinitos $x_\alpha$ com $f(x_\alpha,y)$ diferente de $0$ para algum $y$.
+    Em particular, vale a seguinte inclusão natural
+    \begin{equation}
+        \text{supp f} \subset \bigcup_\alpha \{x_\alpha\} \times \R
+    \end{equation}
+    pois, se $x_\beta \not \in \{x_\alpha\}_\alpha$, então, para qualquer $y,z \in \R$ e $\alpha$, $\rho( (x_\beta, y) , (x_\alpha, z)) >= 1$. 
+    Logo, $(x_\beta, y)$ não é valor de aderência de nenhuma sequência de $f^{-1}(\R - \{0\})$. Note 
+    que a cobertura em (12) óbviamente não admite subcobertura finita, absurdo.
+\end{proof}
+
+\begin{prop}
+    (Exercício) Defina, para $f \in C_c((\R^2,\rho))$ o funcional linear
+    $$\Lambda(f) = \sum_{j=1}^{n} \int_\R f(x_j,y) dy.$$
+    Seja $\mu$ a medida recuperada pelo TRR. Se $E$ é o eixo-$x$ então $\mu(E) = \infty$
+    e $\mu(K) = 0$ para todo compacto $K \subset E$.
+\end{prop}
+
+\begin{proof}
+    Primeiramente temos que mostrar que o conjunto é mensurável. Vamos fazer algo melhor e mostrar que ele 
+    é boreliano. Note que ele é interseção enumerável de abertos
+    $$\R \times \{0\} = \bigcap_{n \in \N} \bigcup_{x \in \R} B_{((x,0), 1/n)}.$$
+    Portanto, faz sentido tomar $\mu$ sobre ele. Vamos mostrar que para qualquer aberto $V$ que contém o eixo $x$,
+    $\mu(V) = \infty$, para isso, por definição, basta exibir uma sequência de funções $f_n \prec V$ com $\Lambda(f_n) \to \infty$.
+
+    Falta uma ideia boa para essa parte, mostrar que $V$ é gordo em infinitos pontos. Defina os conjuntos $A_n$ onde $V$ é um pouco espesso
+    $$A_n = \{x \in \R ; \{x\} \times (-1/n, 1/n) \subset V\}$$
+    Note que, como $V$ é aberto e contém $\R \times \{0\}$, claramente todo ponto $x \in \R$ pertence a algum $A_n$, i.e
+    $$\R \subset \bigcup_{n \in \N} A_n$$
+    Como $\R$ é não enumerável e temos na direita uma união enumerável, precisamos que algum $A_n$ seja não enumerável e portanto
+    infinito. Seja $A_M$ então um dos conjuntos infinitos e escolha infinitos pontos  distintos $(x_k)_k \in A_M$.
+    Agora estamos prontos para definir nossa sequência de funções de suporte compacto em $V$. Seja $G$ função real 
+    com $[-1/2M, 1/2M] \prec G \prec (-1/M, 1/M)$, naturalmente
+    $$\int_\R G dy \geq \frac{1}{M}$$
+    Defina $f_n$ sendo
+    $$f_n(x,y) = \begin{cases}
+        G(y) & \text{se } x = x_k \text{ para algum } k \leq n\\ 
+        0 & \text{c.c}
+    \end{cases}.$$
+    Claramente $f_n \prec V$, no entanto, 
+    $$\Lambda(f_n) = \sum_{i=1}^{n} \int_\R f_n(x_m, y) dy = \sum_{i=1}^{n} \int_\R G(y) dy \geq \frac{n}{M} \to \infty$$
+    quando $n \to \infty$. Como consequência, $\mu(V) = \infty$. Portanto para qualquer aberto $V \supset E$, $\mu(V) = \infty$,
+    logo $\mu(E) = \infty$.
+
+    Para mostrar que para todo compacto $K \subset E$, $\mu(K) = 0$, vamos construir outra sequência $(f_n)$, dessa vez
+    com $K \prec f_n$, mas que $\Lambda(f_n) \to 0$. Lembrando da prova da proposição \ref{prob:l4:finite_compact} e notamos 
+    que $K$ é finito. Escrevendo $K = \{(x_1,0), \dots, (x_M,0)\}$ fica claro o que devemos fazer. Seja $g_n$ uma função real contínua 
+    com $[-1/2n, 1/2n] \prec g_n \prec (-1/n,-1/n)$, análogamente ao caso anterior definimos 
+    $$f_n(x,y) = \begin{cases}
+        g_n(y) & \text{se } x = x_k \text{ para algum } k\\
+        0 & \text{c.c}
+    \end{cases}.$$
+    É imediato que $K \prec f_n$, mas note que 
+    $$\Lambda(f_n) = \sum_{k = 1}^{M} \int_\R f_n(x_k, y)dy = \sum_{k=1}^{M} \int_\R g_n(y)dy \leq \frac{2M}{n} \to 0$$
+    quando $n \to 0$, portanto $\mu(K) \leq 0$.
+\end{proof}
 
 \begin{problem}
     \label{prob:l4:5}
 \end{problem}
+\begin{enumerate}[label=(\alph*)]
+    \item \begin{proof}
+        Fazendo duas iterações temos 
+        $$C_1 = [0,1/3] \cup [2/3, 1]$$
+        $$C_2 = [0,1/9] \cup [2/9, 1/3] \cup [2/3,7/9] \cup [8/9,1]$$
+        Indutivamente, se $C_n = \bigcup_m^{M} [a_m, b_m]$ é união finita de intervalos fechados
+        disjuntos, então, por definição
+        $$C_{n+1} = \bigcup_m^{M} \bigg[a_m, \frac{2a_m + b_m}{3}\bigg] \cup \bigg[ \frac{a_m + 2b_m}{3}, b_m \bigg]$$
+        também é união finita de intervalos fechados disjuntos.
+
+        Claramente os $C_n$ são compactos encaixados não vazios, portanto $C = \bigcap_n C_n$ é um compacto não vazio. 
+    \end{proof}
+
+    \item \begin{proof}
+        Vamos mostrar por indução que depois da $n$-ésima iteração, todos intervalos tem tamanho igual a $3^{-n}$. Note que isso 
+        implica o resultado, pois, sendo $C$ interseção de todos os $C_n$, não contém nenhum intervalo de medida positiva.
+        É claro para $n = 0$. Como na $n$-ésima iteração removemos 
+        o terço do meio de todos os intervalos que sobraram em $C_{n-1}$ (todos de tamanho $3^{-(n-1)}$), só 
+        sobram intervalos de tamanho $3^{-n}$, o que demonstra o passo indutivo. 
+    \end{proof}
+
+    \item \begin{proof}
+        Basta notar que ao remover os terços do intervalos fechados de $C_n$, temos que $\mu(C_{n+1}) = (2/3)\mu(C_n)$, 
+        pois de cada intervalo fechado conexo, deixamos somente $2/3$ dele sobrando.
+        Portanto, $\mu(C_n) = (2/3)^n \mu(C_0) = (2/3)^n$ e temos 
+        $$\forall n \quad \mu(C) \leq \mu(C_n) \leq (2/3)^n$$
+        ou seja, $\mu(C) = 0$.
+    \end{proof}
+
+    \item \begin{proof}
+        Há inúmeras formas de fazer isso, vou fazer a que acredito ser a mais intuitiva - mas não acho que é a mais fácil.
+        Note que em cada iteração da construção, nunca removemos os pontos extremos dos intervalos fechados,
+        sempre removemos abertos propriamente contidos no meio dos intervalos. Isso quer dizer 
+        que em qualquer momento da construção, se $C_n$ é a união disjunta
+        $$C_n = \bigcup_m [a_m, a_m + 3^{-n}]$$
+        então, para cada $m$, $a_m, 3^{-n} \in C$. Além do mais, em cada iteração, cada intervalo é dividido 
+        em um intervalo da "esquerda" e um intervalo da "direita", como visto na letra (a).
+        
+        Seja $E$ e $D$ símbolos para esquerda e direita, a ideia será construir uma injeção de $\{E,D\}^\N$ para $C$
+        usando sequências de pontos extremais dos $C_n$ - em cada passo da construção de $C$ 
+        decidimos se escolhemos um ponto esquerdo ou direito. Dada uma sequência $(a_0, a_1, \dots) \in \{E,D\}^\N$, 
+        definimos uma sequência $f((a_n)_n) = (c_0, c_1, \dots)$ em $C$  iterativamente. Para o primeiro elemento, temos
+        $$c_0 = \begin{cases}
+            0 & \text{se } a_0 = E\\
+            1 & \text{se } a_0 = D
+        \end{cases}$$
+        Agora, suponha que já construímos até $c_n$. Se $a_{n} = E$, então no $n$-ésimo passo escolhemos um ponto extremal esquerdo e portanto
+        em $C_{n+1}$ temos um conjunto do tipo $[c_{n}, c_{n} + 3^{-n-1}]$. Agora definimos 
+        $$c_{n+1} = \begin{cases}
+            c_{n} & \text{se } a_{n+1} = E\\
+            c_{n} + 3^{-n - 1} & \text{se } a_{n+1} = D\\
+        \end{cases}.$$
+        Semelhantemente, se $a_{n} = D$, então no passo anterior escolhemos $c_n$ extremal direito e, portanto, 
+        em $C_{n+1}$ temos um conjunto do tipo $[c_n - 3^{-n - 1}, c_n]$. Definimos
+        $$c_{n+1} = \begin{cases}
+            c_{n} - 3^{-n - 1} & \text{se } a_{n+1} = E\\
+            c_{n} & \text{se } a_{n+1} = D\\
+        \end{cases}$$
+
+        A afirmação é que cada sequência assim definida é convergente em $C$ e sequências distintas convergem em pontos distintos.
+        Para mostrar que $(c_1, c_2, \dots)$ converge em $C$, note que todos os elementos pertencem a $C$ e para cada $n$,
+        $|c_{n+1} - c_n| \leq 3^{-n - 1}$, portanto 
+        $$\sum_{n=0}^{\infty} |c_{n+1} - c_n| \leq \sum_{n=0}^{\infty} 3^{-n - 1} < \infty$$
+        Pelo M-teste de Weierstrass, $(c_n)$ converge, como $C$ é fechado, $(c_n)$ converge em um ponto de $C$. 
+        
+        Vamos mostrar  que sequências diferentes de $E,D$ geram pontos diferentes de $C$. Sejam $a = (a_n)_n \neq b = (b_n)_n$ ambas em $\{E,D\}^\N$,
+        seja $n_0$ o primeiro natural tal que $a_{n_0} \neq b_{n_0}$, então no $n_0$-passo, uma sequência escolheu ir para a esquerda 
+        e a outra escolheu ir para a direita. Suponha sem perda de generalidade que $a_{n_0} = E$ e $b_{n_0} = D$, então
+        se $n_0 = 0$, fica claro que para todo $n > 0$, $f(a)_n \in [0,1/3]$ e $f(b)_n \in [2/3,1]$, logo as sequências associadas não podem convergir no mesmo ponto.
+        Semelhantemente, se $n_0 > 0$, então sem perda de generalidade, suponha que $a_{n_0 - 1} = b_{n_0 - 1} = E$, temos que $[f(a)_{n_0} = c_{n_0 - 1}, c_{n_0 - 1} + 3^{-n_0} = f(b)_{n_0}] \subset C_{n_0}$
+        e desse momento adiante, para $n > n_0$, 
+        $$f(a)_n \in [f(a)_{n_0 + 1}, f(a)_{n_0 + 1} + 3^{-n_0 - 1}]$$
+        mas
+        $$f(b)_n \in [f(b)_{n_0 + 1} - 3^{-n_0 - 1}, f(b)_{n_0 + 1}]$$
+        e $f(b)_{n_0} - f(a)_{n_0} = 3^{- n_0}$, portanto são sempre disjuntos por uma distância $3^{-n_0 - 1}$, isso é as sequências $f(a)_n$ e $f(b)_n$ não podem convergir no mesmo ponto.
+        Isso prova a injetividade de $f$ e a não enumerabilidade de $C$.
+    \end{proof}
+    
+    \item
+    Antes de fato solucionar a questão, vamos olhar para o que acontece em $C_1$. Podemos escrever $x \in [0,1]$ como 
+    $$x = \frac{x_1}{3} + \frac{x_2}{3^2} + \dots + \frac{x_n}{3^n} + \dots$$
+    onde cada $x_n$ é igual a $0$, $1$ ou $2$. Na primeira etapa $C_1$, ao remover a terça parte,
+    estamos removendo justamente os números $x \in [0,1]$ cuja representação ternária tem $x_1 = 1$, com a exceção
+    de $1/3 = 0.1 = 0.0222\dots = 0.0\bar{2}$ que permanece. Na segunda etapa, removemos dos que sobraram os que tem $x_2 = 1$, com exceção
+    daqueles cujo último digito não $0$ é $x_2 = 1$ que podem ser escritos como $0.x_1 1 = 0.x_10\bar{2}$.
+    Podemos sempre substituir o algarismo $1$ final pela sequência $0222\dots$ e obter o mesmo número, então 
+    de forma geral, em cada etapa $n$, estamos removendo os números restantes que em ternário tem $x_n = 1$. Sendo a interseção 
+    de todos esses $C_n$, $C$ não possui $1$ em sua representação em base 3.  Vamos tentar formalizar por indução.
+    
+    \begin{prop}
+        $C_n$ é o conjunto de pontos de $ 0.x_1x_2x_3\cdots x_n\dots \in [0,1]$ com $x_1 \dots x_n$ diferentes de $1$.
+        Além do mais, $C_n$ pode ser expresso como uma união disjunta
+        $$C_n = \bigcup_m^{2^n} [a_m, a_m + 3^{-n}]$$
+        onde cada $a_m$ é da forma $0.x_1x_2\dots x_n\bar{0}$ com cada $x_i \in \{0,2\}$ - por isso $2^n$ deles.
+    \end{prop}
+    \begin{proof}
+        A prova, como quase todas as anteriores, será por indução. Claramente $C_1$ satisfaz isso,
+        $$C_1 = [0,0.1 = 0.0\bar{2}] \cup [0.2, 1 = 0.\bar{2}]$$
+        Suponha que vale para $C_n$, vamos provar que vale para $C_{n+1}$. Basta usar a identidade que vimos 
+        na letra (a), precisamente, na etapa $n+1$, teremos que o conjunto
+        $$[a_m, a_m+3^{-n}]$$
+        se tornará 
+        $$[a_m, a_m + 3^{-n - 1}] \cup [a_m + 2\cdot3^{-n - 1}, a_m + 3^{-n}]$$
+        Se $a_m$ era da forma $0.x_1\dots x_n0\bar{0}$, conseguimos em $C_{n+1}$, além de $a_m$, um novo $a'_m = 0.x_1\dots x_n2\bar{0}$
+        que representa o intervalo direito. Como isso vale para todo $a_m$, na etapa $n+1$ estamos de fato 
+        construindo toda as $n+1$ sequências de $0,2$ até o $(n+1)$ digito. Segue naturalmente, olhando para esses intervalos, 
+        que removemos exatamente os números contendo o digito $1$ na $(n+1)$ casa decimal, provando a hipótese de indução.
+    \end{proof}
+    \begin{corollary}
+        (Exercício) $C$ é exatamente os números de $[0,1]$ que não contém $1$ em sua expansão ternária.
+    \end{corollary}
+    \begin{proof}
+        Segue do fato de $C$ ser a interseção de todos os $C_n$.  
+    \end{proof}
+\end{enumerate}
