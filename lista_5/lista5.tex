@@ -1,0 +1,170 @@
+\section{Lista 5 (11/09/2025)}
+
+Listagem de problemas:
+\begin{enumerate}
+    \item Exercício \ref{prob:l5:1} : \checkmark
+    \item Exercício \ref{prob:l5:2} : \Frowny
+    \item Exercício \ref{prob:l5:3} : \Frowny
+    \item Exercício \ref{prob:l5:4} : \Frowny
+    \item Exercício \ref{prob:l5:5} : \Frowny
+\end{enumerate}
+
+\begin{problem}
+    \label{prob:l5:1}
+\end{problem}
+Para não que eu não me confunda, vamos definir novamente funções semicontínuas.
+\begin{definition}
+    Uma função $f: X \to \R$ é dita semicontínua inferior (SCI) se para todo $\alpha \in \R$,
+    $f^{-1}( (\alpha, \infty) )$ é aberto. Similarmente, $f$ é dita semicontinua superior (SCS)
+    se $f^{-1}((-\infty, \beta))$ é aberto para todo $\beta \in \R$.
+\end{definition}
+
+Vamos mostrar que as proposições (a), (b) e (d) são verdadeiras, mas (c) é falso.
+\begin{enumerate}[label=(\alph*)]
+    \item \begin{proof}
+        Sejam $f_1, f_2$ SCS e seja $\beta \in \R$ qualquer, queremos mostrar que $(f_1 + f_2)^{-1}((-\infty, \beta))$ é aberto.
+        Podemos escrever esse conjunto como a seguinte união aberta
+        $$(f_1 + f_2)^{-1}((-\infty, \beta)) = \bigcup_{x + y \leq \beta} [f_1^{-1}((-\infty, x)) \cap f_2^{-1}((-\infty, y))] $$
+        Portanto, a pre-imagem é aberta e $f_1+ f_2$ é SCS. Note que aqui não usamos nada sobre a positividade de $f_1$ e $f_2$, então essa hipótese não é necessária.
+    \end{proof}
+    \item \begin{proof}
+        Análogo à (a), se $f_1,f_2$ são SCI e $\alpha \in \R$, então 
+        $$(f_1 + f_2)^{-1}((\alpha, \infty)) = \bigcup_{x + y \geq \alpha} [f_1^{-1}((x,\infty)) \cap f_2^{-1}((y,\infty))]$$
+        é aberto. Como isso vale para todo $\alpha$, $f_1 + f_2$ é SCI. Novamente não precisamos da hipótese de positividade.
+    \end{proof}
+\end{enumerate}
+Antes de mostrar que (c) é falsa usando um contra-exemplo, vamos mostrar que (d) é verdadeira. Precisamos de um lema - (e aqui sem perda de generalidade, 
+vamos supor que nosso contra-domínio é a reta estendida)
+\begin{lemma}
+    Seja $(f_n)_{n \in \N}: X \to \overline{\R}$ uma sequência de funções SCI, então $\sup_{n \in \N} f_n$ é SCI.
+\end{lemma}
+\begin{proof}
+    Vamos notar que para $\alpha \in \R$, $\sup_{n \in \N} f (x) > \alpha$ se somente se existe $n$ com $f_n(x) > \alpha$. Então podemos escrever
+    $$(\sup_{n \in \N} f)^{-1}((\alpha, \infty)) = \bigcup_{n \in \N} f_n((\alpha, \infty)).$$
+    Como para qualquer $\alpha$, $(\sup_{n \in \N} f)^{-1}((\alpha, \infty))$ é união de abertos, então $\sup_n f$ é SCI.
+\end{proof}
+Agora conseguimos provar (d).
+\begin{enumerate}[label=(\alph*)]
+    \addtocounter{enumi}{3}
+    \item \begin{proof}
+        Seja $F_n = \sum_{i=1}^{n} f_i$, por (a), todos os $F_n$ são SCI. Como $f_i$ são positivas, os $F_n$ são crescentes, portanto
+        $$\sup_{n \in \N} F_n = \sum_{i=1}^{\infty} f_i$$
+        pelo lema anterior, esse somatório é SCI. Aqui usamos fortemente a hipótese que as $f_i$ são positivas.
+    \end{proof}
+\end{enumerate}
+% Se trocarmos $\sup$ por $\inf$, o lema anterior claramente funciona para sequências SCS também, isso é só uma observação e não será usado.
+Vamos mostrar que (c) é falso.
+\begin{enumerate}[label=(\alph*)]
+    \addtocounter{enumi}{2}
+    \item \begin{proof}
+        Vimos em aula que se $F$ é fechado, $\mathds{1}_F$ é SCS. Considere a série de SCS's $\R \to \R$
+        $$F(x) = \sum_{i=1}^{\infty} \mathds{1}\bigg[\frac{1}{2n+1}, \frac{1}{2n}\bigg](x).$$
+        Claramente, $F(0) = 0$, logo $ 0 \in F^{1}((-\infty, 1/2))$, mas para valores arbitrariamente próximos - $\frac{1}{2n}$ -  não 
+        pertencem a $F^{1}((-\infty, 1/2))$, logo esse conjunto não pode ser aberto ao redor de $0$. 
+    \end{proof}
+\end{enumerate}
+Vimos que (a), (b) e (d) independem do espaço topológico do domínio. Sobre a positividade, só a usamos em (d) e aqui foi necessário para assegurar que 
+a sequência das somas finitas era crescente, é fácil ver no entanto que essa hipótese é completamente necessária.
+\begin{prop}
+    Existe uma sequência de funções SCI's $(f_n)_n : \R \to \R$ com 
+    $$F(x) = \sum_{i=1}^{\infty} f_i$$
+    completamente descontínua. 
+\end{prop}
+\begin{proof}
+    Como antes, se $F$ é fechado, $\mathds{1}_F$ é SCS e portanto, $-\mathds{1}_F$ é SCI. Agora basta considerar
+    $$G(x) = \sum_{q \in \mathbb{Q}} - \mathds{1}[\{q\}] (x)$$
+    a função que vale $-1$ nos racionais e $0$ nos irracionais. Óbviamente $G$ não é nem SCI, nem SCS e ela serve de contra-exemplo.
+
+\end{proof}
+
+\begin{problem}
+    \label{prob:l5:2}
+\end{problem}
+Eu gostei muito desse problema - até porque fui eu quem propus \Smiley.
+Vamos dividir a questão em etapas, a primeira sobre a existência, a segunda sobre as aproximações por S.C.I's.
+Será necessária uma observação que eu não vou provar.
+\begin{remark}
+    Existe uma sequência de reais positivos $(a_n)_n$ menores que $1$, tal que 
+    $$\prod_{n \in \N} (1 - a_n) > 0.$$
+    Uma que funciona é a \href{https://en.wikipedia.org/wiki/Vi%C3%A8te%27s_formula}{fórmula de Viète}, por exemplo
+\end{remark}
+
+Agora podemos construir nosso conjunto.
+\begin{proof}
+    A ideia é criar um conjunto de Cantor gordo removendo frações de tamanhos diferentes em cada etapa. 
+    Seja $\alpha_n$ uma sequência de números positivos menores que $1$ tal que
+    $$ 1 > \prod_{n = 0}^{\infty} (1 - \alpha_n) = \alpha > 0.$$
+    A ideia será na $n$-ésima iteração da construção de Cantor, remover uma $\alpha_n$ fração do conjunto restante em abertos de maneira esperta -
+    sem deixar um intervalo de tamanho $1/n$.
+    Sobrará, no final de todos os passos, uma $\alpha$-fração do intervalo [0,1] que terá medida positiva e nenhum intervalo de medida positiva.
+
+    Seja $C_0 = [0,1]$. Suponha que seguimos as intruções anteriores até $n-1$, então temos 
+    $$C_{n-1} = \bigcup_m [a_m, b_m]$$
+    de forma que $b_m - a_m < 1/(n-1)$ e 
+    $$\mu(C_{n-1}) = \prod_{k = 1}^{n-1} (1 - a_k)$$
+    Para cada $m$, divida $[a_m, b_m]$ em $n$ intervalos de medida igual
+    $$[a_m, b_m] = [a_m, t_1] \cup \bigcup_{i = 2}^{n-1} (t_i, t_{i+1}] \cup (t_n, b_m]$$
+    Como $b_m - a_m \leq 1$, cada um deles certamente tem medida menor ou igual que $1/n$. Separe
+    de cada subintervalo, uma fração aberta $\alpha_n$ do centro deles, por exemplo,
+    $$(x_i,y_i) \subset (t_i, t_{i+1})$$
+    onde $t_i < x_i,y_i < t_{i+1}$ e $y - x = \alpha_n (t_{i+1} - t_i)$.
+    Removendo de $[a_m, b_m]$ a união desses intervalinhos $(x_i, y_i)$,
+    estaremos claramente removendo uma fração $\alpha_n$ de $[a_m,b_m]$. Fazendo isso 
+    para cada $m$, teremos removido em intervalos abertos, uma fração $\alpha_n$ de $C_{n-1}$, obtendo $C_n$.
+    Pela forma que construimos, $C_n$ não contém intervalos de tamanho maior que $1/n$ e claramente,
+    $$\mu(C_n) = (1-\alpha_n) \mu(C_{n-1}) = \prod_{i=1}^{n} (1-\alpha_n).$$
+    
+    Por construção, os $C_n$ são compactos encaixados e sua interseção forma um conjunto de Cantor $K$ de medida positiva sem 
+    qualquer intervalo positivo. Por não ter nenhum intervalo, seu interior é vazio, logo na reta, o conjunto é totalmente desconexo.
+\end{proof}
+Vamos mostrar que a indicadora do conjunto $K$ construído, não pode ser aproximada por baixo por funções S.C.I.
+\begin{proof}
+    Seja $v : \R \to \R$ função S.C.I com $v \leq \mathds{1}_K$, vamos mostrar que $v \leq 0$ e, portanto
+    $$\int_\R  (\mathds{1}_K - v) d\mu > \mu(K) $$
+
+    Suponha que exista $x$ com $v(x) = c > 0$, em particular, teríamos um aberto não vazio $v^{-1}((c/2,\infty)) \subset K$,
+    pois $v(x) > 0 \implies \mathds{1}_K(x) > 0$, mas $K$ como construído era totalmente desconexo - de interior vazio - absurdo.
+\end{proof}
+
+\begin{problem}
+    \label{prob:l5:3}
+\end{problem}
+\begin{proof}
+    Talvez não é a mais intuitiva, mas a prova do Rudin parece ser a mais simples.
+    
+    Para essa questão eu acho mais útil usar a definição geométrica de convexidade. 
+    Uma função $\varphi : \R \to \R$ é convexa se para todo ponto $t$, $\varphi$ está acima da reta tangente 
+    a $\varphi$ no ponto $t$. 
+    
+    Em termos analíticos, se definirmos
+    \begin{align*}
+        \alpha = \sup_{x < t} \frac{\varphi(t) - \varphi(x)}{t - x}\\
+        \beta = \inf_{y > t} \frac{\varphi(y) - \varphi(t)}{y - t}
+    \end{align*}
+    as tangentes esquerda e direita no ponto $t$, então a proposição se expressa como 
+    \begin{equation}
+        \varphi(z) \geq \varphi(t) + \max(\alpha,\beta)(z - t)
+    \end{equation}
+    para todo $z$ em $\R$.
+
+    Para provar Jensen, basta integrar sobre essa desigualdade com $z = f(x)$ e $t$ sendo o valor médio da função.
+    Formalizando, seja 
+    $$t = \int_{\Omega}f(x) d\mu$$
+    Note que, como $a < f < b$, temos 
+    $$ a = \int_{\Omega} a d\mu < \int_{\Omega}f(x) d\mu < \int_{\Omega} b d\mu = b$$
+    logo $t \in (a,b)$. Fazendo a substituição em (13) e lembrando que $f(x) \in \R$, temos 
+    $$\varphi(f(x)) \geq \varphi\bigg(\int_\Omega f d\mu\bigg) + \max(\alpha,\beta)\bigg(f(x) - \int_\Omega f d\mu\bigg)$$
+    Integrando sobre $x$, o termo da direita cancela e ficamos com a desigualdade de Jensen.
+    $$\int_\Omega \varphi \circ f d\mu \geq \varphi\bigg(\int_\Omega f d\mu\bigg)$$
+\end{proof}
+
+\begin{problem}
+    \label{prob:l5:4}
+\end{problem}
+
+\begin{problem}
+    \label{prob:l5:5}
+\end{problem}
+\begin{proof}
+    %REPETIR PROVA DO ROBERTO
+\end{proof}
