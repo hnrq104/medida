@@ -3,10 +3,10 @@
 Listagem de problemas:
 \begin{enumerate}
     \item Exercício \ref{prob:l5:1} : \checkmark
-    \item Exercício \ref{prob:l5:2} : \Frowny
-    \item Exercício \ref{prob:l5:3} : \Frowny
-    \item Exercício \ref{prob:l5:4} : \Frowny
-    \item Exercício \ref{prob:l5:5} : \Frowny
+    \item Exercício \ref{prob:l5:2} : \checkmark
+    \item Exercício \ref{prob:l5:3} : \checkmark
+    \item Exercício \ref{prob:l5:4} : \Frowny/\checkmark\, (a menos do Lema.)
+    \item Exercício \ref{prob:l5:5} : \checkmark
 \end{enumerate}
 
 \begin{problem}
@@ -129,7 +129,23 @@ Vamos mostrar que a indicadora do conjunto $K$ construído, não pode ser aproxi
 \begin{problem}
     \label{prob:l5:3}
 \end{problem}
+Antes de começar, precisamos de um leminha que eu havia esquecido.
+\begin{lemma}
+    Seja $(X,\mu)$ espaço de medida positiva finita. Se $1 \leq q \leq p \leq \infty$, 
+    então $L^p(\mu) \subset L^q(\mu)$.
+\end{lemma}
 \begin{proof}
+    Seja $f \in L^p(\mu)$, queremos mostrar que $f \in L^q(\mu)$.
+    O caso $p = \infty$ é óbvio. Se $p < \infty$, tome $r > q$ tal que 
+    $$\frac{1}{p} + \frac{1}{r} = \frac{1}{q}$$
+    Em particular,
+    $$\frac{q}{p} + \frac{q}{r} = 1$$
+    Podemos aplicar Hölder com $p/q$ e $r/q$ em $|f|^q$ para obter
+    $$\int_X |f|^q d\mu = \int_X 1 \cdot |f|^q d\mu \leq \bigg(\int_X (|f|^q)^{p/q}d\mu \bigg)^{q/p} \bigg(\int_X 1^{r/q}d\mu\bigg)^{q/r} = (||f||_p)^q (\mu(X))^{q/r} < \infty$$
+\end{proof}
+Portanto, para a questão, como $f \in L^2(\mu)$, sabemos que está em $L^1(\mu)$ também.
+
+\begin{proof} \textbf{(Do Exercício)}
     Talvez não é a mais intuitiva, mas a prova do Rudin parece ser a mais simples.
     
     Para essa questão eu acho mais útil usar a definição geométrica de convexidade. 
@@ -161,10 +177,92 @@ Vamos mostrar que a indicadora do conjunto $K$ construído, não pode ser aproxi
 \begin{problem}
     \label{prob:l5:4}
 \end{problem}
+\Frowny\;
+Fiquei longe de resolver esse exercício. Um Henrique do futuro pode encontrar a solução \href{https://www.research-collection.ethz.ch/server/api/core/bitstreams/8ce179c7-da1f-4862-9404-cefb49d8e64e/content}{aqui},
+na seção 2.1.5.
+
+Como fui mal na prova \Frowny, vou escrever a solução a menos do lema necessário - que não provarei.
+\begin{lemma}
+    Seja $\{a_n\} \subset \R^+$ uma sequência tal que
+    $$\sum_{n=1}^{\infty} \frac{a_n}{n} < \infty.$$
+    Existe sequência de índices $\{n_j\} \subset \N$ satisfazendo 
+    $$\sum_{j=1}^{\infty} a_{n_j} < \infty \quad \land \quad \lim_{j \to \infty} \frac{n_{j+1}}{n_j} = 1.$$ 
+\end{lemma}
+
+\begin{proof}
+    \textbf{Do Exercício.} Aplique o lema anterior na sequência
+    $$a_N = \int_X \bigg|\sum_{n=1}^{N} \frac{e(mf_n(x))}{N} \bigg|^p d\mu$$
+    Conseguimos uma subsequência $a_{n_j}$ satisfazendo que 
+    $$\sum_{j=1}^{\infty} a_{n_j} < \infty \quad \land \quad \lim_{j \to \infty} \frac{n_{j+1}}{n_j} = 1$$
+    Em particular
+    $$\sum_{j=1}^{\infty} \int_X \bigg|\sum_{n=1}^{n_j} \frac{e(mf_n(x))}{N} \bigg|^p d\mu < \infty.$$
+    Ou seja, se $j \to \infty$
+    \begin{equation}
+        \label{lista5:eq:limite_int}
+        \int_X \bigg|\sum_{n=1}^{n_j} \frac{e(mf_n(x))}{N} \bigg|^p d\mu \to 0
+    \end{equation}
+    e portanto, em quase todo ponto $x$, 
+    $$\sum_{n=1}^{n_j} \frac{e(mf_n(x))}{N} \to 0.$$
+    Para justificar o passo anterior, suponha que o limite não é $0$ para algum conjunto $E$ de medida positiva.
+    Existe $M \in \N$ com 
+    $$\limsup_{j\to\infty} \bigg|\sum_{n=1}^{n_j} \frac{e(mf_n(x))}{N}\bigg| > \frac{1}{M}$$
+    para algum conjunto de medida positiva $E_M$, portanto o limite em (\ref{lista5:eq:limite_int}) não pode convergir a 0.
+
+    Agora concluimos que se (\ref{lista5:eq:limite_int}) vale a.e, então equidistribuição vale a.e.
+    Note que para $N$ suficientemente grande, existem índices da subsequência $N_j$ e $N_{j+1}$
+    com $N_j \leq N < N_{j+1}$ e $j \to \infty$ quando $N \to \infty$. Podemos portanto escrever
+    \begin{align*}
+        \bigg|\sum_{n=1}^{N} \frac{e(mf_n(x))}{N}\bigg| &= \bigg|\sum_{n=1}^{N_j} \frac{e(mf_n(x))}{N} + \sum_{n=N_j + 1}^{N} \frac{e(mf_n(x))}{N} \bigg|\\
+        &\leq \bigg|\sum_{n=1}^{N_j} \frac{e(mf_n(x))}{N}\bigg| + \frac{N - N_j}{N}\\
+        &\leq \bigg|\sum_{n=1}^{N_j} \frac{e(mf_n(x))}{N}\bigg| + \frac{N_{j+1} - N_j}{N_j}\\
+        &\leq \bigg|\sum_{n=1}^{N_j} \frac{e(mf_n(x))}{N}\bigg| + \frac{N_{j+1}}{N_j} - 1 \to 0
+    \end{align*}
+    quando $j \to \infty$. Isso completa a demonstração.
+
+\end{proof}
 
 \begin{problem}
     \label{prob:l5:5}
 \end{problem}
+Há duas formas que eu conheço de resolver esse problema. Uma ideia é mostrar a desigualdade reversa de Hölder e 
+repetir a prova de Minkowski com as desigualdades invertidas. A outra, que é bem mais rápida, é repetir a prova do Prof. Roberto
+em seu livro de Análise do Rn - vou fazer essa.
 \begin{proof}
-    %REPETIR PROVA DO ROBERTO
+    Estenda a definição de $||f||_p$ para $p \in (0,1)$ sendo justamente
+    $$||f||_p = \bigg( \int_X |f|^p \bigg)^{1/p}$$
+    Queremos mostrar que para $f,g \geq 0$,
+    \begin{equation}
+        \label{lista5:eq:minkowski}
+        ||f + g||_p \geq ||f||_p + ||g||_p
+    \end{equation}
+    
+    
+    Vamos analisar primeiramente o caso em que $0 < ||f||_p, ||g||_p < \infty$. Note que, sob essa hipótese, (\ref{lista5:eq:minkowski}) é equivalente a
+    \begin{equation}
+        \label{lista5:eq:normalization}
+        \frac{||f + g||_p}{||f||_p + ||g||_p} = \bigg|\bigg|\frac{f + g}{||f||_p + ||g||_p}\bigg|\bigg|_p \geq 1
+    \end{equation}
+    O truque do professor Roberto é perceber que se $||f||_p$ e $||g||_p$ são positivas,
+    podemos escrever
+    $$\frac{f + g}{||f||_p + ||g||_p} =  \frac{\lambda f}{||f||_p} + \frac{(1-\lambda)g}{||g||_p}$$
+    onde
+    $$\lambda = \frac{||f||_p}{||f||_p + ||g||_p} \in (0,1).$$
+    Elevando os dois lados de (\ref{lista5:eq:normalization}) por $p$ e lembrando da positividade de $f$ e $g$, notamos que
+    $$\bigg|\bigg|\frac{f + g}{||f||_p + ||g||_p}\bigg|\bigg|_p \geq 1 \iff \int_X \bigg(\frac{f + g}{||f||_p + ||g||_p}\bigg)^p d\mu \geq 1$$
+    Usando a concavidade de $x^p$ e  a expansão com o $\lambda$ anterior, temos
+    \begin{align*}
+        \int_X \bigg(\frac{f + g}{||f||_p + ||g||_p}\bigg)^p d\mu &\geq \int_X \lambda \bigg(\frac{f}{||f||_p}\bigg) d\mu + \int_X (1-\lambda) \bigg(\frac{g}{||g||_p}\bigg) d\mu\\
+        &= \lambda + 1 - \lambda = 1.
+    \end{align*}
+    O que demonstra a desigualdade.
+
+    Falta o caso em que alguma das duas funções tem "norma" $0$ ou $\infty$. Suponha sem perda de generalidade que  $||f||_p = 0$,
+    então definindo $E = \{x : f(x) > 0\}$, sabemos que 
+    $$\mu(E) = 0$$
+    Portanto,
+    $$\int_X (f+g)^p d\mu= \int_{X - E} (f+g)^p d\mu= \int_{X - E} g^p d\mu= \int_X g^p d\mu$$
+    e vale a igualdade $||f + g||_p = ||g||_p$. No outro caso, se $||f||_p = \infty$, 
+    então naturalmente,
+    $$\int_X (f + g)^p d\mu \geq \int_X f^p d\mu = \infty$$
+    e a desigualdade vale trivialmente.
 \end{proof}
