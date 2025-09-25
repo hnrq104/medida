@@ -189,26 +189,34 @@ Como fui mal na prova \Frowny, vou escrever a solução a menos do lema necessá
     $$\sum_{j=1}^{\infty} a_{n_j} < \infty \quad \land \quad \lim_{j \to \infty} \frac{n_{j+1}}{n_j} = 1.$$ 
 \end{lemma}
 
+\label{lista5:eq:limite_int}
 \begin{proof}
     \textbf{Do Exercício.} Aplique o lema anterior na sequência
     $$a_N = \int_X \bigg|\sum_{n=1}^{N} \frac{e(mf_n(x))}{N} \bigg|^p d\mu$$
     Conseguimos uma subsequência $a_{n_j}$ satisfazendo que 
     $$\sum_{j=1}^{\infty} a_{n_j} < \infty \quad \land \quad \lim_{j \to \infty} \frac{n_{j+1}}{n_j} = 1$$
     Em particular
-    $$\sum_{j=1}^{\infty} \int_X \bigg|\sum_{n=1}^{n_j} \frac{e(mf_n(x))}{N} \bigg|^p d\mu < \infty.$$
-    Ou seja, se $j \to \infty$
     \begin{equation}
-        \label{lista5:eq:limite_int}
-        \int_X \bigg|\sum_{n=1}^{n_j} \frac{e(mf_n(x))}{N} \bigg|^p d\mu \to 0
+        \label{lista5:eq:finite_sum}
+        \sum_{j=1}^{\infty} \int_X \bigg|\sum_{n=1}^{N_j} \frac{e(mf_n(x))}{N_j} \bigg|^p d\mu < \infty.
     \end{equation}
-    e portanto, em quase todo ponto $x$, 
-    $$\sum_{n=1}^{n_j} \frac{e(mf_n(x))}{N} \to 0.$$
-    Para justificar o passo anterior, suponha que o limite não é $0$ para algum conjunto $E$ de medida positiva.
-    Existe $M \in \N$ com 
-    $$\limsup_{j\to\infty} \bigg|\sum_{n=1}^{n_j} \frac{e(mf_n(x))}{N}\bigg| > \frac{1}{M}$$
-    para algum conjunto de medida positiva $E_M$, portanto o limite em (\ref{lista5:eq:limite_int}) não pode convergir a 0.
+    Vamos mostrar que em quase todo ponto $x$, 
+    \begin{equation}
+        \label{lista5:eq:lim_to_zero} 
+        \sum_{n=1}^{N_j} \frac{e(mf_n(x))}{N_j} \to 0.
+    \end{equation}
+    Suponha que o limite não é $0$ para algum conjunto $E$ de medida positiva, escrevemos $E$ como a seguinte união
+    $$E = \bigcup_{M \in \N} \bigg\{ x : \limsup_{j\to\infty} \bigg|\sum_{n=1}^{N_j} \frac{e(mf_n(x))}{N_j}\bigg| > \frac{1}{M} \bigg\}.$$
+    Por $E$ ser uma união enumerável de medida positiva, existe algum $M$, tal que o $M$-ésimo conjunto dessa união tem medida
+    positiva, seja esse conjunto $E_M$. Se $x \in E_M$, então, para infinitos $j$'s
+    $$\bigg|\sum_{n=1}^{N_j} \frac{e(mf_n(x))}{N_j}\bigg| > \frac{1}{M}$$
+    e portanto
+    $$\sum_{j=1}^{\infty} \bigg|\sum_{n=1}^{N_j} \frac{e(mf_n(x))}{N_j}\bigg| = \infty.$$
+    Mas então, substituindo $E_M$ no somatório (\ref{lista5:eq:finite_sum}),
+    $$\sum_{j=1}^{\infty} \int_{E_M} \bigg|\sum_{n=1}^{N_j} \frac{e(mf_n(x))}{N_j} \bigg|^p = \int_{E_M} \sum_{j=1}^{\infty} \bigg|\sum_{n=1}^{N_j} \frac{e(mf_n(x))}{N_j} \bigg|^p d\mu = \int_{E_M} \infty d\mu = \infty $$
+    O que contradiz (\ref{lista5:eq:finite_sum}) ser finito.
 
-    Agora concluimos que se (\ref{lista5:eq:limite_int}) vale a.e, então equidistribuição vale a.e.
+    Agora concluimos que se (\ref{lista5:eq:lim_to_zero}) vale a.e, então equidistribuição vale a.e.
     Note que para $N$ suficientemente grande, existem índices da subsequência $N_j$ e $N_{j+1}$
     com $N_j \leq N < N_{j+1}$ e $j \to \infty$ quando $N \to \infty$. Podemos portanto escrever
     \begin{align*}
