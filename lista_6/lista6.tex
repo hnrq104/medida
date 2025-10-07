@@ -1,0 +1,93 @@
+\section{Lista 6 (2/10/2025)}
+
+
+Listagem de problemas:
+\begin{enumerate}
+    \item Exercício \ref{prob:l6:1} : \Frowny
+    \item Exercício \ref{prob:l6:2} : \checkmark
+    \item Exercício \ref{prob:l6:3} : \Frowny
+    \item Exercício \ref{prob:l6:4} : \Frowny
+    \item Exercício \ref{prob:l6:5} : \checkmark
+\end{enumerate}
+
+
+%ideia prova que vale para lambda com sinal -> depois lambda complexa
+%e por fim para mu sigma finita separando lambda(E) = \sum lambda(E \cap H_n)
+Para esse primeiro problema, vamos utilizar a versão mais fraca de Radon-Nikodym provada em aula.
+\begin{theorem}
+    \label{trm:weak_radon}
+    \textbf{(Radon-Nikodym Fraco)} Se $\mu$ e $\lambda$ são medidas positivas finitas de $(X, \mathcal{M})$ , então existe um par 
+    único de medidas positivas finitas $\lambda_a$ e $\lambda_s$ de $(X, \mathcal{M})$ satisfazendo:
+    \begin{enumerate}[label=(\alph*)]
+        \item \begin{equation}
+            \lambda = \lambda_a + \lambda_s, \quad \lambda_a  \ll \mu, \quad \lambda_s\,\bot\,\mu
+        \end{equation}
+        \item Existe um único $h \in L^1(\mu)$ tal que:
+        \begin{equation}
+            \lambda_a(E) = \int_E h d\mu
+        \end{equation}
+    \end{enumerate}
+\end{theorem}
+
+
+\begin{problem}
+    \label{prob:l6:1}
+    Seja $\mu$ uma medida positiva $\sigma$-finita e $\lambda$ uma medida complexa. Prove que o Teorema de Radon-Nikodym ainda vale.
+\end{problem}
+    Primeiro provamos para $\lambda$ positiva e $\mu$ $\sigma$-finita e depois estendemos para $\lambda$ com sinal e eventualmente complexa.
+\begin{proof}
+    
+\end{proof}
+
+%ideia: C-S é aberto com base enumeravel de discos, a preimagem de algum desses discos com medida positiva, tira a media nele
+\begin{problem}
+    \label{prob:l6:2}
+    Seja $\mu(X) < \infty$, $f \in L^1(\mu)$, $S$ um conjunto fechado no plano complexo e suponha que as médias
+    $$\frac{1}{\mu(E)} \int_E fd\mu$$
+    estejam dentro de $S$ para todo $E \in \mathcal{M}$ com $\mu(E) > 0$. Então $f(x) \in S$ $\mu$-qtp. 
+\end{problem}
+\begin{proof}
+    Note que $\mathbb{C} \setminus S$ é um conjunto aberto, portanto pode ser escrito como união enumerável
+    de bolas abertas, escrevemos
+    $$\mathbb{C} \setminus S = \bigcup_{n=1}^{\infty} B_{(q_n, r_n)}$$
+    onde cada $B_{(q_n,r_n)}$ é um disco aberto do plano complexo centrado em $q_n$ de raio $r_n$. 
+    
+    Se $\mu(f^{-1}(\mathbb{C} \setminus S)) = 0$, não há nada para provar - já vale $f(x) \in S$ $\mu$-qtp. Caso contrário,
+    existe $n \in \N$ tal que $\mu(f^{-1}(B_{(q_n,r_n)})) \neq 0$, chamando $A = f^{-1}(B_{(q_n,r_n)})$ temos
+    $$\forall x \in A \quad |f(x) - q_n| < r_n.$$ 
+    Tirando a média sobre $A$ e comparando sua distância a $q_n$, encontramos
+    $$\bigg | \frac{1}{\mu(A)} \int_A f(x) d\mu - q_n\bigg| \leq \frac{1}{\mu(A)} \int_A |f(x) - q_n| d\mu < \frac{1}{\mu(A)} \int_A r_n d\mu = r_n$$
+    Como a distância da média à $q_n$ é menor que $r_n$, segue que ela pertence a $B_{(q_n,r_n)}$ e portanto está fora de $S$, contradizendo a hipótese.
+\end{proof}
+
+%compactifique mu usando o w do Rudin (precisa do lemma), mostre que há uma isometria entre os dois espaços
+\begin{problem}
+    \label{prob:l6:3}
+\end{problem}
+
+%tenho que pensar ainda falso
+\begin{problem}
+    \label{prob:l6:4}
+\end{problem}
+
+%sim aproxime |lambda| por uma partição enumeravel, aproxime a partição enumeravel
+\begin{problem}
+    \label{prob:l6:5}
+    Seja $\mu$ uma medida complexa na $\sigma$-álgebra $\mathcal{M}$. Se $E \in \mathcal{M}$, defina
+    $$\lambda(E) = \sup \sum |\mu(E_i)|,$$
+    o supremo sendo tirado sobre todas as partições finitas $\{E_i\}$ de $E$. Segue que $\lambda = |\mu|$?
+\end{problem}
+\begin{proof}
+    Naturalmente, como partições enumeráveis englobam partições finitas, segue que $\lambda(E) \leq |\mu|(E)$ para todo $E \in \mathcal{M}$.
+    Vamos mostrar que para qualquer partição enumerável $\{E_i\}_{i \in \N}$ de $E$, podemos aproximar arbitráriamente bem a soma 
+    $\sum_{i=1}^{\infty} |\mu(E_i)|$ por partições finitas. Como $|\mu|$ é uma medida positiva finita, vale que $|\mu|(E) < \infty$
+    e portanto, para qualquer partição $\{E_i\}$,
+    $$\sum_{i=1}^{\infty} |\mu(E_i)| = C < \infty$$
+    e por consequência converge. Agora, dado qualquer $\eps > 0$, existe $N_\eps$ tal que 
+    $$\sum_{i=1}^{N_\eps} |\mu(E_i)| > C - \eps$$
+    Portanto,
+    $$\sum_{i=1}^{N_\eps} |\mu(E_i)| + \bigg|\mu\bigg(\bigcup_{i = N_\eps + 1}^\infty E_i\bigg)\bigg| > C - \eps$$
+    Fazendo $\eps \to 0$, verificamos que $\lambda(E) \geq \sum_{i=1}^{\infty} |\mu(E_i)|$, como isso vale para toda partição $\{E_i\}$,
+    $\lambda(E) \geq \mu(E)$.
+\end{proof}
+
