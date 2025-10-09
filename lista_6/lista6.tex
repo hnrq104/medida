@@ -3,9 +3,9 @@
 
 Listagem de problemas:
 \begin{enumerate}
-    \item Exercício \ref{prob:l6:1} : \Frowny
+    \item Exercício \ref{prob:l6:1} : \checkmark
     \item Exercício \ref{prob:l6:2} : \checkmark
-    \item Exercício \ref{prob:l6:3} : \Frowny
+    \item Exercício \ref{prob:l6:3} : \checkmark
     \item Exercício \ref{prob:l6:4} : \Frowny
     \item Exercício \ref{prob:l6:5} : \checkmark
 \end{enumerate}
@@ -29,21 +29,80 @@ Para esse primeiro problema, vamos utilizar a versão mais fraca de Radon-Nikody
     \end{enumerate}
 \end{theorem}
 
-
 \begin{problem}
     \label{prob:l6:1}
-    Seja $\mu$ uma medida positiva $\sigma$-finita e $\lambda$ uma medida complexa. Prove que o Teorema de Radon-Nikodym ainda vale.
+    Seja $\mu$ medida positiva $\sigma$-finita e $\lambda$ medida complexa. Prove que o Teorema de Radon-Nikodym ainda vale.
 \end{problem}
-    Primeiro provamos para $\lambda$ positiva e $\mu$ $\sigma$-finita e depois estendemos para $\lambda$ com sinal e eventualmente complexa.
 \begin{proof}
+    Vamos provar que vale para $\lambda$ com sinal. Tomando a decomposição de Lebesgue $\lambda = \lambda^+ - \lambda^-$ em 
+    medidas positivas finitas, podemos aplicar o Teorema [\ref{trm:weak_radon}] em ambas para obter
+    $$\lambda^+ = \lambda^+_a + \lambda_{s}^+, \quad \lambda_{s}^+\,\bot\,\mu, \quad \lambda_{a}^+(E) = \int_{E} h^+ d\mu$$
+    e
+    $$\lambda^- = \lambda^-_a - \lambda_{s}^-, \quad \lambda_{s}^-\,\bot\,\mu \quad \text{e} \quad \lambda_{a}^-(E) = \int_{E} h^- d\mu.$$
+    Agora vamos verificar que
+    $$\lambda_a = \lambda_a^+ - \lambda_a^-, \quad \lambda_{s}^+ - \lambda_s^- ,\quad h = h^+ - h^-$$
+    satisfazem as conclusões do teorema. 
+    
+    Notamos imediatamente que $\lambda = \lambda_a + \lambda_s$. Como $\lambda_a^+$ e $\lambda_a^-$ são absolutamente contínuas em relação a $\mu$,
+    segue que $\lambda_a \ll \mu$. Da mesma forma, $\lambda_s^+$ e $\lambda_s^-$ perpendiculares a $\mu$, implica $\lambda_s \,\bot\, \mu$.
+    Por fim, $h$ é soma de funções em $L^1(\mu)$, portanto está em $L^1(\mu)$ e
+    $$\lambda_a(E) = \lambda_a^+(E) - \lambda_a^-(E) = \int_E h^+ d\mu - \int_X h^- d\mu = \int_E hd\mu.$$
+
+    Para provar o resultado para $\lambda$ complexa, basta notar que podemos decompor $\lambda$ em $\lambda_1 + i \lambda_2$, 
+    ambas medidas com sinal. Isso segue imediatamente do fato que, dado $E \in \mathcal{M}$ e uma partição $\{E_i\}_{i \in \N}$,
+    $$\text{Re}(\lambda(E)) = \text{Re}\bigg(\sum_{n=1}^{\infty} \lambda(E_i)\bigg) = \sum_{n=1}^{\infty} \text{Re}(\lambda(E_i)) < \infty$$
+    e o mesmo vale para parte imaginária. Portanto aplicando o Teorema para $\lambda_1$ e $\lambda_2$, escolhendo as medidas
+    $\lambda_a = \lambda_{1a} + i\lambda_{2a}$, $\lambda_s = \lambda_{1s} + i\lambda_{2s}$ e a função $h = h_1 + ih_2$, segue como no caso
+    com sinal que eles satisfazem as conclusões do Teorema.
+
     
 \end{proof}
+
+% \begin{problem}
+%     \label{prob:l6:1}
+%     Sejam $\lambda$ e $\mu$ medidas positivas $\sigma$-finitas. Prove que o Teorema de Radon-Nikodym ainda vale (a menos de $h \in L^1(\mu)$).
+% \end{problem}
+% \begin{proof}
+%     Primeiro provamos para $\lambda$ positiva e $\mu$ $\sigma$-finita e depois, usando a decomposição de Lebesgue, estendemos para $\lambda$ com sinal e complexa.
+    
+%     Seja $X = \bigcup_{n=1}^\infty X_n$ com $\mu(X_n) < \infty$ para todo $n \in \N$ e $X_n \cap X_m = \varnothing$ para $n \neq m$. Defina, para 
+%     cada $n \in \N$ as medidas positivas $\lambda_n(E) = \lambda(E \cap X_n) $.
+%     Note que, como os $X_n$ são disjuntos, para todo $E \in \mathcal{M}$, vale que 
+%     $$\lambda(E) = \sum_{n=1}^{\infty} \lambda_n(E).$$
+%     Agora, fixado $n$, podemos considerar a decomposição de Radon Nikodym [\ref{trm:weak_radon}] de $\lambda(E \cap X_n) = \lambda_n$ com $\mu(\cdot \cap X_n)$,
+%     ambas medidas positivas finitas. Encontramos, $\lambda_{na}$, $\lambda_{ns}$ medidas positivas finitas e $h_n \geq 0 \in L^1(\mu(\cdot \cap X_n))$ com 
+%     \begin{equation}
+%         \label{eq:l6:prob:1:1}
+%         \lambda_n = \lambda_{na} + \lambda_{ns}, \quad \lambda_{ns}\,\bot\,\mu(\cdot \cap X_n)\quad\text{e} \quad \lambda_{na}(E) = \int_{E \cap X_n} h_n d\mu.
+%     \end{equation}
+%     Como $\lambda_{na}$ e $\lambda_{ns}$ são concentradas em $X_n$, existe $A_n \subseteq X_n$, com $\lambda_{na}$ concentrada em $A_n$ e $\lambda_{ns}$ concentrada 
+%     em $X_n \setminus A_n$. O fato de $\lambda_{ns}$ estar concentrada em $X_n$ e a segunda propriedade obtida em [\ref{eq:l6:prob:1:1}], implica que $\lambda_{ns}$ é singular
+%     em relação a $\mu$ (prova na proposição [\ref{prop:ortogonal_induzida}]), portanto, a partir dessas funções, temos ótimos candidatos para a generalização do Teorema.
+
+%     Sejam $\lambda_a = \sum_{n=1}^{\infty} \lambda_{na}$, $\lambda_{s} = \sum_{n=1}^{\infty} \lambda_{ns}$ e $h = \sum_{n=1}^{\infty} h_n \mathds{1}_{X_n}$, vamos 
+%     provar que essas satisfazem as conclusões do teorema. Primeiramente, $\lambda_a$ sendo uma soma enumerável de medidas positivas é uma medida positiva, pois $\lambda_a(\varnothing) = 0$ e,     dado um conjunto $E$ e uma partição $\{E_i\}_{i\in\N}$, temos 
+%     $$\lambda_a(E) = \sum_{n=1}^{\infty} \lambda_{na}(E) = \sum_{n=1}^{\infty} \sum_{i=1}^{\infty} \lambda_{na}(E_i) = \sum_{i=1}^{\infty} \sum_{n=1}^{\infty} \lambda_{na}(E_i) = \sum_{i=1}^\infty \lambda_{a}(E_i)$$
+%     onde usamos que cada $\lambda_{na}(E_i)$ é positivo na terceira igualdade. Naturalmente, como $\lambda_{na} \ll \mu(\cdot \cap X_n) \ll \mu$, 
+%     segue que $\lambda_a \ll \mu$. Segue da mesma forma anterior que $\lambda_s$ é uma medida positiva. Para ver que $\lambda = \lambda_a + \lambda_s$, basta decompor  
+%     $$\lambda(E) = \sum_{n=1}^{\infty} \lambda(E \cap X_n) = \sum_{n=1}^{\infty} \lambda_{na}(E) + \lambda_{ns}(E) = \lambda_a(E) + \lambda_s(E).$$
+%     Encontramos anteriormente que cada $\lambda_{ns}$ era perpendicular a $\mu$, portanto $\sum_{n}^\infty \lambda_{ns}$ é perpendicular a $\mu$.
+%     Por fim, da forma que $h$ foi definidp, para qualquer $E \in \mathcal{M}$ fazendo a decomposição usual,
+%     $$\lambda_a(E) = \sum_{n=1}^{\infty}\lambda_{na}(E) = \sum_{n=1}^{\infty} \int_{E\cap X_n} h_n d\mu = \int_X \sum_{n=1}^{\infty} h_n \mathds{1}_{X_n} d\mu = \int_X hd\mu.$$
+%     Note que não necessáriamente $h$ pertence a $L^1(\mu)$.
+% \end{proof}
+
+% \begin{prop}
+%     \label{prop:ortogonal_induzida}
+%     Seja $\lambda$ é uma medida complexa e $\mu$ uma medida positiva de um espaço $(X,\mathcal{M})$, então se $\lambda$ está concentrada em um
+%     conjunto $A \in \mathcal{M}$, temos
+%     $$\lambda \, \bot \, \mu \iff \lambda \, \bot \, \mu(\cdot \cap A)$$
+% \end{prop}
 
 %ideia: C-S é aberto com base enumeravel de discos, a preimagem de algum desses discos com medida positiva, tira a media nele
 \begin{problem}
     \label{prob:l6:2}
     Seja $\mu(X) < \infty$, $f \in L^1(\mu)$, $S$ um conjunto fechado no plano complexo e suponha que as médias
-    $$\frac{1}{\mu(E)} \int_E fd\mu$$
+    $$\mathbb{E}[f \mid E] = \frac{1}{\mu(E)} \int_E fd\mu$$
     estejam dentro de $S$ para todo $E \in \mathcal{M}$ com $\mu(E) > 0$. Então $f(x) \in S$ $\mu$-qtp. 
 \end{problem}
 \begin{proof}
@@ -57,18 +116,127 @@ Para esse primeiro problema, vamos utilizar a versão mais fraca de Radon-Nikody
     $$\forall x \in A \quad |f(x) - q_n| < r_n.$$ 
     Tirando a média sobre $A$ e comparando sua distância a $q_n$, encontramos
     $$\bigg | \frac{1}{\mu(A)} \int_A f(x) d\mu - q_n\bigg| \leq \frac{1}{\mu(A)} \int_A |f(x) - q_n| d\mu < \frac{1}{\mu(A)} \int_A r_n d\mu = r_n$$
-    Como a distância da média à $q_n$ é menor que $r_n$, segue que ela pertence a $B_{(q_n,r_n)}$ e portanto está fora de $S$, contradizendo a hipótese.
+    Como a $|\mathbb{E}[f \mid A] - q_n| < r_n$, segue que $\mathbb{E}[f \mid A] \in B_{(q_n,r_n)}$ e portanto fora de $S$, contradizendo a hipótese.
 \end{proof}
 
 %compactifique mu usando o w do Rudin (precisa do lemma), mostre que há uma isometria entre os dois espaços
 \begin{problem}
     \label{prob:l6:3}
-\end{problem}
+    Estenda o Teorema 3 da última aula (dualidade dos espaços $L^p(\mu)$ com $\mu$ positiva finita) para $\mu$ positiva $\sigma$-finita.
 
-%tenho que pensar ainda falso
+    (Escrevendo por extenso) Suponha que $1 \leq p < \infty$, $\mu$ é uma medida $\sigma$-finita em $X$ e $\Phi$ é um funcional linear limitado em $L^p(\mu)$. Então
+    existe uma única $g \in L^q(\mu)$, onde $q$ é o expoente conjugado de $p$, tal que 
+    \begin{equation}
+        \label{trm:dualidade_lp}
+        \Phi(f) = \int_X fg d\mu\quad (f \in L^p(\mu)).
+    \end{equation}
+    Além do mais, se $\Phi$ e $g$ estão relacionados como em [\ref{trm:dualidade_lp}], então
+    \begin{equation}
+        ||\Phi|| = ||g||_q
+    \end{equation}
+\end{problem}
+Para essa questão, precisaremos de um lema bonitinho do Rudin. Uma forma de compatificar medidas positivas $\sigma$-finitas.
+\begin{lemma}
+    \label{lemm:compactificacao_de_sigma_finita}
+    Se $\mu$ é uma medida positiva $\sigma$-finita em $(X, \mathcal{M})$, então existe uma função $w \in L^1(\mu)$ tal que
+    $0 < w < 1$. 
+\end{lemma}
+\begin{proof}
+    Seja $X = \bigcup_{n=1}^{\infty} X_n$, com $\mu(X_n) < \infty$. Para cada $n$, defina $w_n(x) = 0$ se $x \not \in X_n$ e 
+    $$w_n(x) = \frac{2^{-n - 1}}{1 + \mu(X_n)}$$
+    se $x \in X_n$. A função $w = \sum_{n=1}^{\infty} w_n$ satisfaz as propriedades exigidas.
+\end{proof}
+Agora podemos resolver o problema.
+\begin{proof}
+    Suponha que $\mu$ seja positiva $\sigma$-finita em $(X, \mathcal{M})$ e seja $w$ como no lema anterior. Então, $wd\mu$ é uma medida
+    finita em $\mathcal{M}$. Definimos a transformação linear $T: L^p(wd\mu) \to L^p(d\mu)$ dada por 
+    $$T(F) = w^{1/p}F.$$
+    Note que está bem definida, uma vez que, se $F \in L^p(wd\mu)$, então 
+    $$\bigg|\int_X |T(F)|^p d\mu\bigg|^{1/p} = \bigg|\int_X |F|^p wd\mu\bigg|^{1/p} = ||F||_p < \infty,$$
+    além do mais, mantém a normas. Como $w > 0$, $T^{-1}: \tilde{F} \mapsto w^{-1/p}\tilde{F}$ está bem definida já que 
+    $$\bigg|\int_X |T^{-1}(\tilde{F})|^p wd\mu\bigg|^{1/p} = \bigg|\int_X |\tilde{F}|^p d\mu\bigg|^{1/p} = ||\tilde{F}||_p < \infty $$
+    e portanto $T$ é uma isometria. 
+    
+    Sendo espaços isométricos por $T$, $\Phi \circ T$ é um funcional linear limitado em $L^p(wd\mu)$,
+    portanto, pelo teorema provado em aula, existe uma única $G$ em $L^q(wd\mu)$ com $||G||_q = ||\Phi \circ T||$ com 
+    $$\Phi \circ T (F) = \int_X GF wd\mu.$$
+    Se $p = 1$, defina $g = Gw^{1/q} \in L^q(\mu)$. Segue que 
+    $$\bigg(\int_X |g|^q d\mu\bigg)^{1/q} = \bigg(\int_X |G|^q w d\mu\bigg)^{1/q} = ||G||_q = ||\Phi \circ T||^q = ||\Phi||^q < \infty$$
+    onde usamos que $T$ é uma isometria na última igualdade. Se $p = 1$, defina $g = G$,
+    de onde segue que $||g||_\infty = ||G||_\infty = ||\Phi \circ T|| = ||\Phi||$. Para finalizar, 
+    $$\phi(f) = \phi(w^{-1/p}f) = \int_X w^{-1/p}fGwd\mu = \int_X fg d\mu$$
+    para cada $f \in L^p(\mu)$ e provamos o teorema.
+\end{proof}
+
 \begin{problem}
     \label{prob:l6:4}
+    Suponha que $(g_n)$ é uma sequência de funcões contínuas positivas em $I = [0,1]$, $\mu$ é um medida positiva de Borel em $I$, $m$ é a medida de Lebesgue
+    e que 
+    \begin{enumerate}[label=(\alph*)]
+        \item $\lim_{n\to\infty} g_n(x) = 0$, $m$-a.e
+        \item $\int_I g_n dm = 1$
+        \item $\lim_{n\to\infty} \int_I fg_ndm = \int_I fd\mu$ para toda $f \in C(I)$.
+    \end{enumerate}
+    Segue que $\mu\,\bot\,m$?
 \end{problem}
+\begin{remark}
+    \textbf{Ideia da prova}
+    Passei muito tempo tentando provar que valia a conclusão - obrigado \textbf{Ênio} por me dizer que era falso - a quantidade de dados nesse problema nos induz ao erro. É mais fácil ver 
+    que isso não segue nem se $\mu = m$. 
+    A ideia é construir uma sequência de funções $(g_n)$ que aproximam bem a integral de Riemann, isto é $\int_I fg_n dm$ é quase uma soma de Riemann,
+    mas que ainda satisfaça a condição (a).
+\end{remark}
+
+\begin{proof}
+    \textbf{(Solução do Exercício)} O resultado não segue. Tomando $\mu = m$, encontraremos uma sequência $(g_n)$ que satisfaz todas as condições da hipótese.
+    Como dito no remark vamos tentar recriar a integral de Riemann [Problema \ref{prob:l3:2}], usando amigas antigas - funções trapezoidas [Problema \ref{prob:l3:6}].
+    
+    Para cada $n \in \N$, vamos definir uma funções auxiliares trapezoidais de largura menor que $2/4^n$ e altura 1. Seja  para cada $1 \leq i \leq 2^n - 1$,
+    defina
+    $$h_n^i(x) = \begin{cases}
+        1 & \text{se } x \in [i/2^{-n}, i/2^{-n} + 4^{-n}]\\
+        8^n(x - (i/2^{-n} - 8^{-n})) &\text{se } x \in [i/2^{-n} - 8^{-n}, i/2^{-n}]\\
+        1 - 8^n(x - (i/2^{-n} + 4^{-n})) &\text{se } x \in [i/2^{-n} + 4^{-n}, i/2^{-n} + 4^{-n} + 8^{-n}]\\
+        0 & \text{c.c.}
+    \end{cases}$$ 
+    Isso é, $h_n^i$ é um trapézio de altura 1, de base superior de tamanho $4^{-n}$ e base inferior com tamanho $2 \cdot 8^{-n} + 4^{-n}$.
+    Os $h_n^i$ são claramente contínuas e vamos definir a função $h_n = \sum_{i=1}^{2^n - 1} h_n^i$. É fácil calcular a integral de $h_n$, pois os trapézios são disjuntos,
+    obtemos que 
+    $$\int_I h_n dm = \sum_{i = 1}^{2^n - 1} \big(\frac{1}{8^n} + \frac{1}{4^n}\big) = \frac{4^n - 1}{8^n} \approx \frac{1}{2^n}.$$
+    Normalizando, nossa sequência $(g_n)$ será 
+    $$g_n = \frac{8^n}{4^n - 1}h_n \approx 2^n h_n$$
+    por construção, $(g_n)$ satisfaz (b). 
+    
+    Vamos provar que vale (a). Note que é fácil calcular $m\{g_n > 0\}$, basta somar as bases dos trapézios 
+    e temos que 
+    $$m\{g_n > 0\} = \sum_{i = 1}^{2^n - 1} \frac{2}{8^n} + \frac{1}{4^n} \leq \frac{4}{2^n}.$$
+    Logo
+    $$\sum_{n = 1}^{\infty} m\{g_n > 0\} \leq \sum_{n=1}^{\infty} \frac{4}{2^n} < \infty$$
+    E pelo Problema \ref{prob:l2:6}, o conjunto de $x$ que aparecem em infinitos $\{g_n > 0\}$ tem medida nula. Portanto, 
+    $\lim_{n\to\infty} g_n(x) = 0$ $m$-qtp.
+
+    Agora basta verificar que (c) vale e terminar a demonstração. Aqui está a grande sacada, integrar contra $g_n$ é basicamente tirar a média 
+    sobre os n-diádicos (múltiplos de $2^{-n}$), pelos teorema de convergência da integral de Riemann, isso nos dá um pontilhamento que converge para 
+    a integral no intervalo ($S(f;P_n) \to \int f dt$).  Formalizando, dado $f \in C(I)$, note que
+    $$\lim_{n\to\infty} \int_I g_nf dm = \lim_{n\to\infty} \sum_{i=1}^{2^n - 1} \frac{8^n}{4^n - 1} \int_I h_n^i fdm.$$
+    Sendo contínua num compacto, existe constante $M$ com $|f| < M$. Portanto podemos, sem preocupação, aproximar os termos do limite por 
+    $$\int_I g_nf dm \approx 2^n \sum_{i=1}^{2^n - 1} \int_{\{h_n^i > 0\}} h_n^i fdm.$$
+    Agora note que (majorando a parte não constante do trapézio)
+    $$2^n \sum_{i=1}^{2^n - 1} \int_{\{h_n^i > 0\}} h_n^i fdm = 2^n  \sum_{i=1}^{2^n - 1} \bigg(\int_{\{h_n^i = 1\}} f dm \,\pm \frac{2M}{8^{n}} \bigg)$$
+    e muito felizmente
+    $$2^n 2^n \bigg( \pm \frac{2M}{8^n}\bigg) \to 0.$$
+    Portanto, sendo $J_{i(n)} = [i/2^n, i/2^n + 4^{-n}]$, uma ótima aproximação para nossas integrais é 
+    $$\int_I g_n fdm \approx 2^n \sum_{i=1}^{2^n - 1} \int_{J_{i(n)}} f dm$$
+    e mostramos que
+    $$\lim_{n\to\infty} \int_I g_n fdm = \lim_{n\to\infty} 2^n \sum_{i=1}^{2^n - 1} \int_{J_{i(n)}} f dm.$$
+    Usando o teorema do valor médio para integrais, existe $x_{i(n)} \in J_{i(n)}$ tal que 
+    $$\int_{J_{i(n)}} fdm = 4^{-n} f(x_{i(n)})$$
+    E portanto,
+    $$\lim_{n\to\infty} 2^n \sum_{i=1}^{2^n - 1} \int_{J_{i(n)}} f dm = \lim_{n\to\infty} \sum_{i=1}^{2^n - 1}\frac{f(x_{i(n)})}{2^n}.$$
+    Moralmente acabamos, pois o termo da direita é uma soma de Riemann que tende para a integral de $f$. De outra forma,
+    os conjuntos $P_n = \{x_{i(n)}\}$ são pontilhamentos, por construção $|P_n| < 2^{-n + 1}$ e portanto 
+    $$\lim_{n\to\infty} \sum_{i=1}^{2^n - 1}\frac{f(x_{i(n)})}{2^n} = \lim_{P_n} S(f;P_n) = \int_{0}^{1} fdt = \int_I f dm.$$ 
+\end{proof}
 
 %sim aproxime |lambda| por uma partição enumeravel, aproxime a partição enumeravel
 \begin{problem}
