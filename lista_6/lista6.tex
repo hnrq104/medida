@@ -34,7 +34,20 @@ Para esse primeiro problema, vamos utilizar a versão mais fraca de Radon-Nikody
     Seja $\mu$ medida positiva $\sigma$-finita e $\lambda$ medida complexa. Prove que o Teorema de Radon-Nikodym ainda vale.
 \end{problem}
 \begin{proof}
-    Vamos provar que vale para $\lambda$ com sinal. Tomando a decomposição de Lebesgue $\lambda = \lambda^+ - \lambda^-$ em 
+    Unicidade segue assim como foi mostrado em aula. Dados $\lambda$ e $\mu$, 
+    suponha que exista pares $(\lambda_a, \lambda_s)$ e $(\lambda_a', \lambda_s')$ satisfazendo as conclusões do teorema.
+    Então,
+    $$\lambda = \lambda_a + \lambda_s = \lambda_a' + \lambda_s'$$
+    logo
+    $$\lambda_a - \lambda_a' = \lambda_s' - \lambda_s$$
+    mas $\lambda_a - \lambda_a' \ll \mu$ e $(\lambda_s' - \lambda_s)\, \bot \,\mu$, portanto os dois lados da equação anterior devem ser $0$,
+    e a decomposição é idêntica. Sobre a unicidade da função $h$, note que se existisse outra $h'$ que também satisfaz 
+    $$\lambda_a(E) = \int_E h'd\mu$$
+    então seguiria que para todo $E \in \mathcal{M}$,
+    $$\int_E h - h' d\mu = 0$$
+    pelo problema [\ref{prob:l6:2}], $h - h' = 0$ $\mu$-qtp.
+
+    Vamos provar a existência para $\lambda$ com sinal. Tomando a decomposição de Lebesgue $\lambda = \lambda^+ - \lambda^-$ em 
     medidas positivas finitas, podemos aplicar o Teorema [\ref{trm:weak_radon}] em ambas para obter
     $$\lambda^+ = \lambda^+_a + \lambda_{s}^+, \quad \lambda_{s}^+\,\bot\,\mu, \quad \lambda_{a}^+(E) = \int_{E} h^+ d\mu$$
     e
@@ -151,17 +164,17 @@ Agora podemos resolver o problema.
     Suponha que $\mu$ seja positiva $\sigma$-finita em $(X, \mathcal{M})$ e seja $w$ como no lema anterior. Então, $wd\mu$ é uma medida
     finita em $\mathcal{M}$. Definimos a transformação linear $T: L^p(wd\mu) \to L^p(d\mu)$ dada por 
     $$T(F) = w^{1/p}F.$$
-    Note que está bem definida, uma vez que, se $F \in L^p(wd\mu)$, então 
-    $$\bigg|\int_X |T(F)|^p d\mu\bigg|^{1/p} = \bigg|\int_X |F|^p wd\mu\bigg|^{1/p} = ||F||_p < \infty,$$
-    além do mais, mantém a normas. Como $w > 0$, $T^{-1}: \tilde{F} \mapsto w^{-1/p}\tilde{F}$ está bem definida já que 
+    Note que está bem definida e mantém normas, uma vez que, se $F \in L^p(wd\mu)$, então 
+    $$||T(F)||_p = \bigg|\int_X |T(F)|^p d\mu\bigg|^{1/p} = \bigg|\int_X |F|^p wd\mu\bigg|^{1/p} = ||F||_p < \infty.$$
+    Como $w > 0$, $T^{-1}: \tilde{F} \mapsto w^{-1/p}\tilde{F}$ também está definida, já que 
     $$\bigg|\int_X |T^{-1}(\tilde{F})|^p wd\mu\bigg|^{1/p} = \bigg|\int_X |\tilde{F}|^p d\mu\bigg|^{1/p} = ||\tilde{F}||_p < \infty $$
     e portanto $T$ é uma isometria. 
     
-    Sendo espaços isométricos por $T$, $\Phi \circ T$ é um funcional linear limitado em $L^p(wd\mu)$,
-    portanto, pelo teorema provado em aula, existe uma única $G$ em $L^q(wd\mu)$ com $||G||_q = ||\Phi \circ T||$ com 
-    $$\Phi \circ T (F) = \int_X GF wd\mu.$$
-    Se $p = 1$, defina $g = Gw^{1/q} \in L^q(\mu)$. Segue que 
-    $$\bigg(\int_X |g|^q d\mu\bigg)^{1/q} = \bigg(\int_X |G|^q w d\mu\bigg)^{1/q} = ||G||_q = ||\Phi \circ T||^q = ||\Phi||^q < \infty$$
+    Sendo $L^p(\mu)$ e $L^p(w\mu)$ espaços isométricos por $T$, se $\Phi$ é um funcional linear limitado de $L^p(\mu)$, então $\Phi \circ T$ é um funcional linear limitado de $L^p(wd\mu)$.
+    Portanto, pelo teorema provado em aula, sendo $q$ o exponte conjugado a $p$,  existe uma única $G \in L^q(wd\mu)$ com $||G||_q = ||\Phi \circ T|| = ||\Phi||$ com 
+    $$(\Phi \circ T) (F) = \int_X GF wd\mu \quad \forall F \in L^p(wd\mu).$$
+    Se $p > 1$, defina $g = Gw^{1/q} \in L^q(\mu)$. Segue que 
+    $$\bigg(\int_X |g|^q d\mu\bigg)^{1/q} = \bigg(\int_X |G|^q w d\mu\bigg)^{1/q} = ||G||_q = ||\Phi \circ T|| = ||\Phi||$$
     onde usamos que $T$ é uma isometria na última igualdade. Se $p = 1$, defina $g = G$,
     de onde segue que $||g||_\infty = ||G||_\infty = ||\Phi \circ T|| = ||\Phi||$. Para finalizar, 
     $$\phi(f) = \phi(w^{-1/p}f) = \int_X w^{-1/p}fGwd\mu = \int_X fg d\mu$$
