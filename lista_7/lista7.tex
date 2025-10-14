@@ -1,0 +1,153 @@
+\clearpage
+\section{Lista 7 (9/10/2025)}
+
+Listagem de problemas:
+\begin{enumerate}
+    \item Exercício \ref{prob:l7:1} : \checkmark
+    \item Exercício \ref{prob:l7:2} : \checkmark
+    \item Exercício \ref{prob:l7:3} : \checkmark
+    \item Exercício \ref{prob:l7:4} : \Frowny
+\end{enumerate}
+
+
+\begin{problem}
+    \label{prob:l7:1}
+    (Teorema de Ergoroff) Seja $\mu(X) < \infty$, $(f_n)$ uma sequência de funções complexas mensuráveis que convergem pontualmente em todo $X$
+    e $\eps > 0$. Prove que existe um conjunto mensurável $E \subset X$, com $\mu(X - E) < \eps$ tal que $(f_n)$ converge uniformemente em $E$.
+\end{problem}
+\begin{proof}
+    Seja $f$ o limite pontual de $(f_n)$, como a sequência é mensurável, $f$ é mensurável.
+    Definimos os conjuntos mensuráveis 
+    $$S(n,k) = \bigcap_{m \geq n} \{x : |f_m(x) - f(x)| < 1/k\}$$
+    Como interseção de menos termos, $S(n,k) \subset S(n+1,k)$. Como para cada $x$, $f_n(x) \to f(x)$, 
+    sempre existe $n_0$ com $x \in S(n_0, k)$. Portanto, para cada $k$, vale que 
+    $$S(1,k) \subset S(2,k) \subset \dots \subset S(n,k) \subset \dots \to X.$$
+    Agora podemos construir nosso conjunto esperto com um argumento diagonal. Como $\mu(X) < \infty$, encontramos $n_1$
+    tal que 
+    $$S(n_1, 1) > \mu(X) - \eps/2$$
+    e, indutivamente em $i$, $n_{i} > n_{i-1}$ satisfazendo %desnecessário?%
+    $$S(n_i, i) > \mu(X) - \eps/2^i.$$
+    Seja $A = \bigcap_{i=1}^\infty S(n_i,i)$. Por construção, $\mu(A) > \mu(X) - \eps$. Vamos mostrar que $(f_n)$ é uniformemente
+    convergente em $A$. 
+    
+    Dado $\delta > 0$, seja $k = \ceil{1/\delta}$,  escolhendo $x \in A$ qualquer, como $x \in S(n_k,k)$ vale que 
+    para $n \geq n_k$, 
+    $$|f_n(x) - f(x)| < \frac{1}{\ceil{1/\delta}} < \delta$$
+    Como $n_k$ independe do $x$ escolhido, segue que a sequência é uniformemente convergente. 
+\end{proof}
+
+\begin{problem}
+    \label{prob:l7:2}
+    Suponha que $\mu(X) < \infty$, $f_n \in L^1(\mu)$, $f_n(x)$ convergente em $f(x)$ a.e, e que existe 
+    $p > 1$ e $C < \infty$ tal que $\int_X|f_n|^p d\mu < C$, para todo $n$. Prove que 
+    $$\lim_{n\to\infty} \int_X |f - f_n|d\mu = 0$$ 
+\end{problem}
+\begin{proof}
+    Note, antes de mais nada, que, pelo Lema de Fatou [\ref{trm:lemma_fatou}],
+    $$\int_X |f|^p d\mu = \int_X \limsup_{n\to\infty} |f_n|^p d\mu \leq \limsup_{n\to\infty} \int_X |f_n|^p d\mu < C$$
+    e $f \in L^p(\mu)$.
+    Em particular,
+    $$\int_{X} |f_n - f|^p d\mu \leq (||f||_p + ||f_n||_p)^p \leq 2^pC$$
+    é uniformemente limitado. Como $p > 1$ e $\mu(X) < \infty$, segue que $|f - f_n| \in L^1(\mu)$ para todo $n$.
+    Sem perda de generalidade então, podemos substituir nossa sequência $(f_n)$ por $(g_n) = (f - f_n)$ que satisfaz
+    as mesmas hipóteses. Queremos mostrar então que 
+    $$\lim_{n\to\infty} \int_{X} |g_n| d\mu = 0$$
+    sabendo que $g_n \to 0$ a.e. e $||g_n||_1 < \infty$ e $||g_n||_p < D$ para todo $n$. 
+    
+    Podemos usar o teorema de Ergoroff [\ref{prob:l7:1}]
+    para obter uma sequência de conjuntos $A_m$, com $\mu(A_m) < 1/m$ satisfazendo que $g_n$ é uniformemente convergente em cada $X - A_m$.
+    Para cada $m$, o limite acima se expressa então como 
+    $$\lim_{n\to\infty}\int_{A_m} |g_n|d\mu + \int_{X - A_m} |g_n|d\mu = \lim_{n\to\infty}\int_{A_m} |g_n|d\mu$$
+    Usando Hölder na direita com $p$ e seu conjugado $q < \infty$, obtemos 
+    $$\lim_{n\to\infty}\int_{A_m} |g_n|d\mu \leq \lim_{n\to\infty} \mu(A_m)^{1/q}\bigg(\int_{X - A_m} |g_n|^p d\mu\bigg)^{1/p} \leq \mu(A_m)^{1/q}D$$
+    Como isso vale para todo $m$, fazendo $m \to \infty$, segue que $\mu(A_m)^{1/q} \to 0$ e portanto 
+    $$\lim_{n\to\infty} \int_{X} |g_n| d\mu = 0$$
+\end{proof}
+
+\begin{problem}
+    \label{prob:l7:3}
+    Suponha que $X$ consista de dois pontos $a$ e $b$; defina $\mu(\{a\}) = 1$, $\mu(\{b\}) = \mu(X) = \infty$. É verdade,
+    para essa $\mu$, que $L^\infty(\mu)$ é o dual de $L^1(\mu)$?
+\end{problem}
+\begin{proof}
+    Não. Vamos mostrar que $L^1(\mu) \cong \C$ que é seu próprio dual, mas $L^\infty(\mu) \cong \C^2$.
+    Vamos exibir um isomorfismo para cada um dos dois espaços.
+
+    Seja $T: L^1(\mu) \to \C$ transformação linear, dada por 
+    $$T(f) = f(a).$$
+    Queremos mostrar que $T$ é uma transformação linear bijetiva que preserva normas, teremos então que será isomorfismo entre espaços 
+    de Banach.
+    Note que se $f \in L^1(\mu)$, então $f(b) = 0$ e portanto $||f||_1 = |f(a)| = |T(f)|$, logo $T$ preserva normas.
+    $T$ é sobrejetiva pois, dado $z \in \C$, defina $f \in L^1(\mu)$ por $f(a) = z$ e $f(b) = 0$, segue que $T(f) = z$.
+    Falta mostrar que é injetiva; se $T(f) = 0$, então $f(a) = 0$, mas como $f \in L^1(\mu)$, temos que $f(b) = 0$ e portanto 
+    $f \equiv 0$. Segue que $L^1(\mu) \cong \C$.
+    
+    Para ser mais exato no segundo isomorfismo, vamos provar que $L^\infty(\mu) \cong (\C^2, ||\cdot||_\infty)$, tomando a norma do máximo 
+    em $\C^2$. Como todas as normas de $\C^n \cong \R^{2n}$ são equivalentes, ainda vale que nessa norma, $(\C^2)^* = \C^2$. 
+    
+    Defina $G : L^\infty(\mu) \to \C^2$ por
+    $$G(f) = (f(a),f(b)) \in \C^2.$$
+    $G$ é óbviamente linear. Sobrejetividade segue direto também, dado $(z,w) \in \C^2$, tomando $f$ tal que
+    $f(a) = z$ e $f(b) = w$, segue que $||f||_\infty = \max(|a|,|b|) < \infty$, logo $f \in L^\infty(\mu)$ e $G(f) = (z,w)$. 
+    Para injetividade, se $G(f) = 0$, então por definição $f(a) = 0$ e $f(b) = 0$, donde $f \equiv 0$. Basta verificar que preserva normas,
+    mas já foi visto, uma vez que
+    $$|G(f)| = \max(|f(a)|, |f(b)|) = ||f||_\infty.$$
+    Temos então que $G$ é isomorfismo de espaços de Banach e portanto $L^\infty(\mu) \cong \C^2$.
+
+\end{proof}
+
+\begin{problem}
+    \label{prob:l7:4}
+    (Integral de Lebesgue-Stiltjes) Seja $F:[a,b] \to \R$ uma função crescente.
+    \begin{enumerate}[label=(\alph*)]
+        \item Prove que F tem um número contável de descontinuidades.
+        \item Se $x_0$ é um ponto de descontinuidade, prove que 
+        $$F(x_0)^+ = \lim\limits_{\substack{x>x_0 \\ x\to x_0}} F(x)$$
+        está bem definido.
+        \item Possívelmente modificando $F$ em seus pontos de descontinuidade $x_0$, assuma que $F(x_0) = F(x_0)^+$. Prove que 
+        existe uma única medida $\mu$ nos Borelianos de $\R$ tal que $\mu((a,b]) = F(b) - F(a)$. Escrevemos, para $f \in L^1(\mu)$
+        $$\int_{a}^{b} f(x) d\mu(x) = \int_{a}^{b} f(x)dF(x).$$
+        \item Prove que se $F$ for continuamente diferenciável, então 
+        $$\int_{a}^{b} f(x)dF(x) = \int_{a}^{b} f(x)F'(x)dx.$$
+        para toda $f \in L^1(\mu)$.
+        \item Seja $(x_n)$ uma sequência em $[a,b]$, $(\alpha_n)$ uma sequência de números positivos tal que 
+        $$\sum_{n=1}^{\infty} \alpha_n < \infty.$$
+        Seja
+        $$j_n(x) = \begin{cases}
+            0 & \text{se } x < x_n\\
+            1 & \text{c.c.}
+        \end{cases}$$
+        e defina a função 
+        $$F(x) = \sum_{n=1}^{\infty} \alpha_nj_n(x).$$
+        Para $f \in L^1(dF)$, encontre 
+        $$\int_{a}^{b} f(x)dF(x).$$
+    \end{enumerate}
+\end{problem}
+\begin{proof}
+    Vamos fazer as partes mais fáceis primeiro, se eu conseguir eu faço o resto :)
+
+    Começamos com (b) que é a mais fácil de todas. Vamos mostrar que para todo $x \in (a,b)$
+    as funções 
+    $$F^+(x) = \lim_{t\to x^+} F(t) \quad \text{e}\quad F^-(x) = \lim_{t\to x^-} F(t)$$
+    estão bem definidas (para $x = a$ somente $F^+$ faz sentido, enquanto que para $x=b$ só $F^-$). Como $F$ é crescente,
+    notamos que se $t\to x^+$, então $F(t)$ é decrescente (monótona) e limitada por baixo por $F(x)$
+    portanto $F^+(x)$ é convergente e existe. Da mesma forma, quando $t \to x^-$, então $F(t)$ é monótona crescente limitada por $F(x)$,
+    logo $F^-(x)$ existe. Como observado antes, a mesma prova mostra que $F^+(a)$ e $F^-(b)$ existem e estão bem definidos também. 
+    Em particular, se $x_0$ é um ponto de descontinuidade, $x_0 \in (a,b)$, os limites existem.
+
+    Para provar (a), chamamos $D \subset [a,b]$, o conjunto dos pontos de descontinuidade. Por definição, $t \in D$ se e somente se (onde estiver 
+    bem definido)
+    $$F^+(t) - F(t) > 0 \quad \lor \quad F(t) - F^-(t).$$
+    Isso é, num ponto de descontinuidade a função "pula" um intervalo positivo. Vamos associar únicamente a cada $t \in D$, um intervalo aberto da reta 
+    (o intervalo que pulamos no ponto $t$), esses intervalos serão disjuntos e portanto, serão enumeráveis.
+    Para cada $t \in D$, se $F^+(t) - F(t) > 0$, associamos a $t$ o aberto
+    $$A_t = \{x : F(t) < x < (F(t) + F^+(t))/2\}$$
+    caso contrário, sendo $F(t) - F^-(t) > 0$, definimos 
+    $$A_t = \{x : (F(t) + F^-(t))/2 < x < F(t)\}.$$
+    Vamos mostrar que se $t < t' \in D$, então $A_t \cap A_{t'} = \varnothing$. Para isso, olhando para os limites dos intervalos, 
+    basta perceber que 
+    $$\frac{F(t) + F^+(t)}{2} \leq \frac{F(t') + F^-(t')}{2}$$
+    que vale pois, como $F$ é crescente, $F(t) \leq F(t')$ e, tomando $c \in (t,t')$, sabemos que $F^+(t) \leq F(c) \leq F^-(t')$.
+    Como associamos a cada $t \in D$ conjuntos abertos disjuntos de $\R$ e $\R$ é Lindelöf, vale que $D$ é enumerável. 
+\end{proof}
+
