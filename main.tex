@@ -43,6 +43,19 @@
 
 \newenvironment{clmproof}[1]{\begin{proof}[Proof of Claim~\ref{#1}]\let\qednow\qedsymbol\renewcommand{\qedsymbol}{}}{\; \qednow \end{proof}}
 
+\newcounter{step}
+\newenvironment{proofsteps}{
+  \setcounter{step}{0}
+  \begin{list}{\textbf{Step \arabic{step}.}}{\usecounter{step}
+  \setlength{\leftmargin}{1.5em}
+  \setlength{\itemsep}{0.3em}}
+}{
+  \end{list}
+}
+
+\newcommand{\stepcomment}[1]{\hfill {\small\textit{#1}}}
+
+
 \newcommand\N{\mathbb{N}}
 \newcommand\R{\mathbb{R}}
 \newcommand\Z{\mathbb{Z}}
@@ -190,4 +203,5 @@ Eu vou tentar usar uma notação menos esotérica, mas, ás vezes, uma vontade m
 %LISTA 7
 \input{lista_7/lista7.tex}
 
+% \input{prep2/prep2.tex}
 \end{document}

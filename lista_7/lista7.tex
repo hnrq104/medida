@@ -6,7 +6,14 @@ Listagem de problemas:
     \item Exercício \ref{prob:l7:1} : \checkmark
     \item Exercício \ref{prob:l7:2} : \checkmark
     \item Exercício \ref{prob:l7:3} : \checkmark
-    \item Exercício \ref{prob:l7:4} : \Frowny
+    \item Exercício \ref{prob:l7:4} :
+        \begin{enumerate}[label=(\alph*)]
+            \item \checkmark
+            \item \checkmark
+            \item \Frowny
+            \item \Frowny
+            \item +-
+        \end{enumerate}
 \end{enumerate}
 
 
@@ -50,7 +57,7 @@ Listagem de problemas:
     $$\int_{X} |f_n - f|^p d\mu \leq (||f||_p + ||f_n||_p)^p \leq 2^pC$$
     é uniformemente limitado. Como $p > 1$ e $\mu(X) < \infty$, segue que $|f - f_n| \in L^1(\mu)$ para todo $n$.
     Sem perda de generalidade então, podemos substituir nossa sequência $(f_n)$ por $(g_n) = (f - f_n)$ que satisfaz
-    as mesmas hipóteses. Queremos mostrar então que 
+    as mesmas hipóteses. Queremos mostrar que 
     $$\lim_{n\to\infty} \int_{X} |g_n| d\mu = 0$$
     sabendo que $g_n \to 0$ a.e. e $||g_n||_1 < \infty$ e $||g_n||_p < D$ para todo $n$. 
     
@@ -104,8 +111,8 @@ Listagem de problemas:
         \item Se $x_0$ é um ponto de descontinuidade, prove que 
         $$F(x_0)^+ = \lim\limits_{\substack{x>x_0 \\ x\to x_0}} F(x)$$
         está bem definido.
-        \item Possívelmente modificando $F$ em seus pontos de descontinuidade $x_0$, assuma que $F(x_0) = F(x_0)^+$. Prove que 
-        existe uma única medida $\mu$ nos Borelianos de $\R$ tal que $\mu((a,b]) = F(b) - F(a)$. Escrevemos, para $f \in L^1(\mu)$
+        \item (Levemente Modificada) Possívelmente modificando $F$ em seus pontos de descontinuidade $x_0$, assuma que $F(x_0) = F(x_0)^+$. Prove que 
+        existe uma única medida $\mu$ nos Borelianos de $[a,b]$ tal que $\mu((c,b]) = F(b) - F(c)$. Escrevemos, para $f \in L^1(\mu)$
         $$\int_{a}^{b} f(x) d\mu(x) = \int_{a}^{b} f(x)dF(x).$$
         \item Prove que se $F$ for continuamente diferenciável, então 
         $$\int_{a}^{b} f(x)dF(x) = \int_{a}^{b} f(x)F'(x)dx.$$
@@ -124,9 +131,9 @@ Listagem de problemas:
     \end{enumerate}
 \end{problem}
 \begin{proof}
-    Vamos fazer as partes mais fáceis primeiro, se eu conseguir eu faço o resto :)
+    Vamos fazer as partes mais fáceis primeiro, não acho que vou conseguir fazer tudo  :p
 
-    Começamos com (b) que é a mais fácil de todas. Vamos mostrar que para todo $x \in (a,b)$
+    Começamos com \textbf{(b)} que é a mais fácil de todas. Vamos mostrar que para todo $x \in (a,b)$
     as funções 
     $$F^+(x) = \lim_{t\to x^+} F(t) \quad \text{e}\quad F^-(x) = \lim_{t\to x^-} F(t)$$
     estão bem definidas (para $x = a$ somente $F^+$ faz sentido, enquanto que para $x=b$ só $F^-$). Como $F$ é crescente,
@@ -135,7 +142,7 @@ Listagem de problemas:
     logo $F^-(x)$ existe. Como observado antes, a mesma prova mostra que $F^+(a)$ e $F^-(b)$ existem e estão bem definidos também. 
     Em particular, se $x_0$ é um ponto de descontinuidade, $x_0 \in (a,b)$, os limites existem.
 
-    Para provar (a), chamamos $D \subset [a,b]$, o conjunto dos pontos de descontinuidade. Por definição, $t \in D$ se e somente se (onde estiver 
+    Para provar \textbf{(a)}, chamamos $D \subset [a,b]$, o conjunto dos pontos de descontinuidade. Por definição, $t \in D$ se e somente se (onde estiver 
     bem definido)
     $$F^+(t) - F(t) > 0 \quad \lor \quad F(t) - F^-(t).$$
     Isso é, num ponto de descontinuidade a função "pula" um intervalo positivo. Vamos associar únicamente a cada $t \in D$, um intervalo aberto da reta 
@@ -148,6 +155,58 @@ Listagem de problemas:
     basta perceber que 
     $$\frac{F(t) + F^+(t)}{2} \leq \frac{F(t') + F^-(t')}{2}$$
     que vale pois, como $F$ é crescente, $F(t) \leq F(t')$ e, tomando $c \in (t,t')$, sabemos que $F^+(t) \leq F(c) \leq F^-(t')$.
-    Como associamos a cada $t \in D$ conjuntos abertos disjuntos de $\R$ e $\R$ é Lindelöf, vale que $D$ é enumerável. 
+    Como associamos a cada $t \in D$ conjuntos abertos disjuntos de $\R$ e $\R$ é Lindelöf, vale que $D$ é enumerável.
+
+    \textbf{Sobre (c) e (d).} Eu acredito conhecer a solução para ambas as letras. A ideia seria mostrar que, considerando $\mu([c,d]) = F(d) - F(c)$, formariámos
+    uma pré-medida sobre o semi-anel desses conjuntos (os intervalos de $[a,b]$), por sua vez, esse semi-anel pode ser únicamente estendido para uma álgebra com 
+    uma única extensão da pré-medida também. E aí estariámos quase que finalizados,já  a extensão da álgebra para a $\sigma$-álgebra de Catheodory seria única e 
+    conteria os Borelianos. Dessa forma, qualquer medida boreliana de $[a,b]$ é únicamente determinada pelos valores tomados nos intervalos da forma $[c,d]$, $(c,d)$, $(c,d]$, $[c,d]$.
+    Para a letra (d), bastaria verificar que, sendo $F$ diferenciável, a medida $\lambda$ em $[a,b]$ definida por $\lambda(E) = \int_E F'dt$ seria boreliana e 
+    coincidiria com $\mu$ nos intervalos de $[a,b]$, como, novamente, isso determina únicamente a medida, ela seria idêntica a $\mu$ onde definida. Não consegui escrever 
+    esse argumento de maneira convincente, então fica esse diálogo só para que um futuro eu possa revê-lo.
+
+
+    \textbf{(e)} A sequência, como dada, pode ter vários termos repetidos,
+    substituindo se for necessário os $\alpha_m$ por $\sum_{x_n = x_m}{\alpha_n}$, podemos sem modificar a função $F$, supor 
+    que cada $x_n$ aparece somente uma vez na sequência.
+    
+    Seja $\mu$ a medida dada por $F$ de acordo com a letra (c), vamos mostrar 
+    que $\mu$ está concentrada em $\bigcup_n\{x_n\}$ e determiná-la nesses pontos. 
+    
+    Da forma que foi definida,
+    $$\mu([a,b]) = F(b) - F(a) = \sum_{n=1}^{\infty} \alpha_n < \infty.$$
+    Segue da finitude do espaço que dado um $x_n$ fixo da nossa sequência,
+    $$\mu(\{x_n\}) = \lim_{k \to \infty} \mu((x_n - 1/k, x_n]) = \lim_{k\to\infty} F(x_n) - F(x_n - 1/k)$$
+    Expandindo esse limite e escolhendo uma indexação arbitrária para o somatório em $F$ (que é absolutamente convergente), temos 
+    $$\mu(\{x_n\}) = \lim_{k \to \infty} \sum_{x_m \leq x_n} \alpha_m - \sum_{\substack{x_m \leq \\x_n - 1/k}}\alpha_m$$
+    Ou colocando de maneira mais limpa (usando funções indicadoras)
+    $$\mu(\{x_n\}) = \lim_{k\to \infty} \sum_{m=1}^{\infty} \mathds{1}[(x_n - 1/k) < x_m \leq x_n] \alpha_m$$
+    Note que $\alpha_n$ sempre pertence ao somatório e como todos os termos são positivos,
+    $$\lim_{k\to \infty} \sum_{m=1}^{\infty} \mathds{1}[(x_n - 1/k) < x_m \leq x_n] \alpha_m \geq \alpha_n.$$
+    Vamos mostrar o outro lado da desigualdade. Fixado $\eps > 0$, tomamos $M$ tal que 
+    $$\sum_{m = M}^{\infty} \alpha_m < \eps$$
+    Dos primeiros $M$ termos $(x_1, x_2, \dots x_M)$ distintos de $x_n$, deve haver um mais próximo,
+    digamos a distância $\delta$ de $x_n$. Se $k > 1/\delta$, vale que 
+    \begin{align*}
+        \sum_{m=1}^{\infty} \mathds{1}[(x_n - 1/k) < x_m \leq x_n] \alpha_m &\leq \\
+        \alpha_n + \bigg(\sum_{m=1}^{M} \mathds{1}[(x_n - 1/k) < x_m < x_n] \alpha_m\bigg) + \eps &= \alpha_n + \eps
+    \end{align*}
+    portanto, fazendo $\eps \to 0$, $\mu(\{x_n\}) = \lim_{k\to\infty} \mu((x_n - 1/k, x_n]) = \alpha_m$.
+
+    O que fizemos acima implica que $\mu([a,b]) = \mu(\bigcup_n \{x_n\})$ e portanto, nossa medida está concentrada 
+    num número enumerável de pontos. Em particular, vale que 
+    $$\int_{[a,b]} f d\mu = \int_{\{x_n\}_n} f d\mu = \sum_{n=1}^{\infty} \mu(\{x_n\})f(x_n) = \sum_{n=1}^{\infty}\alpha_nf(x_n).$$
+
 \end{proof}
+
+\begin{observation}
+    Últimamente, tenho achado essa forma de provas comentadas piores. Perco mais tempo pensando em como escrever a prova do que 
+    de fato tendo a ideia para a resolução do problema. Para as próximas listas, tentarei organizar as provas em 
+    passos mais atômicos e que presumo que sejam mais fáceis de corrigir. Acho que facilitará o entendimento.
+    
+    E grande João :) , por favor meta bronca no que tiver feio, mal escrito, errado e etc. Acho que os outros já passaram bastante por isso, mas eu 
+    ainda preciso treinar muito a clareza dos meus argumentos.
+
+    Um abração enorme.
+\end{observation}
 
