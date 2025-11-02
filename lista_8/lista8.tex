@@ -1,0 +1,93 @@
+\clearpage
+\section{Lista 8 (30/10/2025)}
+
+
+\begin{problem}
+    \label{prob:l8:1}
+    Uma função $f$ é dita $L^1_{\text{loc}}(\R^n)$ se para toda bola $B$, $f\cdot\mathds{1}_B \in L^1(\R^n)$.
+    Mostre que o Teorema de Diferenciação de Lebesgue ainda vale para $L^1_{\text{loc}}(\R^n)$.
+\end{problem}
+
+\begin{proof}
+    Seja $B$ bola aberta arbitrária. Como $f \cdot\mathds{1}_B \in L^1(\R^n)$, pelo teorema da diferenciação de Lebesgue,
+    para quase todo $x \in B$,
+    $$f(x)\mathds{1}_B(x) = \lim_{r \to 0} \frac{1}{m(B_r)} \int_{B_r(x)}f(z)\mathds{1}_B(z) dz.$$
+    Como $x \in B$, $f(x)\mathds{1}_B = f(x)$ e, para $r$ suficientemente pequeno,
+    $$\frac{1}{m(B_r)} \int_{B_r(x)}f(z)\mathds{1}_B(z) dz = \frac{1}{m(B_r)} \int_{B_r(x)}f(z) dz$$
+    Portanto, para quase todo $x \in B$, vale que 
+    $$f(x) =  \lim_{r \to 0} \frac{1}{m(B_r)} \int_{B_r(x)}f(z) dz.$$
+    Como $\R^n = \bigcup_{n=1}^{\infty} B_n(0)$ é união enumerável de bolas abertas, 
+    vale que quase todo ponto é de Lebesgue em $\R^n$.
+\end{proof}
+
+
+\begin{problem}
+    
+\end{problem}
+
+
+\begin{problem}
+    
+\end{problem}
+
+
+\begin{problem}
+    \label{prob:l8:4}
+    Seja $E$ um conjunto de Lebesgue em $\R$, os limites superiores e inferiores dos quocientes
+    $$\frac{m(E \cap (x-\delta, x+\delta))}{2\delta}$$
+    são chamados das densidades superiores e inferiores de $E$ em $x$. Se esses são iguais, seu valor em comum
+    $D_E(x)$ é a densidade de $E$ em $x$. Se $D_E(x) = 1$, $x$ é um ponto de densidade de $E$. Prove que $D_E(x) = 1$ para 
+    quase todo ponto $x \in E$ e que $D_E(x) = 0$ para quase todo ponto $x \not \in E$. 
+\end{problem}
+\begin{proof}
+    Basta notar que a função $\mathds{1}_E$ pertence a $L^1_{\text{loc}}(\R)$ uma vez que, para qualquer bola $B$,
+    $$\int_{\R} \mathds{1}_B(x)\mathds{1}_E(x) dx \leq m(B) < \infty.$$
+    Por [\ref{prob:l8:1}], quase todo ponto de $\R$ é de Lebesgue para $\mathds{1}_E$,
+    ou seja, para quase todo $x$,
+    $$\mathds{1}_E(x) = \lim_{\delta \to 0} \frac{1}{m(B_\delta)} \int_{B_\delta(x)} \mathds{1}_E dm = 
+    \lim_{\delta \to 0} \frac{m(E \cap (x-\delta, x+\delta))}{2\delta}.$$
+    E temos que $D_E(x) = 1$ para quase todo $x \in E$ e $D_E(x) = 0$ para quase todo ponto $x \not \in E$. 
+\end{proof}
+
+
+\begin{problem}
+    \label{prob:l8:5}
+    Seja $A,B \subset \R$, seja $A + B = \{a + b; a \in A, b \in B\}$. Suponha que $m(A) > 0$ e $m(B) > 0$, 
+    prove que $A + B$ contém um intervalo.
+\end{problem}
+\begin{proof}
+    Vou seguir o outline do Rudin. Sejam $a_0 \in A$ e $b_0 \in B$ pontos de densidade [Prob. \ref{prob:l8:4}], 
+    mostrarei que existe um intervalo ao redor de $c_0 = a_0 + b_0$. Defina, para $E$ mensurável, $x \in \R$ e $\delta > 0$
+    $$d_E(x, \delta) = \frac{m(E \cap (x-\delta, x+\delta))}{2\delta}.$$
+    Temos que $\lim_{\delta \to 0} d_A(a_0, \delta) = 1$ e $\lim_{\delta \to 0} d_B(b_0, \delta) = 1.$
+    
+    Tome $\delta$ pequeno o suficiente tal que para todo $\delta' < \delta$, $d_A(a_0, \delta') > 2/3$ e 
+    $d_B(b_0, \delta') > 2/3$. Agora, para cada $\eps \in \R$ positivo ou negativo defina 
+    $B_\eps = \{c_0 + \eps - b; \,|b - b_0| < \delta/2,\,b \in B\}$. Crucialmente,
+    $$B_\eps \subset (a_0 + \eps - \delta/2, a_0 + \eps + \delta/2) \subset (a_0 - |\eps| - \delta/2, a_0 + |\eps| + \delta/2).$$
+    Além disso, sendo uma translação de uma vizinhança de $b_0$ em $B$ (multiplicada por $-1$),
+    vale que 
+    \begin{equation}
+        \label{eq:l8:5:1}
+        m(B_\eps) = m(B \cap (b_0 - \delta/2, b_0 + \delta/2)) > 2\delta/3.
+    \end{equation}
+    Se $|\eps| < \delta/2$, vale que $d_A(a_0, \delta/2 + |\eps|) > 2/3$, ou seja
+    \begin{equation}
+        \label{eq:l8:5:2}
+        m(A \cap (a_0 - |\eps| - \delta/2, a_0 + |\eps| + \delta/2)) > \frac{2\delta + 4|\eps|}{3}.
+    \end{equation}
+    Agora, notamos que 
+    \begin{align*}
+        % \label{eq:l8:5:3}
+        m(A \cap (a_0 - |\eps| - \delta/2, a_0 + |\eps| + \delta/2)) + m(B_\eps) &\\
+        &>\frac{2\delta}{3}+ \frac{2\delta + 4|\eps|}{3}\\
+        &> \delta + 2|\eps|\\
+        &=m((a_0 - |\eps| - \delta/2, a_0 + |\eps| + \delta/2))
+    \end{align*}
+    Onde usamos [\ref{eq:l8:5:1}] e [\ref{eq:l8:5:2}] na primeira desigualdade e $\delta > 2|\eps|$ na segunda.
+    Segue que $m(A \cap B_\eps) > 0$ e portanto $A \cap B_\eps \neq \varnothing$. Mas isso significa que para algum $b \in B$,
+    $c_0 + \eps - b \in A$ e, portanto, somando $b$, $c_0 + \eps \in A + B$. Como isso vale para todo $\eps$ com $|\eps| < \delta/2$,
+    segue que $(c_0 - \delta/2, c_0 + \delta/2) \subset A + B$.
+    
+    
+\end{proof}
