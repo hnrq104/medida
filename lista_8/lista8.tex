@@ -12,9 +12,9 @@
     Seja $B$ bola aberta arbitrária. Como $f \cdot\mathds{1}_B \in L^1(\R^n)$, pelo teorema da diferenciação de Lebesgue,
     para quase todo $x \in B$,
     $$f(x)\mathds{1}_B(x) = \lim_{r \to 0} \frac{1}{m(B_r)} \int_{B_r(x)}f(z)\mathds{1}_B(z) dz.$$
-    Como $x \in B$, $f(x)\mathds{1}_B = f(x)$ e, para $r$ suficientemente pequeno,
-    $$\frac{1}{m(B_r)} \int_{B_r(x)}f(z)\mathds{1}_B(z) dz = \frac{1}{m(B_r)} \int_{B_r(x)}f(z) dz$$
-    Portanto, para quase todo $x \in B$, vale que 
+    Como $x \in B$, $f(x)\mathds{1}_B = f(x)$ e, para $r$ suficientemente pequeno, temos
+    $$\frac{1}{m(B_r)} \int_{B_r(x)}f(z)\mathds{1}_B(z) dz = \frac{1}{m(B_r)} \int_{B_r(x)}f(z) dz.$$
+    Portanto, para quase todo $x \in B$, vale
     $$f(x) =  \lim_{r \to 0} \frac{1}{m(B_r)} \int_{B_r(x)}f(z) dz.$$
     Como $\R^n = \bigcup_{n=1}^{\infty} B_n(0)$ é união enumerável de bolas abertas, 
     vale que quase todo ponto é de Lebesgue em $\R^n$.
@@ -22,9 +22,85 @@
 
 
 \begin{problem}
-    
+    \label{prob:l8:2}
+    Seja $\varphi$ uma função Lebesgue mensurável em $\R^n$, que satisfaza seguinte propriedade:
+    para todo retângulo $n$-dimensinal $Q$
+    $$\bigg| \int_Q \varphi(x) dx\bigg| \leq \frac{Mm(Q)}{1 + m(Q)}$$
+    para alguma constante $M$. Mostre que para todo $f \in L^1(\R^n)$
+    $$\lim_{k\to\infty} \int_{\R^n} \varphi(kx)f(x)dx = 0.$$
 \end{problem}
+\begin{lemma}
+    \label{lemma:nicely_shrinking}
+    Seja $x$ um ponto de Lebesgue de $f \in L^1_{\text{loc}}(\R^n)$. Seja $\{E_i\}$ uma sequência
+    de conjuntos borelianos que contém $x$, se existe $\alpha > 0$ e sequência de bolas $B_i(x,r_i)$
+    satisfazendo
+    \begin{enumerate}
+        \item $E_i \subset B_i(x, r_i)$
+        \item $m(E_i) > \alpha \cdot m(B_i(x,r_i))$
+        \item $\lim_{i \to \infty} r_i = 0$
+    \end{enumerate}
+    então 
+    $$\lim_{i\to\infty} \frac{1}{m(E_i)}\int_{E_i} |f - f(x)| dm  = 0$$
+\end{lemma}
+\begin{proof}
+    Usando os dados do enunciado,
+    $$\frac{1}{m(E_i)}\int_{E_i} |f - f(x)| dm \leq \frac{1}{\alpha m(B_i(x,r_i))}\int_{B_i(x,r_i)} |f - f(x)|dm$$
+    tomando $i \to \infty$, pelo teorema da diferenciação de Lebesgue, o lado direito tende a $0$.
+\end{proof}
+\begin{lemma}
+    \label{lemma:step_retangular_densa}
+    Seja $S_Q$ o conjunto de funções simples de $\R^n$ cujas pré-imagens por um valor são sempre um retângulo. Isso é, se $s \in S$,
+    então
+    $$s = \sum_{j=1}^{N} c_j \mathds{1}_{Q_j}$$
+    onde os $c_j$ são complexos e $Q_j$ são retângulos.
 
+    Se $1 \leq p < \infty$, então $S_Q$ é denso em $L^p(\R^n)$.
+\end{lemma}
+\begin{proof}
+    Basta notar que $S_Q$ é denso em $C_c(\R^n)$ na norma $||\cdot||_\infty$ que por sua vez é denso em $L^p(\R^n)$ para $ 1 \leq p < \infty$.
+    Mas isso segue fácilmente do fato que as funções em $C_c(\R^n)$ são uniformemente contínuas. Dado $f \in C_c(\R^n)$,
+    tomamos $Q$ um cubo grande tal que $\text{supp}(f) \subset Q$, dado qualquer $\eps > 0$, escolhemos $\delta > 0$
+    de forma que $|x - y| < \delta$ implica $|f(x) - f(y)| < \eps$. Dividindo $Q$ em cubos menores $\{Q_j\}_{j=1}^{N}$ de diâmetro menor que $\delta$,
+    escolha $x_j$ em qualquer um desses cubos e defina 
+    $$s = \sum_{j=1}^{N} f(x_j) \mathds{1}_{Q_j}.$$
+    Segue que 
+    $$\int_{Q}{|f - s|^p}dm \leq \int_{Q} ||f - s||_\infty^p dm \leq \int_Q \eps^p dm = \eps^p m(Q)$$
+    fazendo $\eps \to 0$, segue $S_Q$ é denso em $C_c(\R^n)$ em qualquer $L^p$.
+\end{proof}
+
+\begin{proof}
+    (Do problema [\ref{prob:l8:2}]) Como $\varphi$ é integrável em qualquer retangulo $Q$, ela pertence a 
+    $L^1_{\text{loc}}(\R^n)$. Em $\R^n$, qualquer bola $B$ de raio $r$ centrada em $x$, contém um cubo $Q$ centrado em $x$
+    de lado $2r/\sqrt{n}$ e satisfaz que 
+    $$\frac{m(Q)}{m(B)} \geq \frac{2^n r^n}{D n^{n/2} r^n} > C > 0$$
+    Portanto, sempre podemos formar conjuntos bonitinhos, com respeito ao Lema [\ref{lemma:nicely_shrinking}] para usar Diferenciação
+    de Lebesgue. Sai do Lema que em todo ponto de Lebesgue de $\varphi$ (e portanto quase todo ponto)
+    $$|\varphi(x)| = \lim_{i \to \infty} \frac{1}{m(Q_i)} \bigg|\int_{Q_i} \varphi(x)dm\bigg| \leq \lim_{i \to \infty} \frac{M}{(1 + m(Q_i))} = M$$
+    onde $Q_i$ é uma sequência retângulos que decresce adequadamente com as bolas, que podemos sempre tomar pela observação anterior. Em particular, vale que $||\varphi||_\infty \leq M$.
+
+    Agora, dado um retângulo $Q \subset \R^n$, vamos calcular o limite para $f = \mathds{1}_Q$. Temos 
+    $$\lim_{k \to \infty} \bigg|\int_{\R^n} \varphi(kx)\mathds{1}_Q(x) dm(x)\bigg| = \lim_{k \to \infty} \bigg|\int_{Q} \varphi(kx) dm(x)\bigg|$$
+    fazendo a substituição $u = kx$ em $\R^n$, temos 
+    $$\bigg| \int_{Q} \varphi(kx) dm(x)\bigg| = \frac{1}{k^n} \bigg|\int_{kQ} \varphi(u) dm(u)\bigg| \leq \frac{M m(kQ)}{k^n(1 + m(kQ))} \leq \frac{M}{k^n}$$
+    que tende para $0$ quando $k \to \infty$, ou seja 
+    $$\lim_{k \to \infty} \bigg|\int_{\R^n} \varphi(kx)\mathds{1}_Q(x) dm(x)\bigg| = 0.$$
+
+    Por linearidade da integral, para qualquer função $s \in S_Q$, como definida no Lema [\ref{lemma:step_retangular_densa}],
+    vale que 
+    $$\lim_{k \to \infty} \bigg| \int_{\R^n} \varphi(kx)s(x) dm(x)\bigg| = 0.$$
+
+    Agora para provar o resultado, dado $f \in L^1(\R^n)$ e $\eps > 0$, pelo Lema [\ref{lemma:step_retangular_densa}], tome $s \in S_Q$
+    com 
+    $$||f - s||_1 < \eps$$
+    e seja $h = f - s$, segue que
+    \begin{align*}
+        \lim_{k \to \infty} \bigg|\int_{\R^n} \varphi(kx)f(x) dm(x)\bigg| &\leq \lim_{k \to \infty} \bigg|\int_{\R^n} \varphi(kx)s(x) dm(x)\bigg| + \bigg|\int_{\R^n} \varphi(kx)h(x) dm(x)\bigg|\\
+        &\leq 0 + \int_{\R^n} ||\varphi||_\infty |h(x)| dm(x)\\
+        &\leq M||h||_1 = M\eps
+    \end{align*}
+    Como isso vale para qualquer $\eps$, segue que 
+    $$\lim_{k \to \infty} \int_{\R^n} \varphi(kx)f(x) dm(x) = 0.$$
+\end{proof}
 
 \begin{problem}
     
