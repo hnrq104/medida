@@ -1,6 +1,19 @@
 \clearpage
 \section{Lista 8 (30/10/2025)}
 
+Listagem de problemas:
+\begin{itemize}
+    \item  Exercício \ref{prob:l8:1} : \checkmark
+    \item  Exercício \ref{prob:l8:2} : \checkmark
+    \item  Exercício \ref{prob:l8:3} :
+    \begin{enumerate}[label=(\alph*)]
+        \item \checkmark
+        \item \Frowny
+    \end{enumerate}
+    \item  Exercício \ref{prob:l8:4} : \checkmark
+    \item  Exercício \ref{prob:l8:5} : \checkmark
+\end{itemize}
+
 
 \begin{problem}
     \label{prob:l8:1}
@@ -84,7 +97,6 @@
     $$\bigg| \int_{Q} \varphi(kx) dm(x)\bigg| = \frac{1}{k^n} \bigg|\int_{kQ} \varphi(u) dm(u)\bigg| \leq \frac{M m(kQ)}{k^n(1 + m(kQ))} \leq \frac{M}{k^n}$$
     que tende para $0$ quando $k \to \infty$, ou seja 
     $$\lim_{k \to \infty} \bigg|\int_{\R^n} \varphi(kx)\mathds{1}_Q(x) dm(x)\bigg| = 0.$$
-
     Por linearidade da integral, para qualquer função $s \in S_Q$, como definida no Lema [\ref{lemma:step_retangular_densa}],
     vale que 
     $$\lim_{k \to \infty} \bigg| \int_{\R^n} \varphi(kx)s(x) dm(x)\bigg| = 0.$$
@@ -103,8 +115,55 @@
 \end{proof}
 
 \begin{problem}
-    
+    \label{prob:l8:3}
+    Seja $g \in L^1_\text{loc}(\R^n)$ e considere o operador maximal centrado 
+    $$Mg(x) = \sup_{r > 0} \frac{1}{m(B_r(x))}\int_{B_r(x)}|g(y)|dy.$$
+    Seja $n \geq 3$ e considere $f_\alpha = |x|^{-\alpha}$, onde $0 < \alpha < n$.
+    \begin{enumerate}[label=(\alph*)]
+        \item Mostre que $Mf_\alpha(x) = C_\alpha f(x)$, $\forall x \in \R^n$, onde $C_\alpha$ é uma constante.
+        \item ** Para cada $0 < \alpha < n$, decida se $C_\alpha = 1$ ou $C_\alpha > 1$ e prove.
+    \end{enumerate}
 \end{problem}
+
+\begin{proof}
+    Prova de (a). Seguindo a dica da Prof. Cynthia, vamos ver como $Mf_\alpha$ se comporta sobre escalonamentos.
+    Seja $z \in \R^n$ e $t > 0$, calculamos $Mf_\alpha(tz)$ (fazendo a substituição $x = ty$, $dx = |t^n|dy$) e encontramos 
+    \begin{align}
+        \sup_{r > 0} \frac{1}{m(B_r)} \int_{B_r(tz)} |x|^{-\alpha}dx &= \sup_{r > 0} \frac{1}{m(B_r)}\int_{B_{r/t}(z)} |ty|^{-\alpha} t^n dy\\
+        &=  t^{-\alpha} \sup_{r > 0} \frac{t^n}{m(B_r)}\int_{B_{r/t}(z)} |y|^{-\alpha} dy\\
+        &=t^{-\alpha} \sup_{r > 0} \frac{1}{m(B_{r/t})}\int_{B_{r/t}(z)} |y|^{-\alpha} dy = t^{-\alpha}Mf_\alpha(z).\\
+    \end{align}
+    Portanto, para determinar $Mf_\alpha$ em $\R^n$, basta encontrar seus valores para $|z| = 1$, pois temos
+    $$Mf_\alpha(z) = |z|^{-\alpha} Mf_\alpha\bigg(\frac{z}{|z|}\bigg).$$
+    Se mostrarmos que para todo $z$ com $|z| = 1$, $Mf_\alpha(z) = C_\alpha$, onde $C_\alpha$ é uma constante positiva fixa, então teremos 
+    justamente que $Mf_\alpha(x) = C_\alpha|x|^{-\alpha}$ para todo $x \neq 0$, que é quase o que gostariámos de provar.
+
+    Vamos mostrar que $Mf_\alpha(x)$ é finito para $x \neq 0$ e infinito para $x = 0$, faremos isso considerando $r < |z|/2$ e $r \geq |z|/2$ no supremo. 
+    Seja $z \neq 0$ e $r < |z|/2$, então segue que 
+    $$\frac{1}{m(B_r)} \int_{B_r(z)} |x|^{-\alpha} dx \leq \frac{1}{m(B_r)} \int_{B_r(z)} |z/2|^{-\alpha} dx \leq (2/|z|)^{\alpha}$$
+    pois, na bola $B_r(z)$ o ponto mais próximo da origem tem norma $|z| - r \geq |z|/2$. Se $r \geq |z|/2$, podemos cotar superiormente por 
+    $$\frac{1}{m(B_r)} \int_{B_r(z)} |x|^{-\alpha} dx \leq \frac{1}{m(B_r)} \int_{B_{2r}(0)} |x|^{-\alpha} dx.$$
+    Usando coordenadas polares, a integral da direita pode ser determinada como 
+    \begin{equation}
+        \label{eq:integral_polar}
+        \int_{B_{2R}(0)} |x|^{-\alpha} dx = \int_{0}^{2R} r^{n-1}dr \int_{S^{n-1}} |r s|^{-\alpha} ds =  \int_{0}^{2R} r^{n-1 - \alpha}dr \int_{S^{n-1}} ds = A(2R)^{n-\alpha}.
+    \end{equation}
+    Onde $A$ é uma constante positiva vindo da integral em $r$ e da medida total de $S^{n-1}$. Substituindo no que tinhamos antes, 
+    $$\frac{1}{m(B_r)} \int_{B_r(z)} |x|^{-\alpha} dx \leq \frac{A r^{n - \alpha}}{m(B_r)} = Dr^{-\alpha}$$
+    Em que $D$ é também uma constante obtida das outras. De qualquer forma, como $r\geq|z|/2$,
+    conseguimos outro bound de $D2^\alpha/|z|$. Juntando ambos os resultados, segue que para $z \neq 0$, $Mf_\alpha(z)$ está cotado por algum $C/|z|^\alpha$ e 
+    é portanto finito. Além disso, para $z = 0$, podemos aplicar o mesmo cálculo da integral que usamos em [\ref{eq:integral_polar}] para inferir 
+    que 
+    $$Mf_\alpha(0) = \sup_{r > 0} \frac{1}{m(B_r)} \int_{B_r(0)} |x|^{-\alpha} dx = \sup_{r > 0} Cr^{-\alpha} = \infty.$$
+
+    Agora basta confirmar a observação feita anteriormente, se mostrarmos que para todo $z$ com $|z| = 1$, $Mf_\alpha(z) = C_\alpha$, 
+    teremos terminado a prova. Mas isso segue simplesmente de uma mudança de variáveis, sejam $v \neq w$, com $|v| = |w| = 1$, 
+    então existe uma transformação $T \in O(n)$ tal que $Aw = v$. Sendo ortogonal, $T$ manda bolas em bolas de mesmo tamanho também, portanto
+    $$\int_{B_r(v)} |x|^\alpha dx = \int_{T^{-1}(B_r(v))} |T(y)|^{-\alpha}|\det(T)|dy = \int_{B_r(w)} |y|^{-\alpha} dy$$
+    e justamente, tomando supremos sobre $r$
+    $$Mf_\alpha(v) = Mf_\alpha(w).$$
+    Chamando um desses valores de $C_\alpha$, mostramos que $Mf_\alpha(z) = C_\alpha |z|^{-\alpha}$ para $z \neq 0$ e $Mf_\alpha(0) = \infty$.
+\end{proof}
 
 
 \begin{problem}
