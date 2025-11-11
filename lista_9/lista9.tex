@@ -1,0 +1,266 @@
+\clearpage
+\section{Lista 9 (7/11/2025)}
+
+Listagem de problemas:
+\begin{itemize}
+    \item  Exercício \ref{prob:l9:1} : \checkmark
+    \item  Exercício \ref{prob:l9:2} : \checkmark
+    \item  Exercício \ref{prob:l9:3} : \checkmark
+    \item  Exercício \ref{prob:l9:4} : \checkmark
+    \item  Exercício \ref{prob:l9:5} : \checkmark
+    \item  Exercício \ref{prob:l9:6} : \checkmark
+\end{itemize}
+
+
+\begin{problem}
+    \label{prob:l9:1}
+    Prove a desigualdade de Young para $1 < p,q,r < \infty$. Isso é, se 
+    \[ 1 + \frac{1}{q} = \frac{1}{p} + \frac{1}{r}, \]
+    $f \in L^p(\R^n)$, $g \in L^r(\R^n)$, então $f \ast g \in L^q(\R)$ e vale que 
+    \[||f \ast g ||_{L^{q}} \leq ||f||_{L^p} \cdot ||g||_{L^r}.\]
+\end{problem}
+\begin{proof}
+    Vou seguir a prova do Grafakos. Note que, sendo $p',q',r'$ os conjugados de $p,q,r$ respectivamente:
+    \[\frac{1}{p} + \frac{1}{p'} = 1 \quad \frac{1}{q} + \frac{1}{q'} = 1 \quad \frac{1}{r} + \frac{1}{r'} = 1 ,\]
+    vale que 
+    \begin{align}
+        &\frac{1}{p'} + \frac{1}{q} + \frac{1}{r'} = \frac{1}{q} + (1 - \frac{1}{p}) + (1 - \frac{1}{r}) = 2 - (\frac{1}{r} + \frac{1}{p} - \frac{1}{q}) = 1\\
+        &\frac{p}{q} + \frac{p}{r'} = p(\frac{1}{p'} + \frac{1}{q} + \frac{1}{r'}) - \frac{p}{p'} = p - \frac{p}{p'} = p(1 - \frac{1}{p'}) = 1\\
+        &\frac{r}{q} + \frac{r}{p'} = 1.
+    \end{align}
+    Onde a última igualdade segue simétricamente de trocar $r$ por $p$. Young segue de usar Hölder em uma separação esperta usando essas identidades. Expandindo $f \ast g$ temos 
+    \begin{align*}
+        |f \ast g|(x) &\leq \int_{\R^n} |f|(y)|g|(x - y) dm(y)\\
+                        &=  \int_{\R^n} (|f|(y))^{p/q}(|f|(y))^{p/r'}(|g|(x - y))^{r/q}(|g|(x-y))^{r/p'} dm(y)\\
+    \end{align*}
+    Agrupando os termos com os mesmos denominadores nos expoentes, temos
+    \[
+    |f \ast g|(x) = \int_{\R^n} (|f|(y))^{p/r'} [(|f|(y))^{p/q}(|g|(x - y))^{r/q}] (|g|(x-y))^{r/p'} dm(y).
+    \]
+    Hölder com $(r', q, p')$ nos dá 
+    \[
+    |f \ast g|(x) \leq \bigg(\int_{\R^n} (|f|(y))^{p} dm(y) \bigg)^{1/r'} \bigg(\int_{\R^n}(|f|(y))^{p}(|g|(x - y))^{r} dm(y)\bigg)^{1/q} \bigg(\int_{\R^n}(|g|(x-y))^{r} dm(y)\bigg)^{1/p'}
+    \]
+    Por invariância da medida de Lebesgue por translação, temos 
+    \[
+    |f\ast g|(x) \leq (||f||_p)^{p/r'}(||g||_r)^{r/p'} \bigg(\int_{\R^n}(|f|(y))^{p}(|g|(x - y))^{r} dm(y)\bigg)^{1/q}
+    \]
+    Tomando a norma $L^q(\R^n)$ da expressão, obtemos o resultado.
+    \[
+    ||f\ast g||_q \leq (||f||_p)^{p/r'}(||g||_r)^{r/p'} \bigg(\int_{\R^n} \int_{\R^n}(|f|(y))^{p}(|g|(x - y))^{r} dm(y) dm(x)\bigg)^{1/q}
+    \]
+    Usando Fubini na direita (e a invariância de translação novamente)
+    \begin{align*}
+        ||f\ast g||_q &\leq (||f||_p)^{p/r'}(||g||_r)^{r/p'} \bigg(\int_{\R^n} (|f|(y))^{p} dm(y) \int_{\R^n}(|g|(x - y))^{r} dm(x)\bigg)^{1/q}\\
+                    &= (||f||_p)^{p/r'}(||g||_r)^{r/p'} (||f||_p)^{p/q} (||g||_r)^{r/q}  = ||f||_p ||g||_r.
+    \end{align*}
+\end{proof}
+
+
+\begin{problem}
+    \label{prob:l9:2}
+    Seja $f : \R \to \R$ uma função absolutamente contínua com $f' \in L^1(\R)$. Prove que 
+    temos 
+    \[
+        \int_{\infty}^{\infty} |f(x + h) - f(x)|dx \leq c|h|,
+    \]
+    onde $c$ é uma constante que não depende de $h$.
+\end{problem}
+\begin{proof}
+    Pelo Teorema Fundamental do Cálculo, vale que para todo $x \in \R$ e $h > 0$
+    \[
+    |f(x+h) - f(x)| = \bigg|\int_{x}^{x + h} f'(y) dm(y)\bigg| \leq \int_{x}^{x + h} |f'(y)| dm(y).
+    \]
+    Portanto,
+    \[
+    \int_{\R} |f(x+h) - f(x)|  \leq \int_\R \int_{x}^{x + h} |f'(y)| dm(y) dm(x).
+    \]
+    Usando funções indicadoras, a integral dupla se expressa como
+    \[
+    \int_\R \int_{x}^{x + h} |f'(y)| dm(y) dm(x) = \int_\R \int_\R \mathds{1}[x \leq y \leq x + h] |f'(y)| dm(y)dm(x).
+    \]
+    Por Fubini,
+    \begin{align*}
+        \int_\R \int_{x}^{x + h} |f'(y)| dm(y) dm(x) &= \int_\R |f'(y)|dm(y) \int_\R \mathds{1}[x \leq y \leq x + h] dm(x)\\
+        &= \int_\R |f'(y)|dm(y) \int_\R \mathds{1}[y - h \leq x \leq y] dm(x)\\
+        &= \int_\R |f'(y)| dm(y) h = h||f'||_1
+    \end{align*}
+    e o resultado segue para $c = ||f'||_1$. Para $h < 0$ as mesmas contas valem, a única diferença é que a indicadora se torna 
+    $\mathds{1}[x + h \leq y \leq x]$.
+    
+\end{proof}
+
+
+\begin{problem}
+    \label{prob:l9:3}
+    Seja $f:[0,1] \to \R$ uma função absolutamente contínua tal que $f' \in L^2([0,1])$. Mostre que para qualquer $\eps > 0$, existe $\delta > 0$ tal que 
+    se $0 \leq y < x \leq 1$ forem tais que $|x - y| < \delta$, então
+    \[
+        \frac{|f(x) - f(y)|^2}{|x-y|} < \eps.
+    \]
+\end{problem}
+\begin{proof}
+    Essa é uma aplicação fácil de Hölder. Como $m([0,1]) = 1 < \infty$, então $L^2([0,1]) \subset L^1([0,1])$,
+    pelo Teorema Fundamental do Cálculo
+    \[
+    f(x) - f(y) = \int_y^x f'(t) dt.
+    \]
+    Em particular,
+    \[
+    \frac{|f(x) - f(y)|^2}{|x - y|} \leq \frac{1}{|x-y|}\bigg(\int_{x}^{y}|f'(t)|dt \bigg)^2 = \frac{1}{|x-y|}\bigg(\int_{[0,1]} \mathds{1}_{[y,x]}(t)|f'(t)|dt \bigg)^2
+    \]
+    Usando Hölder com $f' \in L^2([0,1])$ e $\mathds{1}_{[y,x]} \in L^2([0,1])$ e $(p,q) = (2,2)$ temos
+
+    \[
+    \frac{|f(x) - f(y)|^2}{|x - y|} \leq \frac{1}{|x-y|} \cdot ||\mathds{1}_{[y,x]}||_2^2 \cdot ||f'||_2^2 = |x-y|\cdot||f'||_2^2
+    \]
+    Portanto, para qualquer $\eps > 0$, escolhendo $\delta < \eps/||f'||_2^2$, segue a desigualdade desejada.
+\end{proof}
+
+\begin{problem}
+    \label{prob:l9:4}
+    Seja $f_n:\R \to [0,\infty]$ funções não decrescentes para cada $n\in\N$. Suponha que para todo $x \in \R$ temos 
+    \[
+        f(x) = \sum_{n=1}^{\infty} f_n(x) < \infty.
+    \]
+    Prove que
+    \[
+        f'(x) = \sum_{n=1}^{\infty} f_n'(x)
+    \]
+    em quase todo ponto.
+\end{problem}
+
+\begin{proof}
+    Sendo uma série de funções não decrescentes, $f$ é não decrescente 
+    e portanto é diferenciável qtp com $f' \geq 0$. Da mesma forma, cada $f_n$ é diferenciável qtp com $f_n' \geq 0$ e portanto 
+    removendo um conjunto de medida nula, a série $\sum_n f_n'$ faz sentido qtp. De agora em diante portanto, nossas integrais serão
+    feitas sobre o conjunto $E$ onde todas as derivadas, tanto a de $f$ quanto as dos $f_n$, existem.
+
+    Vamos mostrar primeiramente que $f' \geq \sum_{n} f_n'$ qtp. Isso é, queremos mostrar que para $x \in E$,
+    \[
+    \lim_{h \to 0} \frac{f(x + h) - f(x)}{h} \geq \sum_{n=1}^{\infty} \lim_{h\to0} \frac{f_n(x + h) - f_n(x)}{h}
+    \]
+    Mas isso segue diretamente do Lema de Fatou uma vez que 
+    \begin{align*}
+        \lim_{h \to 0} \frac{f(x + h) - f(x)}{h} &= \liminf_{h\to0} \frac{f(x + h) - f(x)}{h}\\
+        &= \liminf_{h\to0} \sum_{n=1}^{\infty} \frac{f_n(x + h) - f_n(x)}{h}\\
+         &\geq \sum_{n=1}^{\infty} \liminf_{h\to0} \frac{f_n(x + h) - f_n(x)}{h}\\
+        &= \sum_{n=1}^{\infty} \lim_{h\to0} \frac{f_n(x + h) - f_n(x)}{h}
+    \end{align*}
+    Depois me mostraram uma forma mais direta de fazer isso, mas eu gosto do Lema de Fatou, vou deixar-lo.
+
+    Para a outra desigualdade, vamos mostrar que é válido qtp em todo intervalo compacto $[a,b]$, como $\R$ é união
+    enumerável desses intervalos, seguirá que vale qtp em $\R$. A estratégia será mostrar que 
+    \[
+        \int_{a}^{b} f' - \bigg(\sum_{n=1}^{\infty} f_n' \bigg) dm = 0
+    \]
+    Note que, como $f' \geq \sum_{n=1}^{\infty} f_n'$, isso implicaria que $f' = \sum_{n=1}^{\infty} f_n'$ qtp em $[a,b]$. Expandindo a integral anterior,
+    \begin{equation}
+        \label{eq:l9:df_minus_sdf}
+        \int_{a}^{b} f' - \bigg(\sum_{n=1}^{\infty} f_n' \bigg) dm = \int_{a}^{b} \lim_{N \to \infty} f' - \sum_{n=1}^{N} f_n' dm.
+    \end{equation}
+
+    Como $f$ é não-decrescente e finita em todo ponto, segue da 'desigualdade fundamental do cálculo' que 
+    \[
+    \int_{a}^{b} f' \leq f(b) - f(a)
+    \]
+    e portanto $f' \in L^1([a,b])$, logo podemos usar o Teorema da Convergência Dominada [\ref{trm:conv_dom}] com $f'$ em [\ref{eq:l9:df_minus_sdf}]
+    para obter que 
+    \[
+    \int_{a}^{b} \lim_{N \to \infty} f' - \sum_{n=1}^{N} f_n' dm = \lim_{N \to \infty} \int_a^b  f' - \sum_{n=1}^{N} f_n' dm.
+    \]
+    Como
+    \[
+    f = \sum_{n \leq N} f_n + \sum_{n > N} f_n
+    \]
+    temos 
+    \[
+    f' = \sum_{n \leq N} f_n' + \bigg(\sum_{n > N} f_n\bigg)' \Rightarrow  f' -\sum_{n \leq N} f_n' = \bigg(\sum_{n > N} f_n\bigg)'.
+    \]
+    Substituindo no limite anterior e lembrando que $\sum_{n > N} f_n$ é uma função crescente bem definida, temos, usando a desigualdade fundamental do cálculo,
+    \[
+    \lim_{N \to \infty} \int_a^b  f' - \sum_{n=1}^{N} f_n' dm = \lim_{N \to \infty} \int_a^b \bigg(\sum_{n > N} f_n\bigg)' dm \leq \lim_{N \to \infty} \sum_{n > N} f_n(b) - f_n(a) = 0
+    \]
+    como queriámos mostrar.
+\end{proof}
+
+
+\begin{problem}
+    \label{prob:l9:5}
+    Sejam $(X_i, \mathcal{M}_i, \mu_i)$, $i = 1,2$ espaços $\sigma$-finitos. Seja $f : X_1 \times X_2 \to [0,\infty)$ uma função mensurável no 
+    espaço produto. Prove que para $1 \leq p < \infty$
+    \[
+    \bigg( \int_{X_1} \bigg( \int_{X_2} f(x_1, x_2) d\mu_2\bigg)^p d\mu_1\bigg)^{1/p} \leq \int_{X_2} \bigg( \int_{X_1} f(x_1,x_2)^p d\mu_1\bigg) d\mu_2.
+    \]
+\end{problem}
+\begin{proof}
+    Essa segue sendo contra-intuitiva para mim, o truque me escapa muito fácilmente.
+    Defina em $X_1$
+    \[
+    H(x_1) = \int_{X_2} f(x_1, x_2) d\mu_2
+    \]
+    já vimos que $H$ é mensurável. A desigualdade de Minkovski segue de expandir $||H||_p^p$.
+    \begin{align*}
+        ||H||_p^p = \int_{X_1}H(x_1)^p d\mu_1 &= \int_{X_1}H(x_1)^{p-1} H(x_1) d\mu_1\\
+        &= \int_{X_1}H(x_1)^{p-1} \bigg(\int_{X_2} f(x_1,x_2) d\mu_2\bigg) d\mu_1\\
+        &= \int_{X_1} \int_{X_2} H(x_1)^{p-1}f(x_1,x_2) d\mu_2 d\mu_1
+    \end{align*}
+    Usando Fubini (ou Tonelli)
+    \[
+        ||H||_p^p = \int_{X_2} \int_{X_1} H(x_1)^{p-1} f(x_1,x_2) d\mu_1 d\mu_2
+    \]
+    Aplicando Hölder na integral interior com $(p/(p-1), p)$, achamos
+    \[
+        ||H||_p^p \leq \int_{X_2}  ||H||_p^{p-1} \bigg(\int_{X_1}f(x_1,x_2)^p d\mu_1\bigg)^{1/p} d\mu_2
+    \]
+    E, portanto, se $||H||_p \neq 0, \infty$, segue que
+    \[
+        ||H||_p \leq \int_{X_2} \bigg(\int_{X_1}f(x_1,x_2)^p d\mu_1\bigg)^{1/p} d\mu_2.
+    \]
+    Se $||H||_p = 0$, temos $f = 0$ qtp e a desigualdade vale trivialmente.
+    Se $||H||_p = \infty$, basta mostrar que em algum conjunto de $X_2$ de medida positiva, 
+    \[
+    \int_{X_1}f(x_1,x_2)^p d\mu_1 > 0 
+    \]
+    e a desigualdade valerá trivialmente. 
+    Essa observação segue por contra-positiva e por Fubini, suponha que para todo conjunto de medida positiva 
+    de $X_2$, $\int_{X_1}f(x_1,x_2)^p d\mu_1 = 0$,
+    em particular 
+    \[
+    \int_{X_1} f(x_1,x_2) d\mu_1 = 0
+    \]
+    Por Fubini,
+    \[
+        ||f||_1 = \int_{X_1} \int_{X_2} |f| d\mu_2 d\mu_1= \int_{X_2} \int_{X_1} |f| d\mu_1 d\mu_2 = 0
+    \]
+    Logo $H = 0$ a.e. contradizendo a hipótese.
+\end{proof}
+
+
+\begin{problem}
+    \label{prob:l9:6}
+    Sejam $A,B$ conjuntos mensuráveis de medida positiva em $\R$. Usando convolução de funções, prove que 
+    $$A + B = \{x + y; x \in A, y \in B\}$$
+    contém um segmento.
+\end{problem}
+\begin{proof}
+    Essa é muito bonitinha. Sendo $m(A), m(B) > 0$, existe algum intervalo compacto $[-N,N]$ com $m(A \cap [-N,N]) > 0$ e 
+    $m(A \cap [-N,N]) > 0$, vamos supor que $A$ e $B$ são limitados contidos em $[-N,N]$ então. Pela suposição,
+    $\mathds{1}_A$ e $\mathds{1}_B$ ambas pertencem a $L^p(\R)$ para todo $1 \leq p \leq \infty$, em particular (tomando $(p,q) = (2,2)$)
+    vale que a convolução
+    $$\mathds{1}_A \ast \mathds{1}_B$$
+    é uniformemente contínua e diferente de $0$ em todo ponto, pois 
+    \[
+        \int_\R \mathds{1}_A \ast \mathds{1}_B (x)dm(x) = \int_\R \int_\R \mathds{1}_A(y) \mathds{1}_B(x-y) dm(y) dm(x)
+    \]
+    e por Fubini
+    \[
+        \int_\R \mathds{1}_A \ast \mathds{1}_B (x)dm(x) =  \int_\R \mathds{1}_A(y) dm(y) \int_R \mathds{1}_B(x-y) dm(x) = m(A)m(B).
+    \]
+    Logo, $\{\mathds{1}_A \ast \mathds{1}_B > 0\}$ é um conjunto aberto, não vazio (logo possui intervalos) e 
+    se $\mathds{1}_A \ast \mathds{1}_B(x) > 0$, então 
+    \[
+    \int_\R \mathds{1}_A(y) \mathds{1}_B(x-y) dm(y) > 0
+    \]
+    e existe $a \in A$ (de fato existe um conjunto de medida positiva) tal que $x - a \in B$.
+\end{proof}
