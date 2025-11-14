@@ -218,22 +218,19 @@ Listagem de problemas:
         ||H||_p \leq \int_{X_2} \bigg(\int_{X_1}f(x_1,x_2)^p d\mu_1\bigg)^{1/p} d\mu_2.
     \]
     Se $||H||_p = 0$, temos $f = 0$ qtp e a desigualdade vale trivialmente.
-    Se $||H||_p = \infty$, basta mostrar que em algum conjunto de $X_2$ de medida positiva, 
+
+    Se $||H||_p = \infty$, o argumento é um pouco mais complicado, mas segue de aproximar o espaços em partes finitas e $f$
+    por funções limitadas. Tome sequência $A_n \nearrow X_1$ e $B_m \nearrow X_2$ e $f_N = \max(f,N)$, então, 
+    para todo $(n,m,N)$ vale que 
     \[
-    \int_{X_1}f(x_1,x_2)^p d\mu_1 > 0 
+    \bigg( \int_{A_n} \bigg( \int_{B_m} f_N(x_1, x_2) d\mu_2\bigg)^p d\mu_1\bigg)^{1/p} \leq \int_{A_n} \bigg( \int_{B_m} f_N(x_1,x_2)^p d\mu_1\bigg) d\mu_2.
     \]
-    e a desigualdade valerá trivialmente. 
-    Essa observação segue por contra-positiva e por Fubini, suponha que para todo conjunto de medida positiva 
-    de $X_2$, $\int_{X_1}f(x_1,x_2)^p d\mu_1 = 0$,
-    em particular 
+    tomando $N \to \infty$ e em seguida $n,m \to \infty$ segue por convergência monótona que 
     \[
-    \int_{X_1} f(x_1,x_2) d\mu_1 = 0
+    \bigg( \int_{X_1} \bigg( \int_{X_2} f(x_1, x_2) d\mu_2\bigg)^p d\mu_1\bigg)^{1/p} \leq \int_{X_2} \bigg( \int_{X_1} f(x_1,x_2)^p d\mu_1\bigg) d\mu_2.
     \]
-    Por Fubini,
-    \[
-        ||f||_1 = \int_{X_1} \int_{X_2} |f| d\mu_2 d\mu_1= \int_{X_2} \int_{X_1} |f| d\mu_1 d\mu_2 = 0
-    \]
-    Logo $H = 0$ a.e. contradizendo a hipótese.
+    
+
 \end{proof}
 
 
